@@ -1,0 +1,757 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>利用Oracle免费VPS 搭建Aria2+Caddy+Filebrowser 文件下载器 | sukanka 的博客</title><meta name="keywords" content="aria2,caddy"><meta name="author" content="sukanka"><meta name="copyright" content="sukanka"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文介绍利用甲骨文的免费VPS 搭建 Aria2+Caddy+filebrowser 的下载平台。给自己留一个备份。等到ccaa2.0版本支持caddy 也许本文就没有必要了。 获取免费服务器 甲骨文(Oracle) 公司提供免费服务器，需要外币卡（信用卡储蓄卡均可），如 Visa, MasterCard, JCB, AE 等，单标银联卡不行。具体见 申请Oracle Cloud永久免费服务+30">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用Oracle免费VPS 搭建Aria2+Caddy+Filebrowser 文件下载器">
+<meta property="og:url" content="https://sukanka.github.io/2020/05/07/ariaAndCaddy/index.html">
+<meta property="og:site_name" content="sukanka 的博客">
+<meta property="og:description" content="本文介绍利用甲骨文的免费VPS 搭建 Aria2+Caddy+filebrowser 的下载平台。给自己留一个备份。等到ccaa2.0版本支持caddy 也许本文就没有必要了。 获取免费服务器 甲骨文(Oracle) 公司提供免费服务器，需要外币卡（信用卡储蓄卡均可），如 Visa, MasterCard, JCB, AE 等，单标银联卡不行。具体见 申请Oracle Cloud永久免费服务+30">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg">
+<meta property="article:published_time" content="2020-05-06T18:46:28.000Z">
+<meta property="article:modified_time" content="2022-03-29T12:28:16.969Z">
+<meta property="article:author" content="sukanka">
+<meta property="article:tag" content="aria2">
+<meta property="article:tag" content="caddy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://sukanka.github.io/2020/05/07/ariaAndCaddy/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?56ae4326ed7b0c987224d1f8ff8ee3f1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '利用Oracle免费VPS 搭建Aria2+Caddy+Filebrowser 文件下载器',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-29 20:28:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.1.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://bu.dusays.com/2022/03/29/7582123dfaa71.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">25</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">42</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">sukanka 的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">利用Oracle免费VPS 搭建Aria2+Caddy+Filebrowser 文件下载器</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-05-06T18:46:28.000Z" title="发表于 2020-05-07 02:46:28">2020-05-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-29T12:28:16.969Z" title="更新于 2022-03-29 20:28:16">2022-03-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/VPS/">VPS</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>22分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="利用Oracle免费VPS 搭建Aria2+Caddy+Filebrowser 文件下载器"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div><article class="post-content" id="article-container"><p>本文介绍利用甲骨文的免费VPS 搭建 Aria2+Caddy+filebrowser 的下载平台。给自己留一个备份。等到<a target="_blank" rel="noopener" href="https://github.com/helloxz/ccaa">ccaa2.0</a>版本支持caddy 也许本文就没有必要了。</p>
+<h1>获取免费服务器</h1>
+<p>甲骨文(Oracle) 公司提供免费服务器，需要外币卡（信用卡储蓄卡均可），如 Visa, MasterCard, JCB, AE 等，单标银联卡不行。具体见 <a target="_blank" rel="noopener" href="https://51.ruyo.net/14138.html">申请Oracle Cloud永久免费服务+300美元试用额度</a>.</p>
+<h1>绑定域名</h1>
+<p>以下我们假定域名为 <strong><a target="_blank" rel="noopener" href="http://example.com">example.com</a></strong>, 用于 ariaNg面板的域名为 <strong><a target="_blank" rel="noopener" href="http://aria.example.com">aria.example.com</a></strong>, 用于 filebrowser 的域名为 <strong><a target="_blank" rel="noopener" href="http://file.example.com">file.example.com</a></strong>. 假设服务器ip地址为 <strong>132.145.123.159</strong>。</p>
+<p>首先在域名提供商处将域名解析到对应的ip 地址 （A记录）。</p>
+<h1>搭建下载平台</h1>
+<p>在获取到免费服务器后，用 ssh 登录上去，准备安装 Aria2 等。</p>
+<p>这部分根据 <a target="_blank" rel="noopener" href="https://github.com/helloxz/ccaa">https://github.com/helloxz/ccaa</a> 改编。</p>
+<p>由于2.0版本去除了caddy, 本文使用的是1.0版本的脚本。</p>
+<p>注意：FileBrowser 2.1.0 版本有 Bug, 无法编辑文件，建议使用 2.0.16版本。</p>
+<pre><code class="language-bash">#!/bin/bash
+#####	一键安装Caddy + Aria2 + AriaNg		#####
+#####	作者：xiaoz.me						#####
+#####	更新时间：2019-05-15				#####
+
+#导入环境变量
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/bin:/sbin
+export PATH
+aria_ver=1.35.0
+caddy_ver=2.0.0
+ariang_ver=1.1.6
+#安装之前的准备
+function setout()&#123;
+	if [ -e &quot;/usr/bin/yum&quot; ]
+	then
+		yum -y install curl gcc gcc+ make bzip2
+	else
+		#更新软件，否则可能make命令无法安装
+		sudo apt-get update
+		sudo apt-get install -y curl make
+	fi
+&#125;
+#安装Aria2
+function install_aria2()&#123;
+	#yum -y update
+	#安装aria2静态编译版本，来源于https://github.com/q3aql/aria2-static-builds/
+	wget -c https://github.com/q3aql/aria2-static-builds/releases/download/v$&#123;aria_ver&#125;/aria2-$&#123;aria_ver&#125;-linux-gnu-64bit-build1.tar.bz2
+	tar jxvf aria2-$&#123;aria_ver&#125;-linux-gnu-64bit-build1.tar.bz2
+	cd aria2-$&#123;aria_ver&#125;-linux-gnu-64bit-build1
+	make install
+	cd ..
+&#125;
+#安装caddy
+function install_caddy()&#123;
+	#一键安装https://caddyserver.com/download/linux/amd64?plugins=http.filemanager&amp;license=personal&amp;telemetry=off
+	#curl https://getcaddy.com | bash -s personal http.filemanager
+	#安装caddy
+	wget https://github.com/caddyserver/caddy/releases/download/v$&#123;caddy_ver&#125;/caddy_$&#123;caddy_ver&#125;_linux_amd64.tar.gz -O caddy.tar.gz
+	tar -zxvf caddy.tar.gz
+	mv caddy /usr/sbin/
+	chmod +x /usr/sbin/caddy
+	#添加服务
+	#mv init/linux-systemd/caddy.service /lib/systemd/system
+	#chmod +x /lib/systemd/system/caddy.service
+	#开机启动
+	#systemctl enable caddy.service
+&#125;
+function install_file_browser()&#123;
+	#下载File Browser
+	wget https://github.com/filebrowser/filebrowser/releases/download/v2.0.16/linux-amd64-filebrowser.tar.gz
+	#解压
+	tar -zxvf linux-amd64-filebrowser.tar.gz
+	#移动位置
+	mv filebrowser /usr/sbin
+	cd
+&#125;
+#处理配置文件
+function dealconf()&#123;
+	#创建目录和文件
+	mkdir -p /etc/ccaa/
+	touch /etc/ccaa/aria2.session
+	touch /etc/ccaa/aria2.log
+	touch /etc/ccaa/caddy.log
+	cp aria2.conf /etc/ccaa/
+	cp caddy.conf /etc/ccaa/
+	cp upbt.sh /etc/ccaa/
+	chmod +x /etc/ccaa/upbt.sh
+	chmod +x ccaa
+	cp ccaa /usr/sbin
+&#125;
+#自动放行端口
+function chk_firewall()&#123;
+	if [ -e &quot;/etc/sysconfig/iptables&quot; ]
+	then
+		iptables -I INPUT -p tcp --dport 6080 -j ACCEPT
+		iptables -I INPUT -p tcp --dport 6800 -j ACCEPT
+		iptables -I INPUT -p tcp --dport 6998 -j ACCEPT
+		iptables -I INPUT -p tcp --dport 51413 -j ACCEPT
+		service iptables save
+		service iptables restart
+	elif [ -e &quot;/etc/firewalld/zones/public.xml&quot; ]
+	then
+		firewall-cmd --zone=public --add-port=6080/tcp --permanent
+		firewall-cmd --zone=public --add-port=6800/tcp --permanent
+		firewall-cmd --zone=public --add-port=6998/tcp --permanent
+		firewall-cmd --zone=public --add-port=51413/tcp --permanent
+		firewall-cmd --reload
+	elif [ -e &quot;/etc/ufw/before.rules&quot; ]
+	then
+		sudo ufw allow 6080/tcp
+		sudo ufw allow 6800/tcp
+		sudo ufw allow 6998/tcp
+		sudo ufw allow 51413/tcp
+	fi
+&#125;
+#删除端口
+function del_post() &#123;
+	if [ -e &quot;/etc/sysconfig/iptables&quot; ]
+	then
+		sed -i '/^.*6080.*/'d /etc/sysconfig/iptables
+		sed -i '/^.*6800.*/'d /etc/sysconfig/iptables
+		sed -i '/^.*6998.*/'d /etc/sysconfig/iptables
+		sed -i '/^.*51413.*/'d /etc/sysconfig/iptables
+		service iptables save
+		service iptables restart
+	elif [ -e &quot;/etc/firewalld/zones/public.xml&quot; ]
+	then
+		firewall-cmd --zone=public --remove-port=6080/tcp --permanent
+		firewall-cmd --zone=public --remove-port=6800/tcp --permanent
+		firewall-cmd --zone=public --remove-port=6998/tcp --permanent
+		firewall-cmd --zone=public --remove-port=51413/tcp --permanent
+		firewall-cmd --reload
+	elif [ -e &quot;/etc/ufw/before.rules&quot; ]
+	then
+		sudo ufw delete 6080/tcp
+		sudo ufw delete 6800/tcp
+		sudo ufw delete 6998/tcp
+		sudo ufw delete 51413/tcp
+	fi
+&#125;
+#设置账号密码
+function setting()&#123;
+	echo '-------------------------------------------------------------'
+	read -p &quot;设置下载路径（请填写绝对地址，默认/data/ccaaDown）:&quot; downpath
+	read -p &quot;Aria2 RPC 密钥:(字母或数字组合，不要含有特殊字符):&quot; secret
+	#如果Aria2密钥为空
+	while [ -z &quot;$&#123;secret&#125;&quot; ]
+	do
+		read -p &quot;Aria2 RPC 密钥:(字母或数字组合，不要含有特殊字符):&quot; secret
+	done
+	
+# 	read -p &quot;设置Caddy用户名:&quot; caddyuser
+# 	while [ -z &quot;$&#123;caddyuser&#125;&quot; ]
+# 	do
+# 		read -p &quot;设置Caddy用户名:&quot; caddyuser
+# 	done
+# 	
+# 	read -p &quot;设置Caddy密码:&quot; caddypass
+# 	while [ -z &quot;$&#123;caddypass&#125;&quot; ]
+# 	do
+# 		read -p &quot;设置Caddy密码:&quot; caddypass
+# 	done
+	read -p &quot;Filebrowser 域名地址：(filebrowser.example.com):&quot; filebrowser_domain
+	while [ -z &quot;$&#123;filebrowser_domain&#125;&quot; ]
+	do 
+        read -p &quot;Filebrowser 域名地址：(filebrowser.example.com):&quot; filebrowser_domain
+	done
+	
+	read -p &quot;AriaNg 面板域名地址：(aria.example.com):&quot; ariang_domain
+	while [ -z &quot;$&#123;ariang_domain&#125;&quot; ]
+	do
+        read -p &quot;AriaNg 面板域名地址：(aria.example.com):&quot; ariang_domain
+    done
+	
+
+	#如果下载路径为空，设置默认下载路径
+	if [ -z &quot;$&#123;downpath&#125;&quot; ]
+	then
+		downpath='/data/ccaaDown'
+	fi
+
+	#执行替换操作
+	mkdir -p $&#123;downpath&#125;
+	sed -i &quot;s%dir=%dir=$&#123;downpath&#125;%g&quot; /etc/ccaa/aria2.conf
+	sed -i &quot;s/rpc-secret=/rpc-secret=$&#123;secret&#125;/g&quot; /etc/ccaa/aria2.conf
+# 	sed -i &quot;s/username/$&#123;caddyuser&#125;/g&quot; /etc/ccaa/caddy.conf
+# 	sed -i &quot;s/password/$&#123;caddypass&#125;/g&quot; /etc/ccaa/caddy.conf
+# 	sed -i &quot;s%/home%$&#123;downpath&#125;%g&quot; /etc/ccaa/caddy.conf
+# 	sed -i &quot;s%/admin%/admin $&#123;downpath&#125;%g&quot; /etc/ccaa/caddy.conf
+	#更新tracker
+	bash ./upbt.sh
+
+	#安装AriaNg
+	wget -O AriaNg.zip https://github.com/mayswind/AriaNg/releases/download/$&#123;ariang_ver&#125;/AriaNg-$&#123;ariang_ver&#125;.zip
+	unzip AriaNg.zip
+	sed -i 's|&lt;/ul&gt;&lt;/section&gt;&lt;/aside&gt;|&lt;li&gt;&lt;a class=&quot;toolbar&quot; title=&quot;文件管理&quot; href=&quot;https://_filebrowser.example.com&quot; target=&quot;_blank&quot;&gt;&lt;i class=&quot;fa fa-folder-o&quot;&gt;&lt;/i&gt; 文件管理&lt;/a&gt;&lt;/li&gt;&amp;|' AriaNg/index.html
+	sed -i &quot;s/_filebrowser.example.com/$&#123;filebrowser_domain&#125;/g&quot;  AriaNg/index.html
+	cp -a AriaNg /etc/ccaa
+
+	#启动服务
+	nohup aria2c --conf-path=/etc/ccaa/aria2.conf &gt; /etc/ccaa/aria2.log 2&gt;&amp;1 &amp;
+	nohup caddy -conf=&quot;/etc/ccaa/caddy.conf&quot; &gt; /etc/ccaa/caddy.log 2&gt;&amp;1 &amp;
+
+	#获取ip
+	osip=$(curl -4s https://api.ip.sb/ip)
+
+	echo '-------------------------------------------------------------'
+	echo &quot;大功告成，请访问: http://$&#123;osip&#125;:6080/&quot;
+	echo '用户名:' $&#123;caddyuser&#125;
+	echo '密码:' $&#123;caddypass&#125;
+	echo 'Aria2 RPC 密钥:' $&#123;secret&#125;
+	echo '帮助文档: https://dwz.ovh/ccaa （必看）' 
+	echo '-------------------------------------------------------------'
+&#125;
+#清理工作
+function cleanup()&#123;
+	rm -rf *.zip
+	rm -rf *.gz
+	rm -rf *.txt
+	rm -rf aria2-1.3*
+	#rm -rf *.conf
+	rm -rf init
+&#125;
+
+#卸载
+function uninstall()&#123;
+	#停止所有服务
+	kill -9 $(pgrep 'aria2c')
+	kill -9 $(pgrep 'caddy')
+
+	#删除服务
+	#systemctl disable caddy.service
+	#rm -rf /lib/systemd/system/caddy.service
+	#删除文件
+	rm -rf /etc/ccaa
+	rm -rf /usr/sbin/caddy
+	rm -rf /usr/sbin/ccaa
+	rm -rf /usr/bin/aria2c
+	rm -rf aria2-1.*
+	rm -rf AriaNg*
+	
+
+	rm -rf /usr/share/man/man1/aria2c.1
+	rm -rf /etc/ssl/certs/ca-certificates.crt
+	#删除端口
+	del_post
+	echo &quot;------------------------------------------------&quot;
+	echo '卸载完成！'
+	echo &quot;------------------------------------------------&quot;
+&#125;
+
+#选择安装方式
+echo &quot;------------------------------------------------&quot;
+echo &quot;Linux + Caddy + Aria2 + AriaNg一键安装脚本(CCAA)&quot;
+echo &quot;1) 安装CCAA&quot;
+echo &quot;2) 卸载CCAA&quot;
+echo &quot;3) 更新bt-tracker&quot;
+echo &quot;q) 退出！&quot;
+read -p &quot;:&quot; istype
+case $istype in
+    1) 
+    	setout
+    	install_aria2 &amp;&amp; \
+    	install_caddy &amp;&amp; \
+    	dealconf &amp;&amp; \
+    	chk_firewall &amp;&amp; \
+    	setting &amp;&amp; \
+    	cleanup
+    ;;
+    2) 
+    	uninstall
+    ;;
+    3) 
+    	bash ./upbt.sh
+    ;;
+    q) 
+    	exit
+    ;;
+    *) echo '参数错误！'
+esac
+</code></pre>
+<h2 id="使用方式">使用方式</h2>
+<p>下载 <a target="_blank" rel="noopener" href="https://github.com/helloxz/ccaa/archive/v1.0.zip">https://github.com/helloxz/ccaa/archive/v1.0.zip</a> 然后解压，将<code>ccaa.sh</code> 的内容修改为上述内容。</p>
+<pre><code class="language-bash">sudo su # 切换为root
+wget https://github.com/helloxz/ccaa/archive/v1.0.zip
+unzip v1.0.zip
+# 然后修改 ccaa.sh 的内容并加上执行权限。
+# 然后运行 ccaa.sh选择安装
+</code></pre>
+<p>安装完 ccaa 之后， 我们需要手动配置 <code>filebrowser</code></p>
+<pre><code>touch /etc/ccaa/filebrowser.db
+chmod 0777 -R /etc/ccaa/ # 用于解决权限问题
+</code></pre>
+<h3 id="配置-filebrowser">配置 filebrowser</h3>
+<pre><code>#创建并初始化数据库
+filebrowser -d /etc/ccaa/filebrowser.db config init
+
+#设置filebrowser监听地址
+filebrowser -d /etc/ccaa/filebrowser.db config set --address 0.0.0.0
+
+#设置filebrowser监听端口,自己改(8099)
+filebrowser -d /etc/ccaa/filebrowser.db config set --port 8099
+
+#设置filebrowser语言环境
+filebrowser -d /etc/ccaa/filebrowser.db config set --locale zh-cn
+
+#设置filebrowser日志文件位置
+filebrowser -d /etc/ccaa/filebrowser.db config set --log /var/log/filebrowser.log
+
+#设置filebrowser Web控制台界面账号和密码 (root, 123456)
+filebrowser -d /etc/ccaa/filebrowser.db users add root 123456 --perm.admin
+</code></pre>
+<h3 id="修改网站配置">修改网站配置</h3>
+<p>如果你有域名，可以配置 https 访问。</p>
+<pre><code>vim /etc/ccaa/caddy.conf
+</code></pre>
+<pre><code>aria.example.com &#123; # 你的 ariaNg 控制面板的域名
+        root /etc/ccaa/AriaNg
+        gzip
+        #超时时间
+        timeouts 0
+        #访问口令
+        tls your_email@example.com # 你的邮件地址
+&#125;
+filebrowser.example.com &#123; # filebrowser 管理界面域名
+        gzip
+        tls your_email@example.com # 你的邮件地址
+        proxy / http://127.0.0.1:8099 # 注意端口号改成之前设置的 filebrowser 的端口号
+&#125;
+
+</code></pre>
+<p>配置好之后，输入</p>
+<pre><code>/sbin/caddy -log stdout -agree=true -conf=/etc/ccaa/caddy.conf -root=/var/tmp -quic
+</code></pre>
+<p>查看 输出，会给你一个类似于 <code>https://acme-v02.api.letsencrypt.org/acme/authz-v3/440733xxx</code>的地址。复制里面的 <code>token</code> 的内容（不含引号），添加到域名的txt 记录里面,如</p>
+<p><img src="https://sukanka-figure-bed.oss-cn-chengdu.aliyuncs.com/blog/202020200507034356.png" alt=""></p>
+<p>其中，我的ariang 面板域名是 <code>aria.mydomain.suffix</code></p>
+<p>再次运行</p>
+<pre><code>/sbin/caddy -log stdout -agree=true -conf=/etc/ccaa/caddy.conf -root=/var/tmp -quic
+</code></pre>
+<p>看是否正常运行。</p>
+<h3 id="修改-AriaNg-面板">修改 AriaNg 面板</h3>
+<pre><code>sed -i 's|Aria2 Status&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;|&amp;&lt;li&gt;&lt;a class=&quot;toolbar&quot; title=&quot;文件管理&quot; href=&quot;http://server_ip:6081/&quot; target=&quot;_blank&quot;&gt;      &lt;i class=&quot;fa fa-folder-o&quot;&gt;&lt;/i&gt; 文件管理    &lt;/a&gt;&lt;/li&gt;|' /etc/ccaa/AriaNg/index.html
+sed -i 's|http://server_ip:6081/|https://prefix.yourdomain.suffix|g' /etc/ccaa/AriaNg/index.html # 注意修改域名
+</code></pre>
+<h4 id="filebrowser-自启动文件">filebrowser 自启动文件</h4>
+<pre><code class="language-bash">vim /etc/systemd/system/filebrowser.service
+</code></pre>
+<p>输入以下内容</p>
+<pre><code>[Unit]
+Description=Filebrowser
+After=network.target
+
+[Service]
+ExecStart=/usr/sbin/filebrowser -d /etc/ccaa/filebrowser.db
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<h3 id="caddy-自启动">caddy 自启动</h3>
+<pre><code>vim /etc/systemd/system/filebrowser.service
+</code></pre>
+<pre><code>[Unit]
+Description=Caddy HTTP/2 web server
+Documentation=https://caddyserver.com/docs
+After=network-online.target
+Wants=network-online.target systemd-networkd-wait-online.service
+
+[Service]
+Restart=on-abnormal
+
+; User and group the process will run as.
+User=caddy
+Group=caddy
+
+; Letsencrypt-issued certificates will be written to this directory.
+Environment=CADDYPATH=/etc/ssl/caddy
+
+; Always set &quot;-root&quot; to something safe in case it gets forgotten in the Caddyfile.
+ExecStart=/sbin/caddy -log stdout -agree=true -conf=/etc/ccaa/caddy.conf -root=/var/tmp -quic
+
+; Use graceful shutdown with a reasonable timeout
+KillMode=mixed
+KillSignal=SIGQUIT
+TimeoutStopSec=5s
+
+; Limit the number of file descriptors; see `man systemd.exec` for more limit settings.
+LimitNOFILE=1048576
+; Unmodified caddy is not expected to use more than that.
+LimitNPROC=512
+
+; Use private /tmp and /var/tmp, which are discarded after caddy stops.
+PrivateTmp=true
+; Use a minimal /dev
+PrivateDevices=true
+; Hide /home, /root, and /run/user. Nobody will steal your SSH-keys.
+ProtectHome=true
+; Make /usr, /boot, /etc and possibly some more folders read-only.
+ProtectSystem=full
+; … except /etc/ssl/caddy, because we want Letsencrypt-certificates there.
+;   This merely retains r/w access rights, it does not add any new. Must still be writable on the host!
+ReadWriteDirectories=/etc/ssl/caddy
+
+; The following additional security directives only work with systemd v229 or later.
+; They further retrict privileges that can be gained by caddy. Uncomment if you like.
+; Note that you may have to add capabilities required by any plugins in use.
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<h4 id="aria2-自启动">aria2 自启动</h4>
+<pre><code>vim /etc/systemd/system/aria2.service 
+</code></pre>
+<pre><code>Description=aria2
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/aria2c --conf-path=/etc/ccaa/aria2.conf
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<h3 id="加载自启动文件">加载自启动文件</h3>
+<pre><code>systemctl daemon-reload 
+systemctl start aria2.service
+systemctl start caddy.service
+systemctl start filebrowser.service
+
+systemctl enable aria2.service
+systemctl enable caddy.service
+systemctl enable filebrowser.service
+</code></pre>
+<p>可以使用 <code>systemctl status aria2 </code>来查看 aria2 的运行状态。</p>
+<h1>附录</h1>
+<h2 id="我的aria2-conf">我的<code>aria2.conf</code></h2>
+<pre><code>## Manjaro
+## '#'开头为注释内容, 选项都有相应的注释说明, 根据需要修改 ##
+## 被注释的选项填写的是默认值, 建议在需要修改时再取消注释  ##
+
+## 文件保存相关 ##
+
+# 文件的保存路径(可使用绝对路径或相对路径), 默认: 当前启动位置
+dir=/Downloads
+# 启用磁盘缓存, 0为禁用缓存, 需1.16以上版本, 默认:16M
+disk-cache=32M
+# 文件预分配方式, 能有效降低磁盘碎片, 默认:prealloc
+# 预分配所需时间: none &lt; falloc ? trunc &lt; prealloc
+# falloc和trunc则需要文件系统和内核支持
+# NTFS建议使用falloc, EXT3/4建议trunc, MAC 下需要注释此项
+file-allocation=trunc
+# 断点续传
+continue=true
+#日志位置
+log=stdout
+log-level=warn
+
+## 下载连接相关 ##
+
+# 最大同时下载任务数, 运行时可修改, 默认:5
+max-concurrent-downloads=10
+# 同一服务器连接数, 添加时可指定, 默认:1
+max-connection-per-server=16
+# 最小文件分片大小, 添加时可指定, 取值范围1M -1024M, 默认:20M
+# 假定size=10M, 文件为20MiB 则使用两个来源下载; 文件为15MiB 则使用一个来源下载
+min-split-size=20M
+# 单个任务最大线程数, 添加时可指定, 默认:5
+split=16
+# 整体下载速度限制, 运行时可修改, 默认:0
+#max-overall-download-limit=0
+# 单个任务下载速度限制, 默认:0
+#max-download-limit=0
+# 整体上传速度限制, 运行时可修改, 默认:0
+#max-overall-upload-limit=1024K
+# 单个任务上传速度限制, 默认:0
+#max-upload-limit=0
+# 禁用IPv6, 默认:false
+#disable-ipv6=true
+check-certificate=false
+#自动重命名
+#auto-file-renaming
+# 连接超时时间, 默认:60
+#timeout=60
+# 最大重试次数, 设置为0表示不限制重试次数, 默认:5
+#max-tries=5
+# 设置重试等待的秒数, 默认:0
+#retry-wait=0
+
+
+#HTTP 代理服务器
+#http-proxy=http://127.0.0.1:12333
+#HTTPS 代理服务器
+#https-proxy=http://127.0.0.1:12333
+
+## 进度保存相关 ##
+
+# 从会话文件中读取下载任务
+input-file=/etc/ccaa/aria2.session
+save-session=/etc/ccaa/aria2.session
+# 定时保存会话, 0为退出时才保存, 需1.16.1以上版本, 默认:0
+save-session-interval=30
+
+## RPC相关设置 ##
+
+# 启用RPC, 默认:false
+enable-rpc=true
+# 允许所有来源, 默认:false
+rpc-allow-origin-all=true
+# 允许非外部访问, 默认:false
+rpc-listen-all=true
+# 事件轮询方式, 取值:[epoll, kqueue, port, poll, select], 不同系统默认值不同
+#event-poll=select
+# RPC监听端口, 端口被占用时可以修改, 默认:6800
+rpc-listen-port=6800
+# 设置的RPC授权令牌, v1.18.4新增功能, 取代 --rpc-user 和 --rpc-passwd 选项
+rpc-secret=mypassword
+# 设置的RPC访问用户名, 此选项新版已废弃, 建议改用 --rpc-secret 选项
+#rpc-user=&lt;USER&gt;
+# 设置的RPC访问密码, 此选项新版已废弃, 建议改用 --rpc-secret 选项
+#rpc-passwd=&lt;PASSWD&gt;
+# 是否启用 RPC 服务的 SSL/TLS 加密,
+# 启用加密后 RPC 服务需要使用 https 或者 wss 协议连接
+rpc-secure=true
+# 在 RPC 服务中启用 SSL/TLS 加密时的证书文件,
+# 使用 PEM 格式时，您必须通过 --rpc-private-key 指定私钥
+rpc-certificate=/root/.caddy/acme/acme-v02.api.letsencrypt.org/sites/aria.example.com/aria.example.com.crt
+# 在 RPC 服务中启用 SSL/TLS 加密时的私钥文件
+rpc-private-key=/root/.caddy/acme/acme-v02.api.letsencrypt.org/sites/aria.example.com/aria.example.com.key
+
+## BT/PT下载相关 ##
+
+# 当下载的是一个种子(以.torrent结尾)时, 自动开始BT任务, 默认:true
+follow-torrent=true
+# BT监听端口, 当端口被屏蔽时使用, 默认:6881-6999
+listen-port=51413
+#强制加密, 防迅雷必备
+bt-require-crypto=true
+# 单个种子最大连接数, 默认:55
+bt-max-peers=110
+# 打开DHT功能, PT需要禁用, 默认:true
+enable-dht=true
+# 打开IPv6 DHT功能, PT需要禁用
+enable-dht6=true
+# DHT网络监听端口, 默认:6881-6999
+dht-listen-port=6881-6999
+# 本地节点查找, PT需要禁用, 默认:false
+bt-enable-lpd=true
+# 种子交换, PT需要禁用, 默认:true
+enable-peer-exchange=true
+# 每个种子限速, 对少种的PT很有用, 默认:50K
+#bt-request-peer-speed-limit=50K
+# 客户端伪装, PT需要
+peer-id-prefix=-TR2770-
+user-agent=Transmission/2.77
+# 当种子的分享率达到这个数时, 自动停止做种, 0为一直做种, 默认:1.0
+seed-ratio=0
+#分离做种，做种的时候不算在任务里
+bt-detach-seed-only=true
+#下载完自动删除.aria2文件
+#on-download-complete=&quot;rm -f &quot;$3.aria2&quot;
+# 强制保存会话, 即使任务已经完成, 默认:false
+# 较新的版本开启后会在任务完成后依然保留.aria2文件
+force-save=false
+# BT校验相关, 默认:true
+#bt-hash-check-seed=true
+# 继续之前的BT任务时, 无需再次校验, 默认:false
+#bt-seed-unverified=true
+# 保存磁力链接元数据为种子文件(.torrent文件), 默认:false
+bt-save-metadata=true
+# trackers
+bt-tracker=udp://93.158.213.92:1337/announce,http://93.158.213.92:1337/announce,udp://188.241.58.209:6969/announce,udp://62.210.97.59:1337/announce,http://62.210.97.59:1337/announce,udp://151.80.120.114:2710/announce,udp://151.80.120.115:2710/announce,udp://208.83.20.20:6969/announce,udp://185.181.60.67:80/announce,udp://194.182.165.153:6969/announce,udp://37.235.174.46:2710/announce,udp://5.206.13.166:6969/announce,udp://89.234.156.205:451/announce,udp://92.223.105.178:6969/announce,udp://176.113.71.60:6961/announce,http://176.113.71.60:6961/announce,udp://207.241.226.111:6969/announce,udp://51.15.40.114:80/announce,udp://207.241.231.226:6969/announce,udp://184.105.151.164:6969/announce,http://184.105.151.164:6969/announce,udp://212.47.227.58:6969/announce,udp://31.210.170.169:2710/announce,udp://46.148.18.250:2710/announce,udp://51.15.55.204:1337/announce,udp://91.149.192.31:6969/announce,udp://5.226.148.20:6969/announce,udp://217.76.183.53:80/announce,udp://51.81.46.170:6969/announce,udp://46.148.18.254:2710/announce,http://51.15.55.204:1337/announce,http://51.81.46.170:6969/announce,udp://207.246.121.172:2000/announce,udp://62.171.179.41:80/announce,udp://212.1.226.176:2710/announce,udp://173.82.240.104:6969/announce,http://95.107.48.115:80/announce,udp://94.224.67.24:6969/announce,udp://51.158.23.91:6969/announce,udp://78.46.225.225:2710/announce,udp://194.26.183.158:6969/announce,udp://159.89.208.145:8866/announce,http://78.46.225.225:2710/announce,http://159.89.208.145:8866/announce,udp://103.196.36.31:6969/announce,udp://167.179.77.133:1/announce,udp://165.227.0.51:6969/announce,udp://222.84.65.27:6969/announce,udp://49.12.75.231:6969/announce,udp://78.30.254.12:2710/announce,udp://218.5.41.129:2710/announce,udp://80.211.26.119:9696/announce,http://122.116.144.108:80/announce,http://165.227.0.51:6969/announce,http://149.129.63.70:6969/announce,http://222.84.65.27:6969/announce,http://116.203.120.203:6969/announce,http://177.139.10.157:6969/announce,http://51.38.230.101:80/announce,http://54.39.179.91:6699/announce,http://78.30.254.12:2710/announce,http://51.79.71.167:80/announce,udp://182.150.53.61:8080/announce,udp://163.172.209.40:2710/announce,udp://176.113.68.67:6961/announce,udp://75.127.14.224:2710/announce,udp://52.58.128.163:6969/announce,udp://51.15.3.74:6969/announce,udp://139.99.100.97:8080/announce,http://182.150.53.61:8080/announce,http://176.113.68.67:6961/announce,http://54.37.106.164:80/announce
+
+</code></pre>
+<p>使用 https 时注意以下几行</p>
+<pre><code># 启用加密后 RPC 服务需要使用 https 或者 wss 协议连接
+rpc-secure=true
+# 在 RPC 服务中启用 SSL/TLS 加密时的证书文件,
+# 使用 PEM 格式时，您必须通过 --rpc-private-key 指定私钥
+rpc-certificate=/root/.caddy/acme/acme-v02.api.letsencrypt.org/sites/aria.example.com/aria.example.com.crt
+# 在 RPC 服务中启用 SSL/TLS 加密时的私钥文件
+rpc-private-key=/root/.caddy/acme/acme-v02.api.letsencrypt.org/sites/aria.example.com/aria.example.com.key
+</code></pre>
+<p>这几行是 aria2 的口令</p>
+<pre><code># 设置的RPC授权令牌, v1.18.4新增功能, 取代 --rpc-user 和 --rpc-passwd 选项
+rpc-secret=mypassword
+</code></pre>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">sukanka</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://sukanka.github.io/2020/05/07/ariaAndCaddy/">https://sukanka.github.io/2020/05/07/ariaAndCaddy/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://sukanka.github.io" target="_blank">sukanka 的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/aria2/">aria2</a><a class="post-meta__tags" href="/tags/caddy/">caddy</a></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/05/17/texlive-postinstallation/"><img class="prev-cover" src="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Linux 系统安装 TeXLive 之后的事</div></div></a></div><div class="next-post pull-right"><a href="/2020/04/28/ArchLinux-installation/"><img class="next-cover" src="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">华硕天选R7-4800H+RTX2060 安装 ArchLinux</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://bu.dusays.com/2022/03/29/7582123dfaa71.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">sukanka</div><div class="author-info__description">所有的博客都是孤芳自赏.</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">25</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">42</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/sukanka" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:su975853527@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">获取免费服务器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">绑定域名</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">搭建下载平台</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="toc-number">3.1.</span> <span class="toc-text">使用方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-filebrowser"><span class="toc-number">3.1.1.</span> <span class="toc-text">配置 filebrowser</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E7%BD%91%E7%AB%99%E9%85%8D%E7%BD%AE"><span class="toc-number">3.1.2.</span> <span class="toc-text">修改网站配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-AriaNg-%E9%9D%A2%E6%9D%BF"><span class="toc-number">3.1.3.</span> <span class="toc-text">修改 AriaNg 面板</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#filebrowser-%E8%87%AA%E5%90%AF%E5%8A%A8%E6%96%87%E4%BB%B6"><span class="toc-number">3.1.3.1.</span> <span class="toc-text">filebrowser 自启动文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#caddy-%E8%87%AA%E5%90%AF%E5%8A%A8"><span class="toc-number">3.1.4.</span> <span class="toc-text">caddy 自启动</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#aria2-%E8%87%AA%E5%90%AF%E5%8A%A8"><span class="toc-number">3.1.4.1.</span> <span class="toc-text">aria2 自启动</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E8%87%AA%E5%90%AF%E5%8A%A8%E6%96%87%E4%BB%B6"><span class="toc-number">3.1.5.</span> <span class="toc-text">加载自启动文件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">附录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E7%9A%84aria2-conf"><span class="toc-number">4.1.</span> <span class="toc-text">我的aria2.conf</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/03/03/host-vaultwarden/" title="在 Archlinux 服务器上部署 vaultwarden"><img src="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在 Archlinux 服务器上部署 vaultwarden"/></a><div class="content"><a class="title" href="/2022/03/03/host-vaultwarden/" title="在 Archlinux 服务器上部署 vaultwarden">在 Archlinux 服务器上部署 vaultwarden</a><time datetime="2022-03-03T11:03:24.000Z" title="发表于 2022-03-03 19:03:24">2022-03-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/28/deploy-dendrite/" title="在 Archlinux 服务器上安装 dendrite"><img src="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在 Archlinux 服务器上安装 dendrite"/></a><div class="content"><a class="title" href="/2022/02/28/deploy-dendrite/" title="在 Archlinux 服务器上安装 dendrite">在 Archlinux 服务器上安装 dendrite</a><time datetime="2022-02-28T15:52:57.000Z" title="发表于 2022-02-28 23:52:57">2022-02-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/14/install-ArchLinux-On-Oracle-VPS/" title="在 Oracle 免费 VPS 上安装 Archlinux"><img src="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在 Oracle 免费 VPS 上安装 Archlinux"/></a><div class="content"><a class="title" href="/2022/02/14/install-ArchLinux-On-Oracle-VPS/" title="在 Oracle 免费 VPS 上安装 Archlinux">在 Oracle 免费 VPS 上安装 Archlinux</a><time datetime="2022-02-13T16:20:47.000Z" title="发表于 2022-02-14 00:20:47">2022-02-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/09/deploy-rustdesk-server-demo/" title="部署 rustdesk-server-demo"><img src="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="部署 rustdesk-server-demo"/></a><div class="content"><a class="title" href="/2021/12/09/deploy-rustdesk-server-demo/" title="部署 rustdesk-server-demo">部署 rustdesk-server-demo</a><time datetime="2021-12-09T00:19:41.000Z" title="发表于 2021-12-09 08:19:41">2021-12-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/28/multivariate%20normal%20and%20hotelling's%20T%20square/" title="多元正态的条件分布与 Hotelling's T square 统计量"><img src="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="多元正态的条件分布与 Hotelling's T square 统计量"/></a><div class="content"><a class="title" href="/2021/10/28/multivariate%20normal%20and%20hotelling's%20T%20square/" title="多元正态的条件分布与 Hotelling's T square 统计量">多元正态的条件分布与 Hotelling's T square 统计量</a><time datetime="2021-10-28T01:45:36.000Z" title="发表于 2021-10-28 09:45:36">2021-10-28</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By sukanka</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '9b2KWmJzqXBqMYTBfUda7GiU-MdYXbMMI',
+      appKey: 'ih9QWrOdwxcdIg2ia9KwasyH',
+      avatar: 'monsterid',
+      serverURLs: 'https://9b2kwmjz.api.lncldglobal.com',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

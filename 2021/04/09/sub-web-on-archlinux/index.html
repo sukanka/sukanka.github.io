@@ -1,0 +1,331 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>在 ArchLinux 服务器上搭建 sub-web | sukanka 的博客</title><meta name="keywords" content="archlinux,clash"><meta name="author" content="sukanka"><meta name="copyright" content="sukanka"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="sub-web 是一个基于 vue-cli 与 tindy2013&#x2F;subconverter 后端实现的配置自动生成工具。我以前一直用的别人搭建的网站进行转换，但是总觉得不安全，因此今天心血来潮想要自己搭建一个 sub-web 来进行 clash 订阅链接转换。 构建 sub-web 根据 Github 上的说明，我们只需要把仓库克隆下来，然后安装依赖，再 build 就行了。 先克隆仓库到本地并">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 ArchLinux 服务器上搭建 sub-web">
+<meta property="og:url" content="https://sukanka.github.io/2021/04/09/sub-web-on-archlinux/index.html">
+<meta property="og:site_name" content="sukanka 的博客">
+<meta property="og:description" content="sub-web 是一个基于 vue-cli 与 tindy2013&#x2F;subconverter 后端实现的配置自动生成工具。我以前一直用的别人搭建的网站进行转换，但是总觉得不安全，因此今天心血来潮想要自己搭建一个 sub-web 来进行 clash 订阅链接转换。 构建 sub-web 根据 Github 上的说明，我们只需要把仓库克隆下来，然后安装依赖，再 build 就行了。 先克隆仓库到本地并">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg">
+<meta property="article:published_time" content="2021-04-09T06:30:54.000Z">
+<meta property="article:modified_time" content="2022-03-29T12:14:43.128Z">
+<meta property="article:author" content="sukanka">
+<meta property="article:tag" content="archlinux">
+<meta property="article:tag" content="clash">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://sukanka.github.io/2021/04/09/sub-web-on-archlinux/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?56ae4326ed7b0c987224d1f8ff8ee3f1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '在 ArchLinux 服务器上搭建 sub-web',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-29 20:14:43'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.1.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://bu.dusays.com/2022/03/29/7582123dfaa71.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">25</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">42</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">sukanka 的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">在 ArchLinux 服务器上搭建 sub-web</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-04-09T06:30:54.000Z" title="发表于 2021-04-09 14:30:54">2021-04-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-29T12:14:43.128Z" title="更新于 2022-03-29 20:14:43">2022-03-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/archlinux/">archlinux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="在 ArchLinux 服务器上搭建 sub-web"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div><article class="post-content" id="article-container"><p><a target="_blank" rel="noopener" href="https://github.com/CareyWang/sub-web">sub-web</a> 是一个基于 vue-cli 与 <a target="_blank" rel="noopener" href="https://github.com/tindy2013/subconverter">tindy2013/subconverter</a> 后端实现的配置自动生成工具。我以前一直用的别人搭建的网站进行转换，但是总觉得不安全，因此今天心血来潮想要自己搭建一个 sub-web 来进行 clash 订阅链接转换。</p>
+<h1>构建 sub-web</h1>
+<p>根据 Github 上的说明，我们只需要把仓库克隆下来，然后安装依赖，再 build 就行了。</p>
+<p>先克隆仓库到本地并进入</p>
+<pre><code class="language-bash">git clone https://github.com/CareyWang/sub-web.git/
+cd sub-web/
+</code></pre>
+<p>安装依赖</p>
+<pre><code class="language-bash">yarn install
+</code></pre>
+<p>结果突然就报错了</p>
+<pre><code class="language-bash">error /home/sukanka/Downloads/sub-web/node_modules/node-sass: Command failed.
+Exit code: 1
+Command: node scripts/build.js
+Arguments: 
+Directory: /home/sukanka/Downloads/sub-web/node_modules/node-sass
+Output:
+Building: /usr/bin/node /home/sukanka/Downloads/sub-web/node_modules/node-gyp/bin/node-gyp.js rebuild --verbose --libsass_ext= --libsass_cflags= --libsass_ldflags= --libsass_library=
+gyp info it worked if it ends with ok
+gyp verb cli [
+gyp verb cli   '/usr/bin/node',
+gyp verb cli   '/home/sukanka/Downloads/sub-web/node_modules/node-gyp/bin/node-gyp.js',
+gyp verb cli   'rebuild',
+gyp verb cli   '--verbose',
+gyp verb cli   '--libsass_ext=',
+gyp verb cli   '--libsass_cflags=',
+gyp verb cli   '--libsass_ldflags=',
+gyp verb cli   '--libsass_library='
+gyp verb cli ]
+gyp info using node-gyp@3.8.0
+gyp info using node@15.14.0 | linux | x64
+gyp verb command rebuild []
+gyp verb command clean []
+gyp verb clean removing &quot;build&quot; directory
+gyp verb command configure []
+gyp verb check python checking for Python executable &quot;python2&quot; in the PATH
+gyp verb `which` failed Error: not found: python2
+gyp verb `which` failed     at getNotFoundError (/home/sukanka/Downloads/sub-web/node_modules/which/which.js:13:12)
+gyp verb `which` failed     at F (/home/sukanka/Downloads/sub-web/node_modules/which/which.js:68:19)
+gyp verb `which` failed     at E (/home/sukanka/Downloads/sub-web/node_modules/which/which.js:80:29)
+gyp verb `which` failed     at /home/sukanka/Downloads/sub-web/node_modules/which/which.js:89:16
+gyp verb `which` failed     at /home/sukanka/Downloads/sub-web/node_modules/isexe/index.js:42:5
+gyp verb `which` failed     at /home/sukanka/Downloads/sub-web/node_modules/isexe/mode.js:8:5
+gyp verb `which` failed     at FSReqCallback.oncomplete (node:fs:193:21)
+gyp verb `which` failed  python2 Error: not found: python2
+gyp verb `which` failed     at getNotFoundError (/home/sukanka/Downloads/sub-web/node_modules/which/which.js:13:12)
+gyp verb `which` failed     at F (/home/sukanka/Downloads/sub-web/node_modules/which/which.js:68:19)
+gyp verb `which` failed     at E (/home/sukanka/Downloads/sub-web/node_modules/which/which.js:80:29)
+gyp verb `which` failed     at /home/sukanka/Downloads/sub-web/node_modules/which/which.js:89:16
+gyp verb `which` failed     at /home/sukanka/Downloads/sub-web/node_modules/isexe/index.js:42:5
+gyp verb `which` failed     at /home/sukanka/Downloads/sub-web/node_modules/isexe/mode.js:8:5
+gyp verb `which` failed     at FSReqCallback.oncomplete (node:fs:193:21) &#123;
+gyp verb `which` failed   code: 'ENOENT'
+gyp verb `which` failed &#125;
+gyp verb check python checking for Python executable &quot;python&quot; in the PATH
+gyp verb `which` succeeded python /usr/bin/python
+gyp ERR! configure error 
+gyp ERR! stack Error: Command failed: /usr/bin/python -c import sys; print &quot;%s.%s.%s&quot; % sys.version_info[:3];
+gyp ERR! stack   File &quot;&lt;string&gt;&quot;, line 1
+gyp ERR! stack     import sys; print &quot;%s.%s.%s&quot; % sys.version_info[:3];
+gyp ERR! stack                       ^
+gyp ERR! stack SyntaxError: invalid syntax
+gyp ERR! stack 
+gyp ERR! stack     at ChildProcess.exithandler (node:child_process:326:12)
+gyp ERR! stack     at ChildProcess.emit (node:events:369:20)
+gyp ERR! stack     at maybeClose (node:internal/child_process:1067:16)
+gyp ERR! stack     at Process.ChildProcess._handle.onexit (node:internal/child_process:301:5)
+gyp ERR! System Linux 5.11.11-arch1-1
+gyp ERR! command &quot;/usr/bin/node&quot; &quot;/home/sukanka/Downloads/sub-web/node_modules/node-gyp/bin/node-gyp.js&quot; &quot;rebuild&quot; &quot;--verbose&quot; &quot;--libsass_ext=&quot; &quot;--libsass_cflags=&quot; &quot;--libsass_ldflags=&quot; &quot;--libsass_library=&quot;
+gyp ERR! cwd /home/sukanka/Downloads/sub-web/node_modules/node-sass
+gyp ERR! node -v v15.14.0
+</code></pre>
+<p>挺突然的，不过看日志好像和 <code>node-sass</code> 和 <code>python2</code> 有关。可以尝试安装 <code>python2</code> (经尝试确实可以，但是很慢)。但是既然 Arch 都默认 <code>python3</code> 了，我们肯定不能再装回 <code>python2</code>，那就在 <code>node-sass</code> 上找原因。</p>
+<p>找到 <code>node-sass</code> 的<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/node-sass">主页</a>，发现最新版已经是 <code>5.0.0</code> 了，但是依赖的是 <code>4.13.0</code>。直接在 <code>package.json</code> 中进行修改</p>
+<pre><code class="language-diff">-- &quot;node-sass&quot;: &quot;^4.13.0&quot;,
+++ &quot;node-sass&quot;: &quot;^5.0.0&quot;,
+</code></pre>
+<p>然后删除 <code>node_modules</code>,重新进行 <code>yarn install</code> 就没问题了。</p>
+<p>然后就可以运行 <code>yarn build</code> 来构建用于线上环境的版本了。</p>
+<p>我将 <code>build/dist</code> 中的文件全部上传到 <code>/var/www/sub-web/</code>中，按照 github 上的说明就配置好了前端。</p>
+<h1>配置后端</h1>
+<p>首先安装 <code>subconverter-bin</code></p>
+<pre><code>yay -S subconverter-bin
+</code></pre>
+<p>但是这个包不带 <code>systemd</code> 服务，我们自己写一个服务,往 <code>/etc/systemd/system/subconverter.service</code> 写入如下内容：</p>
+<p><strong>记得把 <code>YOUR_USER</code> 改成你的用户名。</strong></p>
+<pre><code>[Unit]
+Description=Sub Converter
+StartLimitIntervalSec=0
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=YOUR_USER 
+ExecStart=/usr/bin/subconverter
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<p>然后运行如下命令以启动（并开机自启）服务</p>
+<pre><code class="language-bash">sudo systemctl daemon-reload
+sudo systemctl enable --now subconverter.service
+</code></pre>
+<h2 id="配置域名">配置域名</h2>
+<p>按照 <a target="_blank" rel="noopener" href="https://github.com/CareyWang/sub-web">github 上的说明</a>可以配置好前端，但是我们还需要配置后端。我是这样写的</p>
+<pre><code class="language-nginx">server &#123;
+    server_name sub.example.com; # 注意替换域名
+
+    root /var/www/sub-web/;
+    index index.html index.htm;
+
+    error_page 404 /index.html;
+
+    gzip on; #开启gzip压缩
+    gzip_min_length 1k; #设置对数据启用压缩的最少字节数
+    gzip_buffers 4 16k;
+    gzip_http_version 1.0;
+    gzip_comp_level 6; #设置数据的压缩等级,等级为1-9，压缩比从小到大
+    gzip_types text/plain text/css text/javascript application/json application/javascript application/x-javascript application/xml; #设置需要压缩的数据格式
+    gzip_vary on;
+
+	# 这里是代理到后端端口
+    location /sub &#123;
+	    proxy_http_version 1.1;
+	    proxy_set_header Upgrade         $http_upgrade;
+	    proxy_set_header Connection      &quot;Upgrade&quot;;
+	    proxy_set_header Host            $http_host;
+	    proxy_set_header X-Real-IP       $remote_addr;
+	    proxy_set_header X-Forward-For   $proxy_add_x_forwarded_for;
+	    proxy_set_header X-Forward-Proto $scheme;
+	    proxy_redirect off;
+	    proxy_pass http://127.0.0.1:25500;
+
+    &#125;
+    location ~* \.(css|js|png|jpg|jpeg|gif|gz|svg|mp4|ogg|ogv|webm|htc|xml|woff)$ &#123;
+        access_log off;
+        add_header Cache-Control &quot;public,max-age=30*24*3600&quot;;
+    &#125;
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/sub.sukanka.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/sub.sukanka.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+&#125;
+</code></pre>
+<p>其中， <code>https</code> 是用 <code>certbot</code> 自动管理的， 具体参见 <a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Certbot">ArchWiki-Certbot</a>。</p>
+<p>至此，我们就配置好了前端和后端，可以正常使用了，但是我发现生成的链接特别长（需要配置短链），同时，规则特别少，不如别人的舒服（需要配置 远程配置）。</p>
+<h1>短链</h1>
+<p>基于 <a target="_blank" rel="noopener" href="https://github.com/CareyWang/MyUrls">MyUrls</a>， 参考 <a target="_blank" rel="noopener" href="https://agwa5783.gitbook.io/sub-web/kuo-zhan-yi-myurls-duan-lian-fu-wu-da-jian/untitled">MyUrls 短链服务部署</a>。先空着。</p>
+<h1>远程配置</h1>
+<p>暂时没搞明白，先放着，参考 <a target="_blank" rel="noopener" href="https://github.com/ACL4SSR/ACL4SSR/tree/master">ACL4SSR</a>，与 <a target="_blank" rel="noopener" href="https://www.v2rayssr.com/sub-web.html">https://www.v2rayssr.com/sub-web.html</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">sukanka</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://sukanka.github.io/2021/04/09/sub-web-on-archlinux/">https://sukanka.github.io/2021/04/09/sub-web-on-archlinux/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://sukanka.github.io" target="_blank">sukanka 的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/archlinux/">archlinux</a><a class="post-meta__tags" href="/tags/clash/">clash</a></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/09/06/proton-CJK/"><img class="prev-cover" src="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">解决 Steam pronton 游戏中无法输入中文</div></div></a></div><div class="next-post pull-right"><a href="/2021/01/07/adv-micro/"><img class="next-cover" src="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">高级微观总结：从支出函数到效用函数</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/02/14/install-ArchLinux-On-Oracle-VPS/" title="在 Oracle 免费 VPS 上安装 Archlinux"><img class="cover" src="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-14</div><div class="title">在 Oracle 免费 VPS 上安装 Archlinux</div></div></a></div><div><a href="/2020/08/03/localhost-https/" title="为 localhost 启用 https"><img class="cover" src="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-03</div><div class="title">为 localhost 启用 https</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://bu.dusays.com/2022/03/29/7582123dfaa71.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">sukanka</div><div class="author-info__description">所有的博客都是孤芳自赏.</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">25</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">42</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/sukanka" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:su975853527@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">构建 sub-web</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">配置后端</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%9F%9F%E5%90%8D"><span class="toc-number">2.1.</span> <span class="toc-text">配置域名</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">短链</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">远程配置</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/03/03/host-vaultwarden/" title="在 Archlinux 服务器上部署 vaultwarden"><img src="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在 Archlinux 服务器上部署 vaultwarden"/></a><div class="content"><a class="title" href="/2022/03/03/host-vaultwarden/" title="在 Archlinux 服务器上部署 vaultwarden">在 Archlinux 服务器上部署 vaultwarden</a><time datetime="2022-03-03T11:03:24.000Z" title="发表于 2022-03-03 19:03:24">2022-03-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/28/deploy-dendrite/" title="在 Archlinux 服务器上安装 dendrite"><img src="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在 Archlinux 服务器上安装 dendrite"/></a><div class="content"><a class="title" href="/2022/02/28/deploy-dendrite/" title="在 Archlinux 服务器上安装 dendrite">在 Archlinux 服务器上安装 dendrite</a><time datetime="2022-02-28T15:52:57.000Z" title="发表于 2022-02-28 23:52:57">2022-02-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/14/install-ArchLinux-On-Oracle-VPS/" title="在 Oracle 免费 VPS 上安装 Archlinux"><img src="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在 Oracle 免费 VPS 上安装 Archlinux"/></a><div class="content"><a class="title" href="/2022/02/14/install-ArchLinux-On-Oracle-VPS/" title="在 Oracle 免费 VPS 上安装 Archlinux">在 Oracle 免费 VPS 上安装 Archlinux</a><time datetime="2022-02-13T16:20:47.000Z" title="发表于 2022-02-14 00:20:47">2022-02-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/09/deploy-rustdesk-server-demo/" title="部署 rustdesk-server-demo"><img src="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="部署 rustdesk-server-demo"/></a><div class="content"><a class="title" href="/2021/12/09/deploy-rustdesk-server-demo/" title="部署 rustdesk-server-demo">部署 rustdesk-server-demo</a><time datetime="2021-12-09T00:19:41.000Z" title="发表于 2021-12-09 08:19:41">2021-12-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/28/multivariate%20normal%20and%20hotelling's%20T%20square/" title="多元正态的条件分布与 Hotelling's T square 统计量"><img src="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="多元正态的条件分布与 Hotelling's T square 统计量"/></a><div class="content"><a class="title" href="/2021/10/28/multivariate%20normal%20and%20hotelling's%20T%20square/" title="多元正态的条件分布与 Hotelling's T square 统计量">多元正态的条件分布与 Hotelling's T square 统计量</a><time datetime="2021-10-28T01:45:36.000Z" title="发表于 2021-10-28 09:45:36">2021-10-28</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By sukanka</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '9b2KWmJzqXBqMYTBfUda7GiU-MdYXbMMI',
+      appKey: 'ih9QWrOdwxcdIg2ia9KwasyH',
+      avatar: 'monsterid',
+      serverURLs: 'https://9b2kwmjz.api.lncldglobal.com',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
