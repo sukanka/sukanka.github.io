@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>sukanka 的博客</title>
-  <icon>https://sukanka.github.io/icon.png</icon>
+  <icon>https://blog.askk.cc/icon.png</icon>
   <subtitle>sukanka 的博客</subtitle>
-  <link href="https://sukanka.github.io/atom.xml" rel="self"/>
+  <link href="https://blog.askk.cc/atom.xml" rel="self"/>
   
-  <link href="https://sukanka.github.io/"/>
+  <link href="https://blog.askk.cc/"/>
   <updated>2022-05-05T14:29:29.881Z</updated>
-  <id>https://sukanka.github.io/</id>
+  <id>https://blog.askk.cc/</id>
   
   <author>
     <name>sukanka</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>在同一域名下部署 mastodon 与 matrix</title>
-    <link href="https://sukanka.github.io/2022/05/05/mastodon-and-matrix-under-same-domain/"/>
-    <id>https://sukanka.github.io/2022/05/05/mastodon-and-matrix-under-same-domain/</id>
+    <link href="https://blog.askk.cc/2022/05/05/mastodon-and-matrix-under-same-domain/"/>
+    <id>https://blog.askk.cc/2022/05/05/mastodon-and-matrix-under-same-domain/</id>
     <published>2022-05-05T14:08:37.000Z</published>
     <updated>2022-05-05T14:29:29.881Z</updated>
     
@@ -36,16 +36,16 @@
     
     
     
-    <category term="matrix" scheme="https://sukanka.github.io/tags/matrix/"/>
+    <category term="matrix" scheme="https://blog.askk.cc/tags/matrix/"/>
     
-    <category term="mastodon" scheme="https://sukanka.github.io/tags/mastodon/"/>
+    <category term="mastodon" scheme="https://blog.askk.cc/tags/mastodon/"/>
     
   </entry>
   
   <entry>
     <title>paru 进阶教程</title>
-    <link href="https://sukanka.github.io/2022/04/27/paru/"/>
-    <id>https://sukanka.github.io/2022/04/27/paru/</id>
+    <link href="https://blog.askk.cc/2022/04/27/paru/"/>
+    <id>https://blog.askk.cc/2022/04/27/paru/</id>
     <published>2022-04-27T14:58:23.000Z</published>
     <updated>2022-04-28T16:09:02.754Z</updated>
     
@@ -62,16 +62,16 @@
     
     
     
-    <category term="archlinux" scheme="https://sukanka.github.io/tags/archlinux/"/>
+    <category term="archlinux" scheme="https://blog.askk.cc/tags/archlinux/"/>
     
-    <category term="aur 助手" scheme="https://sukanka.github.io/tags/aur-%E5%8A%A9%E6%89%8B/"/>
+    <category term="aur 助手" scheme="https://blog.askk.cc/tags/aur-%E5%8A%A9%E6%89%8B/"/>
     
   </entry>
   
   <entry>
     <title>在 Linux 上安装 VNPY</title>
-    <link href="https://sukanka.github.io/2022/03/30/install-vnpy/"/>
-    <id>https://sukanka.github.io/2022/03/30/install-vnpy/</id>
+    <link href="https://blog.askk.cc/2022/03/30/install-vnpy/"/>
+    <id>https://blog.askk.cc/2022/03/30/install-vnpy/</id>
     <published>2022-03-30T13:19:46.000Z</published>
     <updated>2022-04-16T08:07:25.335Z</updated>
     
@@ -87,19 +87,19 @@
     
     
     
-    <category term="archlinux" scheme="https://sukanka.github.io/categories/archlinux/"/>
+    <category term="archlinux" scheme="https://blog.askk.cc/categories/archlinux/"/>
     
     
-    <category term="vnpy" scheme="https://sukanka.github.io/tags/vnpy/"/>
+    <category term="vnpy" scheme="https://blog.askk.cc/tags/vnpy/"/>
     
-    <category term="python" scheme="https://sukanka.github.io/tags/python/"/>
+    <category term="python" scheme="https://blog.askk.cc/tags/python/"/>
     
   </entry>
   
   <entry>
     <title>在 Archlinux 服务器上部署 vaultwarden</title>
-    <link href="https://sukanka.github.io/2022/03/03/host-vaultwarden/"/>
-    <id>https://sukanka.github.io/2022/03/03/host-vaultwarden/</id>
+    <link href="https://blog.askk.cc/2022/03/03/host-vaultwarden/"/>
+    <id>https://blog.askk.cc/2022/03/03/host-vaultwarden/</id>
     <published>2022-03-03T11:03:24.000Z</published>
     <updated>2022-03-03T12:08:42.491Z</updated>
     
@@ -116,16 +116,16 @@
     
     
     
-    <category term="bitwarden" scheme="https://sukanka.github.io/tags/bitwarden/"/>
+    <category term="bitwarden" scheme="https://blog.askk.cc/tags/bitwarden/"/>
     
-    <category term="vaultwarden" scheme="https://sukanka.github.io/tags/vaultwarden/"/>
+    <category term="vaultwarden" scheme="https://blog.askk.cc/tags/vaultwarden/"/>
     
   </entry>
   
   <entry>
     <title>在 Archlinux 服务器上安装 dendrite</title>
-    <link href="https://sukanka.github.io/2022/02/28/deploy-dendrite/"/>
-    <id>https://sukanka.github.io/2022/02/28/deploy-dendrite/</id>
+    <link href="https://blog.askk.cc/2022/02/28/deploy-dendrite/"/>
+    <id>https://blog.askk.cc/2022/02/28/deploy-dendrite/</id>
     <published>2022-02-28T15:52:57.000Z</published>
     <updated>2022-05-05T14:32:13.338Z</updated>
     
@@ -142,19 +142,19 @@
     
     
     
-    <category term="archlinux" scheme="https://sukanka.github.io/categories/archlinux/"/>
+    <category term="archlinux" scheme="https://blog.askk.cc/categories/archlinux/"/>
     
     
-    <category term="dendrite" scheme="https://sukanka.github.io/tags/dendrite/"/>
+    <category term="dendrite" scheme="https://blog.askk.cc/tags/dendrite/"/>
     
-    <category term="matrix" scheme="https://sukanka.github.io/tags/matrix/"/>
+    <category term="matrix" scheme="https://blog.askk.cc/tags/matrix/"/>
     
   </entry>
   
   <entry>
     <title>在 Oracle 免费 VPS 上安装 Archlinux</title>
-    <link href="https://sukanka.github.io/2022/02/14/install-ArchLinux-On-Oracle-VPS/"/>
-    <id>https://sukanka.github.io/2022/02/14/install-ArchLinux-On-Oracle-VPS/</id>
+    <link href="https://blog.askk.cc/2022/02/14/install-ArchLinux-On-Oracle-VPS/"/>
+    <id>https://blog.askk.cc/2022/02/14/install-ArchLinux-On-Oracle-VPS/</id>
     <published>2022-02-13T16:20:47.000Z</published>
     <updated>2022-04-16T04:39:01.537Z</updated>
     
@@ -169,19 +169,19 @@
     
     
     
-    <category term="archlinux" scheme="https://sukanka.github.io/categories/archlinux/"/>
+    <category term="archlinux" scheme="https://blog.askk.cc/categories/archlinux/"/>
     
     
-    <category term="archlinux" scheme="https://sukanka.github.io/tags/archlinux/"/>
+    <category term="archlinux" scheme="https://blog.askk.cc/tags/archlinux/"/>
     
-    <category term="VPS" scheme="https://sukanka.github.io/tags/VPS/"/>
+    <category term="VPS" scheme="https://blog.askk.cc/tags/VPS/"/>
     
   </entry>
   
   <entry>
     <title>部署 rustdesk-server-demo</title>
-    <link href="https://sukanka.github.io/2021/12/09/deploy-rustdesk-server-demo/"/>
-    <id>https://sukanka.github.io/2021/12/09/deploy-rustdesk-server-demo/</id>
+    <link href="https://blog.askk.cc/2021/12/09/deploy-rustdesk-server-demo/"/>
+    <id>https://blog.askk.cc/2021/12/09/deploy-rustdesk-server-demo/</id>
     <published>2021-12-09T00:19:41.000Z</published>
     <updated>2022-03-03T10:39:01.334Z</updated>
     
@@ -197,14 +197,14 @@
     
     
     
-    <category term="remote desktop" scheme="https://sukanka.github.io/tags/remote-desktop/"/>
+    <category term="remote desktop" scheme="https://blog.askk.cc/tags/remote-desktop/"/>
     
   </entry>
   
   <entry>
     <title>多元正态的条件分布与 Hotelling&#39;s T square 统计量</title>
-    <link href="https://sukanka.github.io/2021/10/28/multivariate%20normal%20and%20hotelling&#39;s%20T%20square/"/>
-    <id>https://sukanka.github.io/2021/10/28/multivariate%20normal%20and%20hotelling&#39;s%20T%20square/</id>
+    <link href="https://blog.askk.cc/2021/10/28/multivariate%20normal%20and%20hotelling&#39;s%20T%20square/"/>
+    <id>https://blog.askk.cc/2021/10/28/multivariate%20normal%20and%20hotelling&#39;s%20T%20square/</id>
     <published>2021-10-28T01:45:36.000Z</published>
     <updated>2022-03-29T12:29:20.921Z</updated>
     
@@ -219,17 +219,17 @@
     
     
     
-    <category term="统计" scheme="https://sukanka.github.io/categories/%E7%BB%9F%E8%AE%A1/"/>
+    <category term="统计" scheme="https://blog.askk.cc/categories/%E7%BB%9F%E8%AE%A1/"/>
     
     
-    <category term="多元统计" scheme="https://sukanka.github.io/tags/%E5%A4%9A%E5%85%83%E7%BB%9F%E8%AE%A1/"/>
+    <category term="多元统计" scheme="https://blog.askk.cc/tags/%E5%A4%9A%E5%85%83%E7%BB%9F%E8%AE%A1/"/>
     
   </entry>
   
   <entry>
     <title>在 vscode 上编写 Rnw 文档</title>
-    <link href="https://sukanka.github.io/2021/09/28/rnw-on-vscode/"/>
-    <id>https://sukanka.github.io/2021/09/28/rnw-on-vscode/</id>
+    <link href="https://blog.askk.cc/2021/09/28/rnw-on-vscode/"/>
+    <id>https://blog.askk.cc/2021/09/28/rnw-on-vscode/</id>
     <published>2021-09-28T02:23:05.000Z</published>
     <updated>2021-09-28T10:31:05.870Z</updated>
     
@@ -246,18 +246,18 @@
     
     
     
-    <category term="knitr" scheme="https://sukanka.github.io/tags/knitr/"/>
+    <category term="knitr" scheme="https://blog.askk.cc/tags/knitr/"/>
     
-    <category term="R" scheme="https://sukanka.github.io/tags/R/"/>
+    <category term="R" scheme="https://blog.askk.cc/tags/R/"/>
     
-    <category term="vscode" scheme="https://sukanka.github.io/tags/vscode/"/>
+    <category term="vscode" scheme="https://blog.askk.cc/tags/vscode/"/>
     
   </entry>
   
   <entry>
     <title>解决 Steam pronton 游戏中无法输入中文</title>
-    <link href="https://sukanka.github.io/2021/09/06/proton-CJK/"/>
-    <id>https://sukanka.github.io/2021/09/06/proton-CJK/</id>
+    <link href="https://blog.askk.cc/2021/09/06/proton-CJK/"/>
+    <id>https://blog.askk.cc/2021/09/06/proton-CJK/</id>
     <published>2021-09-05T16:43:09.000Z</published>
     <updated>2022-04-16T08:04:59.638Z</updated>
     
@@ -277,21 +277,21 @@
     
     
     
-    <category term="archlinux" scheme="https://sukanka.github.io/categories/archlinux/"/>
+    <category term="archlinux" scheme="https://blog.askk.cc/categories/archlinux/"/>
     
     
-    <category term="steam" scheme="https://sukanka.github.io/tags/steam/"/>
+    <category term="steam" scheme="https://blog.askk.cc/tags/steam/"/>
     
-    <category term="fcitx5" scheme="https://sukanka.github.io/tags/fcitx5/"/>
+    <category term="fcitx5" scheme="https://blog.askk.cc/tags/fcitx5/"/>
     
-    <category term="Linux" scheme="https://sukanka.github.io/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.askk.cc/tags/Linux/"/>
     
   </entry>
   
   <entry>
     <title>在 ArchLinux 服务器上搭建 sub-web</title>
-    <link href="https://sukanka.github.io/2021/04/09/sub-web-on-archlinux/"/>
-    <id>https://sukanka.github.io/2021/04/09/sub-web-on-archlinux/</id>
+    <link href="https://blog.askk.cc/2021/04/09/sub-web-on-archlinux/"/>
+    <id>https://blog.askk.cc/2021/04/09/sub-web-on-archlinux/</id>
     <published>2021-04-09T06:30:54.000Z</published>
     <updated>2022-03-29T12:14:43.128Z</updated>
     
@@ -306,19 +306,19 @@
     
     
     
-    <category term="archlinux" scheme="https://sukanka.github.io/categories/archlinux/"/>
+    <category term="archlinux" scheme="https://blog.askk.cc/categories/archlinux/"/>
     
     
-    <category term="archlinux" scheme="https://sukanka.github.io/tags/archlinux/"/>
+    <category term="archlinux" scheme="https://blog.askk.cc/tags/archlinux/"/>
     
-    <category term="clash" scheme="https://sukanka.github.io/tags/clash/"/>
+    <category term="clash" scheme="https://blog.askk.cc/tags/clash/"/>
     
   </entry>
   
   <entry>
     <title>高级微观总结：从支出函数到效用函数</title>
-    <link href="https://sukanka.github.io/2021/01/07/adv-micro/"/>
-    <id>https://sukanka.github.io/2021/01/07/adv-micro/</id>
+    <link href="https://blog.askk.cc/2021/01/07/adv-micro/"/>
+    <id>https://blog.askk.cc/2021/01/07/adv-micro/</id>
     <published>2021-01-07T11:15:43.000Z</published>
     <updated>2022-03-29T12:27:42.537Z</updated>
     
@@ -335,19 +335,19 @@
     
     
     
-    <category term="经济学" scheme="https://sukanka.github.io/categories/%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
+    <category term="经济学" scheme="https://blog.askk.cc/categories/%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
     
     
-    <category term="高级微观经济学" scheme="https://sukanka.github.io/tags/%E9%AB%98%E7%BA%A7%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
+    <category term="高级微观经济学" scheme="https://blog.askk.cc/tags/%E9%AB%98%E7%BA%A7%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
     
-    <category term="效用函数" scheme="https://sukanka.github.io/tags/%E6%95%88%E7%94%A8%E5%87%BD%E6%95%B0/"/>
+    <category term="效用函数" scheme="https://blog.askk.cc/tags/%E6%95%88%E7%94%A8%E5%87%BD%E6%95%B0/"/>
     
   </entry>
   
   <entry>
     <title>fix-kdeconnect</title>
-    <link href="https://sukanka.github.io/2020/10/23/fix-kdeconnect/"/>
-    <id>https://sukanka.github.io/2020/10/23/fix-kdeconnect/</id>
+    <link href="https://blog.askk.cc/2020/10/23/fix-kdeconnect/"/>
+    <id>https://blog.askk.cc/2020/10/23/fix-kdeconnect/</id>
     <published>2020-10-23T14:38:30.000Z</published>
     <updated>2022-04-16T08:07:58.948Z</updated>
     
@@ -365,14 +365,14 @@
     
     
     
-    <category term="kdeconnect" scheme="https://sukanka.github.io/tags/kdeconnect/"/>
+    <category term="kdeconnect" scheme="https://blog.askk.cc/tags/kdeconnect/"/>
     
   </entry>
   
   <entry>
     <title>为 localhost 启用 https</title>
-    <link href="https://sukanka.github.io/2020/08/03/localhost-https/"/>
-    <id>https://sukanka.github.io/2020/08/03/localhost-https/</id>
+    <link href="https://blog.askk.cc/2020/08/03/localhost-https/"/>
+    <id>https://blog.askk.cc/2020/08/03/localhost-https/</id>
     <published>2020-08-02T16:30:25.000Z</published>
     <updated>2020-08-02T16:47:32.817Z</updated>
     
@@ -388,19 +388,19 @@
     
     
     
-    <category term="软件" scheme="https://sukanka.github.io/categories/%E8%BD%AF%E4%BB%B6/"/>
+    <category term="软件" scheme="https://blog.askk.cc/categories/%E8%BD%AF%E4%BB%B6/"/>
     
     
-    <category term="clash" scheme="https://sukanka.github.io/tags/clash/"/>
+    <category term="clash" scheme="https://blog.askk.cc/tags/clash/"/>
     
-    <category term="AriaNg" scheme="https://sukanka.github.io/tags/AriaNg/"/>
+    <category term="AriaNg" scheme="https://blog.askk.cc/tags/AriaNg/"/>
     
   </entry>
   
   <entry>
     <title>Linux 系统安装 TeXLive 之后的事</title>
-    <link href="https://sukanka.github.io/2020/05/17/texlive-postinstallation/"/>
-    <id>https://sukanka.github.io/2020/05/17/texlive-postinstallation/</id>
+    <link href="https://blog.askk.cc/2020/05/17/texlive-postinstallation/"/>
+    <id>https://blog.askk.cc/2020/05/17/texlive-postinstallation/</id>
     <published>2020-05-17T06:18:04.000Z</published>
     <updated>2020-06-02T08:20:30.699Z</updated>
     
@@ -416,19 +416,19 @@
     
     
     
-    <category term="LaTeX" scheme="https://sukanka.github.io/categories/LaTeX/"/>
+    <category term="LaTeX" scheme="https://blog.askk.cc/categories/LaTeX/"/>
     
     
-    <category term="Linux" scheme="https://sukanka.github.io/tags/Linux/"/>
+    <category term="Linux" scheme="https://blog.askk.cc/tags/Linux/"/>
     
-    <category term="TeXLive" scheme="https://sukanka.github.io/tags/TeXLive/"/>
+    <category term="TeXLive" scheme="https://blog.askk.cc/tags/TeXLive/"/>
     
   </entry>
   
   <entry>
     <title>利用Oracle免费VPS 搭建Aria2+Caddy+Filebrowser 文件下载器</title>
-    <link href="https://sukanka.github.io/2020/05/07/ariaAndCaddy/"/>
-    <id>https://sukanka.github.io/2020/05/07/ariaAndCaddy/</id>
+    <link href="https://blog.askk.cc/2020/05/07/ariaAndCaddy/"/>
+    <id>https://blog.askk.cc/2020/05/07/ariaAndCaddy/</id>
     <published>2020-05-06T18:46:28.000Z</published>
     <updated>2022-03-29T13:26:51.877Z</updated>
     
@@ -443,19 +443,19 @@
     
     
     
-    <category term="VPS" scheme="https://sukanka.github.io/categories/VPS/"/>
+    <category term="VPS" scheme="https://blog.askk.cc/categories/VPS/"/>
     
     
-    <category term="aria2" scheme="https://sukanka.github.io/tags/aria2/"/>
+    <category term="aria2" scheme="https://blog.askk.cc/tags/aria2/"/>
     
-    <category term="caddy" scheme="https://sukanka.github.io/tags/caddy/"/>
+    <category term="caddy" scheme="https://blog.askk.cc/tags/caddy/"/>
     
   </entry>
   
   <entry>
     <title>华硕天选R7-4800H+RTX2060 安装 ArchLinux</title>
-    <link href="https://sukanka.github.io/2020/04/28/ArchLinux-installation/"/>
-    <id>https://sukanka.github.io/2020/04/28/ArchLinux-installation/</id>
+    <link href="https://blog.askk.cc/2020/04/28/ArchLinux-installation/"/>
+    <id>https://blog.askk.cc/2020/04/28/ArchLinux-installation/</id>
     <published>2020-04-28T05:16:02.000Z</published>
     <updated>2022-03-29T13:26:45.802Z</updated>
     
@@ -472,19 +472,19 @@
     
     
     
-    <category term="archlinux" scheme="https://sukanka.github.io/categories/archlinux/"/>
+    <category term="archlinux" scheme="https://blog.askk.cc/categories/archlinux/"/>
     
     
-    <category term="AMD" scheme="https://sukanka.github.io/tags/AMD/"/>
+    <category term="AMD" scheme="https://blog.askk.cc/tags/AMD/"/>
     
-    <category term="KDE" scheme="https://sukanka.github.io/tags/KDE/"/>
+    <category term="KDE" scheme="https://blog.askk.cc/tags/KDE/"/>
     
   </entry>
   
   <entry>
     <title>Word 论文写作小技巧</title>
-    <link href="https://sukanka.github.io/2020/04/18/My-Word-academic-suite/"/>
-    <id>https://sukanka.github.io/2020/04/18/My-Word-academic-suite/</id>
+    <link href="https://blog.askk.cc/2020/04/18/My-Word-academic-suite/"/>
+    <id>https://blog.askk.cc/2020/04/18/My-Word-academic-suite/</id>
     <published>2020-04-18T10:45:42.000Z</published>
     <updated>2022-04-16T04:21:18.933Z</updated>
     
@@ -501,21 +501,21 @@
     
     
     
-    <category term="Office" scheme="https://sukanka.github.io/categories/Office/"/>
+    <category term="Office" scheme="https://blog.askk.cc/categories/Office/"/>
     
     
-    <category term="Word" scheme="https://sukanka.github.io/tags/Word/"/>
+    <category term="Word" scheme="https://blog.askk.cc/tags/Word/"/>
     
-    <category term="论文写作" scheme="https://sukanka.github.io/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/"/>
+    <category term="论文写作" scheme="https://blog.askk.cc/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/"/>
     
-    <category term="文献管理" scheme="https://sukanka.github.io/tags/%E6%96%87%E7%8C%AE%E7%AE%A1%E7%90%86/"/>
+    <category term="文献管理" scheme="https://blog.askk.cc/tags/%E6%96%87%E7%8C%AE%E7%AE%A1%E7%90%86/"/>
     
   </entry>
   
   <entry>
     <title>我的LaTeX学术套装</title>
-    <link href="https://sukanka.github.io/2020/04/07/my-academic-suite/"/>
-    <id>https://sukanka.github.io/2020/04/07/my-academic-suite/</id>
+    <link href="https://blog.askk.cc/2020/04/07/my-academic-suite/"/>
+    <id>https://blog.askk.cc/2020/04/07/my-academic-suite/</id>
     <published>2020-04-07T14:47:23.000Z</published>
     <updated>2022-04-15T16:14:55.000Z</updated>
     
@@ -530,25 +530,25 @@
     
     
     
-    <category term="LaTeX" scheme="https://sukanka.github.io/categories/LaTeX/"/>
+    <category term="LaTeX" scheme="https://blog.askk.cc/categories/LaTeX/"/>
     
     
-    <category term="论文写作" scheme="https://sukanka.github.io/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/"/>
+    <category term="论文写作" scheme="https://blog.askk.cc/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/"/>
     
-    <category term="文献管理" scheme="https://sukanka.github.io/tags/%E6%96%87%E7%8C%AE%E7%AE%A1%E7%90%86/"/>
+    <category term="文献管理" scheme="https://blog.askk.cc/tags/%E6%96%87%E7%8C%AE%E7%AE%A1%E7%90%86/"/>
     
-    <category term="LaTeX" scheme="https://sukanka.github.io/tags/LaTeX/"/>
+    <category term="LaTeX" scheme="https://blog.askk.cc/tags/LaTeX/"/>
     
-    <category term="Zotero" scheme="https://sukanka.github.io/tags/Zotero/"/>
+    <category term="Zotero" scheme="https://blog.askk.cc/tags/Zotero/"/>
     
-    <category term="VSCode" scheme="https://sukanka.github.io/tags/VSCode/"/>
+    <category term="VSCode" scheme="https://blog.askk.cc/tags/VSCode/"/>
     
   </entry>
   
   <entry>
     <title>NFC刷公交、地铁、门禁</title>
-    <link href="https://sukanka.github.io/2018/11/06/NFC%E5%88%B7%E9%97%A8%E7%A6%81/"/>
-    <id>https://sukanka.github.io/2018/11/06/NFC%E5%88%B7%E9%97%A8%E7%A6%81/</id>
+    <link href="https://blog.askk.cc/2018/11/06/NFC%E5%88%B7%E9%97%A8%E7%A6%81/"/>
+    <id>https://blog.askk.cc/2018/11/06/NFC%E5%88%B7%E9%97%A8%E7%A6%81/</id>
     <published>2018-11-06T14:51:55.000Z</published>
     <updated>2022-04-16T04:31:29.747Z</updated>
     
@@ -558,7 +558,7 @@
     
     
     
-    <category term="日常生活" scheme="https://sukanka.github.io/tags/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB/"/>
+    <category term="日常生活" scheme="https://blog.askk.cc/tags/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB/"/>
     
   </entry>
   
