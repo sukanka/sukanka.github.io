@@ -6,7 +6,7 @@
   <link href="https://blog.askk.cc/atom.xml" rel="self"/>
   
   <link href="https://blog.askk.cc/"/>
-  <updated>2022-05-05T14:29:29.881Z</updated>
+  <updated>2022-07-02T16:18:54.395Z</updated>
   <id>https://blog.askk.cc/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用 Bitwarden 管理密码</title>
+    <link href="https://blog.askk.cc/2022/07/02/use-bitwarden/"/>
+    <id>https://blog.askk.cc/2022/07/02/use-bitwarden/</id>
+    <published>2022-07-02T15:14:37.000Z</published>
+    <updated>2022-07-02T16:18:54.395Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近出了超星学习通的数据泄漏了一次，然后在6月27号的时候，腾讯QQ</summary>
+        
+      
+    
+    
+    
+    
+    <category term="bitwarden" scheme="https://blog.askk.cc/tags/bitwarden/"/>
+    
+  </entry>
   
   <entry>
     <title>在同一域名下部署 mastodon 与 matrix</title>
@@ -101,7 +124,7 @@
     <link href="https://blog.askk.cc/2022/03/03/host-vaultwarden/"/>
     <id>https://blog.askk.cc/2022/03/03/host-vaultwarden/</id>
     <published>2022-03-03T11:03:24.000Z</published>
-    <updated>2022-03-03T12:08:42.491Z</updated>
+    <updated>2022-07-02T16:18:05.402Z</updated>
     
     
       
@@ -109,7 +132,7 @@
         
         
     <summary type="html">&lt;h2 id=&quot;介绍&quot;&gt;介绍&lt;/h2&gt;
-&lt;p&gt;下面的内容摘抄自 &lt;a href=&quot;https://help.bitwarden.ltd/&quot;&gt;&lt;strong&gt;Bitwarden 帮助中心中文版&lt;/strong&gt;&lt;/a&gt;,</summary>
+&lt;p&gt;下面的内容摘抄自 &lt;a href=&quot;https://help.ppgg.in/&quot;&gt;&lt;strong&gt;Bitwarden 帮助中心中文版&lt;/strong&gt;&lt;/a&gt;,</summary>
         
       
     
@@ -542,23 +565,6 @@
     <category term="Zotero" scheme="https://blog.askk.cc/tags/Zotero/"/>
     
     <category term="VSCode" scheme="https://blog.askk.cc/tags/VSCode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>NFC刷公交、地铁、门禁</title>
-    <link href="https://blog.askk.cc/2018/11/06/NFC%E5%88%B7%E9%97%A8%E7%A6%81/"/>
-    <id>https://blog.askk.cc/2018/11/06/NFC%E5%88%B7%E9%97%A8%E7%A6%81/</id>
-    <published>2018-11-06T14:51:55.000Z</published>
-    <updated>2022-04-16T04:31:29.747Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;前两天从锦江区坐公交回来,没有零钱,还是跟路人换零钱才回来的。之所以不办天府通是因为我之前掉过好几次公交卡了，不敢再办了，而且公交坐的不多，基本都是地铁，而地铁可以用微信。之后又在网上看到天府通开始支持NFC刷卡了。遂有了开卡的想法。还顺便搞了NFC模拟校园卡刷门禁，从此出宿舍不用带卡！&lt;/p&gt;</summary>
-    
-    
-    
-    
-    <category term="日常生活" scheme="https://blog.askk.cc/tags/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB/"/>
     
   </entry>
   
