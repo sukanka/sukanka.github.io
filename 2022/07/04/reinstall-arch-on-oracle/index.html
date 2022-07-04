@@ -1,0 +1,410 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>重新在 Oracle VPS 上安装 archlinux | sukanka 的博客</title><meta name="keywords" content="archlinux,VPS"><meta name="author" content="sukanka"><meta name="copyright" content="sukanka"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="故事背景 故事的背景其实有点惨，我之前的 oracle vps 在小太阳的帮助下装上了 archlinux, 而且平稳运行了大概两年的样子吧，后来我还把 matrix 部署在上面了。可是某一天更新了系统之后，它挂了！ ssh 也无法连上， vnc 也连不上（这其实是因为 openssh 更新了)，于是我又只能把  matrix 服务器转回国内。但是，从昨天开始，我matrix 开始看不了图片了，就">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重新在 Oracle VPS 上安装 archlinux">
+<meta property="og:url" content="https://blog.askk.cc/2022/07/04/reinstall-arch-on-oracle/index.html">
+<meta property="og:site_name" content="sukanka 的博客">
+<meta property="og:description" content="故事背景 故事的背景其实有点惨，我之前的 oracle vps 在小太阳的帮助下装上了 archlinux, 而且平稳运行了大概两年的样子吧，后来我还把 matrix 部署在上面了。可是某一天更新了系统之后，它挂了！ ssh 也无法连上， vnc 也连不上（这其实是因为 openssh 更新了)，于是我又只能把  matrix 服务器转回国内。但是，从昨天开始，我matrix 开始看不了图片了，就">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bu.dusays.com/2022/07/04/62c2b65d0a82c.png">
+<meta property="article:published_time" content="2022-07-04T09:33:16.000Z">
+<meta property="article:modified_time" content="2022-07-04T11:56:15.410Z">
+<meta property="article:author" content="sukanka">
+<meta property="article:tag" content="archlinux">
+<meta property="article:tag" content="VPS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bu.dusays.com/2022/07/04/62c2b65d0a82c.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.askk.cc/2022/07/04/reinstall-arch-on-oracle/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?56ae4326ed7b0c987224d1f8ff8ee3f1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-MB8GTMPF6H"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-MB8GTMPF6H');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '重新在 Oracle VPS 上安装 archlinux',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-07-04 19:56:15'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="sukanka 的博客" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://bu.dusays.com/2022/03/29/7582123dfaa71.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">40</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://bu.dusays.com/2022/07/04/62c2b65d0a82c.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">sukanka 的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">重新在 Oracle VPS 上安装 archlinux</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-07-04T09:33:16.000Z" title="发表于 2022-07-04 17:33:16">2022-07-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-07-04T11:56:15.410Z" title="更新于 2022-07-04 19:56:15">2022-07-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/archlinux/">archlinux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="重新在 Oracle VPS 上安装 archlinux"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="故事背景">故事背景</h2>
+<p>故事的背景其实有点惨，我之前的 oracle vps 在小太阳的帮助下装上了 archlinux, 而且平稳运行了大概两年的样子吧，后来我还把 matrix 部署在上面了。可是某一天更新了系统之后，它挂了！</p>
+<p>ssh 也无法连上， vnc 也连不上（这其实是因为 <code>openssh</code> 更新了)，于是我又只能把  matrix 服务器转回国内。但是，从昨天开始，我matrix 开始看不了图片了，就算服务器挂梯子也不行，始终看不了图片（享受 IRC 待遇）。这可不行啊，得想办法把 matrix 再搬到国外，因此又想起了那台停机几个月的 vps。</p>
+<p>这里插一句，如果要装成 NixOS 的话，非常方便，似乎有对应的 Could-init 文件，在初始化 vps 的时候添加进去就好了。但是 archlinux 没有。</p>
+<h2 id="踩坑经历">踩坑经历</h2>
+<p>这里大家看看就好，我只说哪些做法是不推荐的。</p>
+<ul>
+<li>首先，我自己的文章：<a href="https://blog.askk.cc/2022/02/14/install-ArchLinux-On-Oracle-VPS/">在 Oracle 免费 VPS 上安装 Archlinux</a> 肯定是不推荐了。但是可以看一看，有些基础的操作（比如开机器、连 VNC）还是值得一看的，但是具体步骤不能照搬。</li>
+<li>然后是 Clansty 的文章：<a target="_blank" rel="noopener" href="https://nyac.at/posts/cloud-server-arch-linux">在阿里云服务器上安装 Arch Linux </a>，如果你只有一台机器，那可以看这个，但是你有多台机器的话，我也不推荐你用 bootstrap 安装。</li>
+<li>最后是 Netboot 的方式：如果你的服务器内存高于 <strong>2GiB</strong>（实际上好像高于1.5GiB 就可以), 那就直接用 Netboot 吧, 别看我的文章了。Netboot 我推荐两种安装方式，一种是 <a target="_blank" rel="noopener" href="https://netboot.xyz/docs/quick-start">netboot.xyz</a>；另一种是 archlinux 官方的 netboot, 在 <a target="_blank" rel="noopener" href="https://archlinux.org/releng/netboot/">https://archlinux.org/releng/netboot/</a> 下载 <a target="_blank" rel="noopener" href="https://archlinux.org/static/netboot/ipxe-arch.16e24bec1a7c.efi">ipxe-arch.efi</a>，放到服务器的<code>/boot/EFI/rescue</code> 下面，然后连上  VNC，将服务器重启，在 UEFI 里面选择 IPXE 启动即可，或者找到下载的 efi 启动。</li>
+</ul>
+<h2 id="推荐的安装过程">推荐的安装过程</h2>
+<p>如果你的 VPS 像我一样，只有 1GiB 的 RAM, 无法用 netboot 安装 archlinux, vps 提供商又不被 vps2arch 所支持，然后你又想完整地安装 archlinux (包括对硬盘重新分区，oracle 的 EFI 太小了，只有 106M)。 那么你应该看看我这一篇文章。</p>
+<p>本文假定，你还有一台可用的 oracle 的 VPS，并且已经装上了 archlinux, 能够正常使用。（如果你另一台 vps 不是 archlinux, 那也没关系，你可以看 <a target="_blank" rel="noopener" href="https://nyac.at/posts/cloud-server-arch-linux">在阿里云服务器上安装 Arch Linux </a>，把某些操作对应的替换过来就可以了。</p>
+<h3 id="事前准备">事前准备</h3>
+<p>首先按照 <a target="_blank" rel="noopener" href="https://nyac.at/posts/cloud-server-arch-linux">在阿里云服务器上安装 Arch Linux </a> 做好 <strong>连接服务器</strong> 与 <strong>连接 VNC</strong>.</p>
+<p>现在，我们已经有一台 archlinux 服务器 (或者其他服务器，即前文的 I 机)，和一台 Ubuntu 20.04 的新开的机器（你开的什么就是什么）。</p>
+<p>然后我们将 ubuntu 20.04 的机器<strong>关机</strong>，在甲骨文的面板上<strong>将它的引导卷分离下来</strong>，注意这是要新装 archlinux 的机器，注意左下角 <strong>资源&gt; 引导卷</strong>，然后点右边的三个点，分离引导卷。</p>
+<p><img src="https://bu.dusays.com/2022/07/04/62c2bcf4f3335.png" alt="1656929522935.png"></p>
+<p>聪明的你可能猜到我们要干什么了，没错，我们要把它挂载到另一台服务器上面，然后装好 archlinux 再挂载回来！</p>
+<p>在 oracle 的网页面板上打开另一台服务器( archlinux, I机) ，找到对应的位置，附加上<strong>块存储卷</strong>，注意位置在 <strong>资源 &gt; 附加的块存储卷</strong></p>
+<p><img src="https://bu.dusays.com/2022/07/04/62c2bdeceaea1.png" alt="1656929770190.png"></p>
+<p>等一会等到附加完毕之后，找到右边的三个点<code>...</code> 点击，选择 <strong>iSCSI 命令和信息</strong>，展开 <strong>Linux</strong>, 会给你 连接（三条）和断开连接（两条）的命令，保存好。我这里就不截图出来了。</p>
+<p><img src="https://bu.dusays.com/2022/07/04/62c2be996210b.png" alt="1656929943171.png"></p>
+<p>然后通过 ssh 连上 I 机，进去之后复制那三条命令，就可添加上硬盘。如果你在这里遇到了错误，请参考 <a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Open-iSCSI">Open-iSCSI</a>，简单来说，你应该先安装</p>
+<p><code>open-iscsi</code>软件包，然后启动对应的服务（并将它加入开机自启）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> --now iscsid</span><br></pre></td></tr></table></figure>
+<p>然后再重新运行连接的三条命令，应该就可以了。</p>
+<p>成功之后会有类似下面这样的输出,敏感信息用 <code>xxxx</code> 替代了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">New iSCSI node [tcp:[hw=,ip=,net_if=,iscsi_if=default] xxxxxxxxxxxxxxx] added</span><br><span class="line">Logging <span class="keyword">in</span> to [iface: default, target: xxxxxxxxxxxxxx]</span><br><span class="line">Login to [iface: default, target: xxxxxxxxxxxxxx] successful.</span><br></pre></td></tr></table></figure>
+<p>然后我们看一下 目前的硬盘</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsblk</span><br></pre></td></tr></table></figure>
+<p>输出的结果大致上像这样</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">                 </span><br><span class="line">NAME    MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS</span><br><span class="line">sda       8:0   <span class="number"> 0 </span>46.6G <span class="number"> 0 </span>disk </span><br><span class="line">|-sda1    8:1   <span class="number"> 0 </span>46.5G <span class="number"> 0 </span>part /</span><br><span class="line">|-sda14   8:14  <span class="number"> 0 </span>   4M <span class="number"> 0 </span>part </span><br><span class="line">`-sda15   8:15  <span class="number"> 0 </span> 106M <span class="number"> 0 </span>part /boot</span><br><span class="line">sdb       8:32  <span class="number"> 0 </span>46.6G <span class="number"> 0 </span>disk </span><br><span class="line">|-sdb1    8:33  <span class="number"> 0 </span> 512M <span class="number"> 0 </span>part </span><br><span class="line">`-sdb2    8:34  <span class="number"> 0 </span>46.1G <span class="number"> 0 </span>part </span><br></pre></td></tr></table></figure>
+<p>右边的 <code>/</code> 与 <code>/boot</code> 就是我们目前正在用的硬盘的分区，注意到 <code>/boot</code> 只有 106M，连两个内核都装不下，而 <code>sdb</code> （注意你的可能不是 <code>sdb</code>)就是我们新挂载上的硬盘，我们要将 archlinux 装到这个硬盘里面。</p>
+<h3 id="开始安装">开始安装</h3>
+<h4 id="分区">分区</h4>
+<p>首先，我们将 <code>sdb</code> 重新分区</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo fdisk /dev/sdb</span><br></pre></td></tr></table></figure>
+<p>输出如下</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Welcome <span class="built_in">to</span> fdisk (util-linux <span class="number">2.38</span>).</span><br><span class="line">Changes will remain <span class="keyword">in</span> memory only, <span class="keyword">until</span> you decide <span class="built_in">to</span> <span class="built_in">write</span> them.</span><br><span class="line">Be careful <span class="keyword">before</span> <span class="keyword">using</span> <span class="keyword">the</span> <span class="built_in">write</span> command.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Command (m <span class="keyword">for</span> help): </span><br></pre></td></tr></table></figure>
+<p>输入 <code>d</code>, 删除分区，我输入了两次，把两个分区都删了。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Command</span> (m for help): d</span><br><span class="line"><span class="attribute">Partition</span> number (<span class="number">1</span>,<span class="number">2</span>, default <span class="number">2</span>): <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">Partition</span> <span class="number">2</span> has been deleted.</span><br><span class="line"></span><br><span class="line"><span class="attribute">Command</span> (m for help): d</span><br><span class="line"><span class="attribute">Selected</span> partition <span class="number">1</span></span><br><span class="line"><span class="attribute">Partition</span> <span class="number">1</span> has been deleted.</span><br></pre></td></tr></table></figure>
+<p>然后重新创建分区，输入 <code>n</code>,然后提示输入大小的时候输入 <code>+512M</code></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Command</span> (m for help): n</span><br><span class="line"><span class="attribute">Partition</span> number (<span class="number">1</span>-<span class="number">128</span>, default <span class="number">1</span>): <span class="number">1</span></span><br><span class="line"><span class="attribute">First</span> sector (<span class="number">34</span>-<span class="number">97677278</span>, default <span class="number">2048</span>): </span><br><span class="line"><span class="attribute">Last</span> sector, +/-sectors or +/-size&#123;K,M,G,T,P&#125; (<span class="number">2048</span>-<span class="number">97677278</span>, default <span class="number">97675263</span>): +<span class="number">512</span>M</span><br><span class="line"></span><br><span class="line"><span class="attribute">Created</span> a new partition <span class="number">1</span> of type &#x27;Linux filesystem&#x27; and of size <span class="number">512</span> MiB.</span><br></pre></td></tr></table></figure>
+<p>然后再次输入 <code>n</code> 一路回车创建我们的第二个分区</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Command</span> (m for help): n</span><br><span class="line"><span class="attribute">Partition</span> number (<span class="number">2</span>-<span class="number">128</span>, default <span class="number">2</span>): </span><br><span class="line"><span class="attribute">First</span> sector (<span class="number">1050624</span>-<span class="number">97677278</span>, default <span class="number">1050624</span>): </span><br><span class="line"><span class="attribute">Last</span> sector, +/-sectors or +/-size&#123;K,M,G,T,P&#125; (<span class="number">1050624</span>-<span class="number">97677278</span>, default <span class="number">97675263</span>): </span><br><span class="line"></span><br><span class="line"><span class="attribute">Created</span> a new partition <span class="number">2</span> of type &#x27;Linux filesystem&#x27; and of size <span class="number">46</span>.<span class="number">1</span> GiB.</span><br></pre></td></tr></table></figure>
+<p>然后输入 <code>p</code> 看一下我们的分区</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Command (m for help): p</span><br><span class="line"></span><br><span class="line">Disk /dev/sdb: 46.58 GiB,<span class="number"> 50010783744 </span>bytes,<span class="number"> 97677312 </span>sectors</span><br><span class="line">Disk model: BlockVolume     </span><br><span class="line">Units: sectors of<span class="number"> 1 </span>*<span class="number"> 512 </span>=<span class="number"> 512 </span>bytes</span><br><span class="line">Sector size (logical/physical):<span class="number"> 512 </span>bytes /<span class="number"> 4096 </span>bytes</span><br><span class="line">I/O size (minimum/optimal):<span class="number"> 4096 </span>bytes /<span class="number"> 1048576 </span>bytes</span><br><span class="line">Disklabel type: gpt</span><br><span class="line">Disk identifier: 6780050F-7A6E-4BDB-87EF-9993AC5C0EBA</span><br><span class="line"></span><br><span class="line">Device       Start      End  Sectors  Size Type</span><br><span class="line">/dev/sdb1    <span class="number"> 2048 </span><span class="number"> 1050623 </span><span class="number"> 1048576 </span> 512M Linux filesystem</span><br><span class="line">/dev/sdb2 <span class="number"> 1050624 </span>97675263<span class="number"> 96624640 </span>46.1G Linux filesystem</span><br></pre></td></tr></table></figure>
+<p>好像 <code>sdb1</code> 的类型不太对，我们给它改一下，输入 <code>t</code>, 然后输入<code>1</code>（分区编号）， 再输入<code>1</code> （分区类型）</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Command (m <span class="keyword">for</span> help): t</span><br><span class="line"><span class="keyword">Partition</span> number (<span class="number">1</span>,<span class="number">2</span>, <span class="keyword">default</span> <span class="number">2</span>): <span class="number">1</span></span><br><span class="line"><span class="keyword">Partition</span> <span class="keyword">type</span> <span class="keyword">or</span> <span class="keyword">alias</span> (<span class="keyword">type</span> L <span class="keyword">to</span> list <span class="keyword">all</span>): <span class="number">1</span></span><br><span class="line"></span><br><span class="line">Changed <span class="keyword">type</span> <span class="keyword">of</span> <span class="keyword">partition</span> <span class="string">&#x27;Linux filesystem&#x27;</span> <span class="keyword">to</span> <span class="string">&#x27;EFI System&#x27;</span>.</span><br></pre></td></tr></table></figure>
+<p>可以看到分区类型已经成功改为 <code>EFI</code> 了。最后 <strong>输入 <code>w</code> 保存</strong>。（我就不输入了，我都已经装好了，保存了我装好的系统就没了）。</p>
+<h4 id="pacstrap">pacstrap</h4>
+<p>这一步其实是参考的 <a target="_blank" rel="noopener" href="https://www.viseator.com/2017/05/17/arch_install/">以官方Wiki的方式安装ArchLinux</a>，但是我把重要的内容都抄过来了，大家没必要点进去（嘿嘿）。</p>
+<p>然后我们将硬盘挂载到对应文件夹</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo mount /dev/sdb2 /mnt/ </span><br><span class="line">sudo mount /dev/sdb1 /mnt/boot</span><br></pre></td></tr></table></figure>
+<p>没有报错的话，我们就挂载好啦。由于我们是境外服务器嘛，没必要改镜像，我们直接用 <code>pacstrap</code> 安装一些必要的包进去。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacstrap /mnt <span class="keyword">base</span> <span class="keyword">base</span>-devel linux linux-firmware dhcpcd</span><br></pre></td></tr></table></figure>
+<p>然后生成 <code>fstab</code></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo genfstab -L <span class="regexp">/mnt &gt;&gt; /m</span>nt<span class="regexp">/etc/</span>fstab</span><br></pre></td></tr></table></figure>
+<p>然后我们要 看一下 <code>fstab</code> 对不对（<strong>其实这里生成的 <code>fstab</code> 不对哦</strong>）</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat <span class="regexp">/mnt/</span>etc/fstab</span><br></pre></td></tr></table></figure>
+<p>结果如下，注意：**你看到的跟我的不一样！**你的应该是写的 <code>/dev/sdb</code> 之类的，你需要自己把他们改成 <code>UUID</code> 这样的，具体的 <code>UUID</code> 里面有。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Static information about the filesystems.</span></span><br><span class="line"><span class="comment"># See fstab(5) for details.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># &lt;file system&gt; &lt;dir&gt; &lt;type&gt; &lt;options&gt; &lt;dump&gt; &lt;pass&gt;</span></span><br><span class="line"><span class="comment"># /dev/sdb2 UUID=fc934606-93e4-4748-b2b9-faf07f2dec9b</span></span><br><span class="line"><span class="attribute">UUID</span>=fc934606-93e4-4748-b2b9-faf07f2dec9b               /               ext4            rw,relatime,<span class="attribute">stripe</span>=256  0 1</span><br><span class="line"></span><br><span class="line"><span class="comment"># /dev/sdb1 UUID=EF87-F5A7</span></span><br><span class="line"><span class="attribute">UUID</span>=EF87-F5A7                  /boot           vfat            rw,relatime,<span class="attribute">fmask</span>=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro   0 2</span><br><span class="line"></span><br><span class="line">/swapfile               none            swap            defaults        0 0</span><br></pre></td></tr></table></figure>
+<p><strong>注意到我们还多了个 <code>/swapfile</code> 所以我们也必须要创建一个 <code>swapfile</code> 或者你可以把那行注释掉。</strong></p>
+<h4 id="chroot">chroot</h4>
+<p>然后我们可以 <code>chroot</code> 进去了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo arch-chroot /mnt</span><br></pre></td></tr></table></figure>
+<p>先设置时区</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ln</span> -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br><span class="line">hwclock --systohc</span><br></pre></td></tr></table></figure>
+<p>装一些必要的包，过程中一路确认就好</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S vim sudo sshd dhcpcd</span><br></pre></td></tr></table></figure>
+<p>设置下 <code>locale</code>,在里面启用 <code>en_US.UTF-8 UTF-8</code> 就行了，服务器上不需要中文。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim <span class="regexp">/etc/</span>locale.gen</span><br></pre></td></tr></table></figure>
+<p>然后执行</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">locale-gen</span></span><br></pre></td></tr></table></figure>
+<p>然后打开<code>locale.conf</code></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim <span class="regexp">/etc/</span>locale.conf</span><br></pre></td></tr></table></figure>
+<p>在文件里面第一行写入</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">LANG</span><span class="operator">=</span>en_US.UTF-<span class="number">8</span></span><br></pre></td></tr></table></figure>
+<p>保存退出。</p>
+<p>现在开始设置主机名</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim <span class="regexp">/etc/</span>hostname</span><br></pre></td></tr></table></figure>
+<p>在第一行输入你设置的主机名，假设是 <code>myhostname</code>，保存并退出。</p>
+<p>编辑<code>/etc/hosts</code>文件：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim <span class="regexp">/etc/</span>hosts</span><br></pre></td></tr></table></figure>
+<p>在文件末尾添加（将<code>myhostname</code>替换成你自己设定的主机名），实际上这里<strong>还应该将你的服务器的公网IP 也映射到 <code>localhost</code></strong> 但是不做也无所谓。</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">127.0.0.1</span>	localhost</span><br><span class="line">::<span class="number">1</span>		localhost</span><br><span class="line"><span class="number">127.0.1.1</span>	myhostname.localdomain	myhostname</span><br></pre></td></tr></table></figure>
+<p>保存并退出。</p>
+<p>现在开始输入 <code>passwd</code> 设置<code>root</code> 的密码，注意密码需要输入两遍，不会有回显。</p>
+<p>然后我们安装 <code>ucode</code>, intel 的就输入 <code>intel-ucode</code> （Oracle 好像是 AMD 的，那就换成 <code>amd-ucode</code>）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S amd-ucode</span><br></pre></td></tr></table></figure>
+<p>然后我们安装 <code>grub</code></p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">pacman -S grub efibootmgr</span></span><br></pre></td></tr></table></figure>
+<p>部署 <code>grub</code>并生成配置文件</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grub-install <span class="attribute">--target</span>=x86_64-efi <span class="attribute">--efi-directory</span>=/boot <span class="attribute">--bootloader-id</span>=grub</span><br><span class="line">grub-mkconfig -o /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure>
+<p><strong>注意：如果你前面的 <code>fstab</code> 里面有 <code>/swapfile</code></strong>，</p>
+<p>请创建 <code>swapfile</code> 不然启动会失败，这里我创建 2G</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero of=/swapfile bs=1M count=2048 status=progress</span><br></pre></td></tr></table></figure>
+<p>修改权限并初始化，然后启动它。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 0600 /swapfile</span><br><span class="line">mkswap  /swapfile</span><br><span class="line">swapon /swapfile</span><br></pre></td></tr></table></figure>
+<p>如果你已经是一个老手，你可以在这里就设置好你的用户，配置好 <code>sudo</code>, 同时不要忘记将你的 ssh 公钥写入到你用户的 <code>authorized_keys</code></p>
+<h4 id="配置用户">配置用户</h4>
+<p>我们首先创建一个用户，请将 <code>username</code> 替换为你的用户名。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -m -G wheel username </span><br></pre></td></tr></table></figure>
+<p>然后为它设置一个密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd username</span><br></pre></td></tr></table></figure>
+<p>再为它配置 <code>sudo</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EDITOR=vim visudo</span><br></pre></td></tr></table></figure>
+<p>找到</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># %wheel <span class="keyword">ALL</span>=(<span class="keyword">ALL</span>:<span class="keyword">ALL</span>) NOPASSWD: <span class="keyword">ALL</span></span><br></pre></td></tr></table></figure>
+<p>去掉前面的 <code>#</code>， 然后保存退出，这样我们的用户不需要密码就能使用 <code>sudo</code> 了。</p>
+<h4 id="退出-chroot">退出 chroot</h4>
+<p>我们的系统差不多要安装好了，下面退出 <code>chroot</code>，并卸载硬盘。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">exit</span></span><br><span class="line">sudo umount -R /mnt</span><br></pre></td></tr></table></figure>
+<p>如果提示</p>
+<figure class="highlight mercury"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">umount: /mnt: target <span class="keyword">is</span> busy.</span><br></pre></td></tr></table></figure>
+<p>我们就使用 下面的命令卸载。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo umount -R /mnt -l</span><br></pre></td></tr></table></figure>
+<p>然后我们还要把硬盘卸载下去，因为要挂载回另外一台机器上了。</p>
+<p>最后我们找到这台机器<strong>附加的块存储卷</strong>，找到 <strong>iSCSI 命令和信息</strong>， 复制其中的 <strong>断开连接</strong> 命令，并输入，应该会提示</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">Logging</span> <span class="string">out</span> <span class="string">of</span> <span class="string">session</span> [<span class="attr">sid:</span> <span class="number">6</span>, <span class="attr">target:</span> <span class="string">xxxxxxxxxxxxxxxxxxx</span>]</span><br><span class="line"><span class="string">Logout</span> <span class="string">of</span> [<span class="attr">sid:</span> <span class="number">6</span>, <span class="attr">target:</span> <span class="string">xxxxxxxxxxxxxxxxx</span>] <span class="string">successful.</span></span><br></pre></td></tr></table></figure>
+<p>然后我们直接<strong>分离块存储卷</strong>。</p>
+<p><img src="https://bu.dusays.com/2022/07/04/62c2ca71bfc89.png" alt="1656932975616.png"></p>
+<p>给新机器 (ubuntu 20.04,但是快要是 arch 了) 附加引导卷，在对应机器页面的 <strong>资源&gt; 引导卷</strong> 下面。</p>
+<h3 id="配置-UEFI">配置 UEFI</h3>
+<p>首先我们先连上 VNC，请参见 <a href="###%E4%BA%8B%E5%89%8D%E5%87%86%E5%A4%87">事前准备</a>，在我们在 I 机上面装好 <code>tmux</code>, 并运行 <code>tmux</code></p>
+<p>粘贴中转  vnc 的 命令进去，然后按  <code>ctrl+b</code> 再按 <code>d</code> 分离 <code>tmux</code>，免得我们 ssh 断开后中转也自动断开了。注意，如果这里 VNC 连接断了，请重新连接，并检查中转服务是不是也断了，中转服务也断了请重新连接中转服务。</p>
+<p>然后我们在本地用 <code>remmia</code> 连上  VNC。注意 VNC 的画面，同时给 新机器开机，在 VNC 那里疯狂按 <code>F2</code> 来进入 <code>UEFI</code> 页面。</p>
+<p>进入到 UEFI 之后画面大概像这样，里面有 Boot manager, 但是好像什么都干不了。也有 Boot Maintainance Manager,能够干一些事情。</p>
+<p><img src="https://bu.dusays.com/2022/07/04/62c2cd2046b5d.png" alt="1656933662022.png"></p>
+<p>比如 Boot Maintainance Manger 里面能够改  Boot order, 但是实际上没有用。这里就不展示了。</p>
+<p>我们选择 Boot Manger，再选择 EFI Internal Shell, 回车进入 shell.</p>
+<p><img src="https://bu.dusays.com/2022/07/04/62c2ce6417ee9.png" alt="1656933986185.png"></p>
+<p><strong>注意： 此处开始不能用 <code>ctrl+v</code> 粘贴了，但是 remmia 有自带的将剪贴板逐字发送到 VNC 的功能，扳手🔧图标就是</strong></p>
+<p>我们输入如下命令查看现有的启动项。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bcfg boot dump</span><br></pre></td></tr></table></figure>
+<p><img src="https://bu.dusays.com/2022/07/04/62c2cf09c8be5.png" alt="1656934152288.png"></p>
+<p>这是我的启动项，第一个已经被改成 archlinux 了，你的第一个应该是 <code>UEFI ORACLE BlockVolume</code>. 而且你没有 <code>Option: 04</code>.</p>
+<p>然后我们添加一个 grub 启动项，序号为<code>4</code>，命名为 <code>archlinux</code></p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bcfg </span><span class="keyword">boot </span><span class="keyword">add </span><span class="number">4</span> fs0:\EFI\grub\grubx64.efi <span class="string">&quot;archlinux&quot;</span></span><br></pre></td></tr></table></figure>
+<p>然后我们将它移动到编号为 0的位置</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">bcfg</span> boot mv <span class="number">1</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>你可能以为这就管用了，其实并没有，真正管用的是下一步。</p>
+<p>我们删除掉 <code>ORACLE</code> 的启动项，它现在编号应该为 <code>4</code>。</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bcfg </span><span class="keyword">boot </span>rm <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p>然后我们输入 <code>exit</code> 退出 shell. 回到 <code>Boot Maintainance Manager &gt; Boot Options &gt; Change Boot Order</code> 可以看到，我们的 <code>archlinux</code> 启动项变成了第一位！</p>
+<p><img src="https://bu.dusays.com/2022/07/04/62c2d0c699d09.png" alt="1656934595781.png"></p>
+<p>然后我们回到 UEFI 主页面，选择 <strong>Continue</strong>，就看到熟悉的 <code>grub</code> 啦</p>
+<p><img src="https://bu.dusays.com/2022/07/04/62c2d47fd07df.png" alt="1656935550278.png"></p>
+<p>进去了之后登录 <code>root</code> 帐号，然后我们要启动 <code>dhcpcd</code> 与 <code>sshd</code> 服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> --now dhcpcd</span><br><span class="line">systemctl <span class="built_in">enable</span> --now sshd</span><br></pre></td></tr></table></figure>
+<p>然后就可以尝试通过 <code>ssh</code> 连接到服务器了。本文到这里也就完结了。</p>
+<h2 id="参考文章">参考文章</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://lixingcong.github.io/2018/06/12/uefi-shell/">UEFI Shell常用命令</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://blog.askk.cc">sukanka</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.askk.cc/2022/07/04/reinstall-arch-on-oracle/">https://blog.askk.cc/2022/07/04/reinstall-arch-on-oracle/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.askk.cc" target="_blank">sukanka 的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/archlinux/">archlinux</a><a class="post-meta__tags" href="/tags/VPS/">VPS</a></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2022/07/04/62c2b65d0a82c.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/07/02/use-bitwarden/"><img class="next-cover" src="https://bu.dusays.com/2022/07/02/62c062280f495.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">使用 Bitwarden 管理密码</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/02/14/install-ArchLinux-On-Oracle-VPS/" title="在 Oracle 免费 VPS 上安装 Archlinux"><img class="cover" src="https://bu.dusays.com/2022/03/30/9f30699b4319f.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-02-14</div><div class="title">在 Oracle 免费 VPS 上安装 Archlinux</div></div></a></div><div><a href="/2021/04/09/sub-web-on-archlinux/" title="在 ArchLinux 服务器上搭建 sub-web"><img class="cover" src="https://bu.dusays.com/2022/03/29/4b31de2e005b0.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-09</div><div class="title">在 ArchLinux 服务器上搭建 sub-web</div></div></a></div><div><a href="/2022/04/27/paru/" title="paru 进阶教程"><img class="cover" src="https://bu.dusays.com/2022/03/29/4b31de2e005b0.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-27</div><div class="title">paru 进阶教程</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://bu.dusays.com/2022/03/29/7582123dfaa71.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">sukanka</div><div class="author-info__description">所有的博客都是孤芳自赏.</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">40</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/sukanka"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/sukanka" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:su975853527@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%85%E4%BA%8B%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">故事背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B8%A9%E5%9D%91%E7%BB%8F%E5%8E%86"><span class="toc-number">2.</span> <span class="toc-text">踩坑经历</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A8%E8%8D%90%E7%9A%84%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">推荐的安装过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E5%89%8D%E5%87%86%E5%A4%87"><span class="toc-number">3.1.</span> <span class="toc-text">事前准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%85"><span class="toc-number">3.2.</span> <span class="toc-text">开始安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E5%8C%BA"><span class="toc-number">3.2.1.</span> <span class="toc-text">分区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pacstrap"><span class="toc-number">3.2.2.</span> <span class="toc-text">pacstrap</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#chroot"><span class="toc-number">3.2.3.</span> <span class="toc-text">chroot</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7"><span class="toc-number">3.2.4.</span> <span class="toc-text">配置用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%80%E5%87%BA-chroot"><span class="toc-number">3.2.5.</span> <span class="toc-text">退出 chroot</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-UEFI"><span class="toc-number">3.3.</span> <span class="toc-text">配置 UEFI</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-number">4.</span> <span class="toc-text">参考文章</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/07/04/reinstall-arch-on-oracle/" title="重新在 Oracle VPS 上安装 archlinux"><img src="https://bu.dusays.com/2022/07/04/62c2b65d0a82c.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="重新在 Oracle VPS 上安装 archlinux"/></a><div class="content"><a class="title" href="/2022/07/04/reinstall-arch-on-oracle/" title="重新在 Oracle VPS 上安装 archlinux">重新在 Oracle VPS 上安装 archlinux</a><time datetime="2022-07-04T09:33:16.000Z" title="发表于 2022-07-04 17:33:16">2022-07-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/07/02/use-bitwarden/" title="使用 Bitwarden 管理密码"><img src="https://bu.dusays.com/2022/07/02/62c062280f495.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用 Bitwarden 管理密码"/></a><div class="content"><a class="title" href="/2022/07/02/use-bitwarden/" title="使用 Bitwarden 管理密码">使用 Bitwarden 管理密码</a><time datetime="2022-07-02T15:14:37.000Z" title="发表于 2022-07-02 23:14:37">2022-07-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/05/mastodon-and-matrix-under-same-domain/" title="在同一域名下部署 mastodon 与 matrix"><img src="https://bu.dusays.com/2022/03/29/4b31de2e005b0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在同一域名下部署 mastodon 与 matrix"/></a><div class="content"><a class="title" href="/2022/05/05/mastodon-and-matrix-under-same-domain/" title="在同一域名下部署 mastodon 与 matrix">在同一域名下部署 mastodon 与 matrix</a><time datetime="2022-05-05T14:08:37.000Z" title="发表于 2022-05-05 22:08:37">2022-05-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/27/paru/" title="paru 进阶教程"><img src="https://bu.dusays.com/2022/03/29/4b31de2e005b0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="paru 进阶教程"/></a><div class="content"><a class="title" href="/2022/04/27/paru/" title="paru 进阶教程">paru 进阶教程</a><time datetime="2022-04-27T14:58:23.000Z" title="发表于 2022-04-27 22:58:23">2022-04-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/30/install-vnpy/" title="在 Linux 上安装 VNPY"><img src="https://bu.dusays.com/2022/03/29/4b31de2e005b0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在 Linux 上安装 VNPY"/></a><div class="content"><a class="title" href="/2022/03/30/install-vnpy/" title="在 Linux 上安装 VNPY">在 Linux 上安装 VNPY</a><time datetime="2022-03-30T13:19:46.000Z" title="发表于 2022-03-30 21:19:46">2022-03-30</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By sukanka</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: '9b2KWmJzqXBqMYTBfUda7GiU-MdYXbMMI',
+      appKey: 'ih9QWrOdwxcdIg2ia9KwasyH',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="33346913" data-server="netease" data-type="song" data-fixed="true" data-autoplay="false"> </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-MB8GTMPF6H', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -6,7 +6,7 @@
   <link href="https://blog.askk.cc/atom.xml" rel="self"/>
   
   <link href="https://blog.askk.cc/"/>
-  <updated>2022-07-02T16:23:46.996Z</updated>
+  <updated>2022-07-04T11:56:15.410Z</updated>
   <id>https://blog.askk.cc/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>重新在 Oracle VPS 上安装 archlinux</title>
+    <link href="https://blog.askk.cc/2022/07/04/reinstall-arch-on-oracle/"/>
+    <id>https://blog.askk.cc/2022/07/04/reinstall-arch-on-oracle/</id>
+    <published>2022-07-04T09:33:16.000Z</published>
+    <updated>2022-07-04T11:56:15.410Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;故事背景&quot;&gt;故事背景&lt;/h2&gt;
+&lt;p&gt;故事的背景其实有点惨，我之前的 oracle vps 在小太阳的帮助下装上了 archlinux, 而且平稳运行了大概两年的样子吧，后来我还把 matrix</summary>
+        
+      
+    
+    
+    
+    <category term="archlinux" scheme="https://blog.askk.cc/categories/archlinux/"/>
+    
+    
+    <category term="archlinux" scheme="https://blog.askk.cc/tags/archlinux/"/>
+    
+    <category term="VPS" scheme="https://blog.askk.cc/tags/VPS/"/>
+    
+  </entry>
   
   <entry>
     <title>使用 Bitwarden 管理密码</title>
@@ -532,39 +560,6 @@
     <category term="论文写作" scheme="https://blog.askk.cc/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/"/>
     
     <category term="文献管理" scheme="https://blog.askk.cc/tags/%E6%96%87%E7%8C%AE%E7%AE%A1%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>我的LaTeX学术套装</title>
-    <link href="https://blog.askk.cc/2020/04/07/my-academic-suite/"/>
-    <id>https://blog.askk.cc/2020/04/07/my-academic-suite/</id>
-    <published>2020-04-07T14:47:23.000Z</published>
-    <updated>2022-04-15T16:14:55.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在平时的论文写作中，如果能够事先将工具配置好能够节省非常多的精力。本文介绍 &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math</summary>
-        
-      
-    
-    
-    
-    <category term="LaTeX" scheme="https://blog.askk.cc/categories/LaTeX/"/>
-    
-    
-    <category term="论文写作" scheme="https://blog.askk.cc/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/"/>
-    
-    <category term="文献管理" scheme="https://blog.askk.cc/tags/%E6%96%87%E7%8C%AE%E7%AE%A1%E7%90%86/"/>
-    
-    <category term="LaTeX" scheme="https://blog.askk.cc/tags/LaTeX/"/>
-    
-    <category term="Zotero" scheme="https://blog.askk.cc/tags/Zotero/"/>
-    
-    <category term="VSCode" scheme="https://blog.askk.cc/tags/VSCode/"/>
     
   </entry>
   
