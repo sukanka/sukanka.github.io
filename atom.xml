@@ -6,7 +6,7 @@
   <link href="https://blog.askk.cc/atom.xml" rel="self"/>
   
   <link href="https://blog.askk.cc/"/>
-  <updated>2022-07-14T16:06:14.703Z</updated>
+  <updated>2022-07-22T08:01:32.752Z</updated>
   <id>https://blog.askk.cc/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用 wireshark 抓包 svstudio</title>
+    <link href="https://blog.askk.cc/2022/07/22/%E4%BD%BF%E7%94%A8%20wireshark%20%E6%8A%93%E5%8C%85%20svstudio/"/>
+    <id>https://blog.askk.cc/2022/07/22/%E4%BD%BF%E7%94%A8%20wireshark%20%E6%8A%93%E5%8C%85%20svstudio/</id>
+    <published>2022-07-22T07:47:09.000Z</published>
+    <updated>2022-07-22T08:01:32.752Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
+&lt;p&gt;昨天我 AUR 上的包 &lt;a href=&quot;https://aur.archlinux.org/packages/svstudio-bin&quot;&gt;svstudio-bin&lt;/a&gt; 又被人标记过期了，说提示应用内更新，新版本为</summary>
+        
+      
+    
+    
+    
+    <category term="archlinux" scheme="https://blog.askk.cc/categories/archlinux/"/>
+    
+    
+    <category term="wireshark" scheme="https://blog.askk.cc/tags/wireshark/"/>
+    
+  </entry>
   
   <entry>
     <title>重新在 Oracle VPS 上安装 archlinux</title>
@@ -529,37 +555,6 @@
     <category term="AMD" scheme="https://blog.askk.cc/tags/AMD/"/>
     
     <category term="KDE" scheme="https://blog.askk.cc/tags/KDE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Word 论文写作小技巧</title>
-    <link href="https://blog.askk.cc/2020/04/18/My-Word-academic-suite/"/>
-    <id>https://blog.askk.cc/2020/04/18/My-Word-academic-suite/</id>
-    <published>2020-04-18T10:45:42.000Z</published>
-    <updated>2022-04-16T04:21:18.933Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;本文主要介绍使用在 Windows 系统中 MS Word 配合 Citavi 进行论文写作和文献管理的小技巧。&lt;/p&gt;
-&lt;h2 id=&quot;图表的交叉引用&quot;&gt;图表的交叉引用&lt;/h2&gt;
-&lt;p&gt;对于 Word 中插入的图表，在正文写作时可能需要对图表进行交叉引用，比如“由图 1</summary>
-        
-      
-    
-    
-    
-    <category term="Office" scheme="https://blog.askk.cc/categories/Office/"/>
-    
-    
-    <category term="Word" scheme="https://blog.askk.cc/tags/Word/"/>
-    
-    <category term="论文写作" scheme="https://blog.askk.cc/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/"/>
-    
-    <category term="文献管理" scheme="https://blog.askk.cc/tags/%E6%96%87%E7%8C%AE%E7%AE%A1%E7%90%86/"/>
     
   </entry>
   

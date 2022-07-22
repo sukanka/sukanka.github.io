@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>使用 wireshark 抓包 svstudio</title>
+      <link href="/2022/07/22/%E4%BD%BF%E7%94%A8%20wireshark%20%E6%8A%93%E5%8C%85%20svstudio/"/>
+      <url>/2022/07/22/%E4%BD%BF%E7%94%A8%20wireshark%20%E6%8A%93%E5%8C%85%20svstudio/</url>
+      
+        <content type="html"><![CDATA[<h2 id="背景">背景</h2><p>昨天我 AUR 上的包 <a href="https://aur.archlinux.org/packages/svstudio-bin">svstudio-bin</a> 又被人标记过期了，说提示应用内更新，新版本为 1.7.0。<br>但是我去官网查，发现官网没有放出更新，就只能自己抓包了。刚开始的时候是真的用不来 wireshark, 看着网上的教程说找 <code>GET</code> 请求，但是我发现我抓到的全是  TCP 或者 TLS,<br>根本就没有 HTTP 请求。后来在找对了关键词，搜索到了需要的方法才成功。</p><h2 id="具体过程">具体过程</h2><p>我最初看到的那篇文章现在找不到了，但是和 <a href="https://www.cnblogs.com/yurang/p/11505741.html">Wireshark解密HTTPS流量的两种方法</a> 的第二种方法是一样的。</p><p>首先在终端设置 <code>SSLKEYLOGFILE</code> 环境变量，</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> <span class="attribute">SSLKEYLOGFILE</span>=/tmp/ssl.log</span><br></pre></td></tr></table></figure><p>然后终端不要关，打开 wireshark, 找到 <code>编辑&gt;首选项&gt;protocol&gt;ssl</code>， 在 <code>(Pre)-Master-Secret log filename</code> 下面填入 <code>/tmp/ssl.log</code>,<br>保存后返回到 wireshark 主界面，开始抓包。<br>然后在刚刚的终端里面输入 <code>svstudio</code> 打开 svstudio, 它会开始检查更新，我们直接同意，让它开始下载。现在我们可以直接停止 wireshark 的抓包了。<br>然后在抓到的包里面，找到一堆 HTTP  GET 请求，里面就有我们需要的下载链接，同时我还找到了一个检查更新的链接，以后不用再重新抓包了。</p><p>本文到这里也就结束了。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> archlinux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> wireshark </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>重新在 Oracle VPS 上安装 archlinux</title>
       <link href="/2022/07/04/reinstall-arch-on-oracle/"/>
       <url>/2022/07/04/reinstall-arch-on-oracle/</url>
