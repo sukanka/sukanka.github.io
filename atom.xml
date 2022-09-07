@@ -6,7 +6,7 @@
   <link href="https://blog.askk.cc/atom.xml" rel="self"/>
   
   <link href="https://blog.askk.cc/"/>
-  <updated>2022-07-22T08:01:32.752Z</updated>
+  <updated>2022-09-07T11:57:45.975Z</updated>
   <id>https://blog.askk.cc/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用 mitmproxy 抓包 https</title>
+    <link href="https://blog.askk.cc/2022/09/07/use-mitmproxy-to-record-https/"/>
+    <id>https://blog.askk.cc/2022/09/07/use-mitmproxy-to-record-https/</id>
+    <published>2022-09-07T11:15:05.000Z</published>
+    <updated>2022-09-07T11:57:45.975Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这一次是要抓腾讯会议的包，前段时间有人在 AUR 给我维护的 &lt;a href=&quot;https://aur.archlinux.org/packages/wemeet-bin&quot;&gt;wemeet-bin&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="archlinux" scheme="https://blog.askk.cc/categories/archlinux/"/>
+    
+    
+    <category term="mitmproxy" scheme="https://blog.askk.cc/tags/mitmproxy/"/>
+    
+  </entry>
   
   <entry>
     <title>使用 wireshark 抓包 svstudio</title>
@@ -526,35 +551,6 @@
     <category term="aria2" scheme="https://blog.askk.cc/tags/aria2/"/>
     
     <category term="caddy" scheme="https://blog.askk.cc/tags/caddy/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>华硕天选R7-4800H+RTX2060 安装 ArchLinux</title>
-    <link href="https://blog.askk.cc/2020/04/28/ArchLinux-installation/"/>
-    <id>https://blog.askk.cc/2020/04/28/ArchLinux-installation/</id>
-    <published>2020-04-28T05:16:02.000Z</published>
-    <updated>2022-03-29T13:26:45.802Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1&gt;配置&lt;/h1&gt;
-&lt;p&gt;我有幸以6599返100E卡抢到了一台4800H+2060的天选，之前想要安装 Manjaro, 但是LiveCD始终进入不了图形界面，因而放弃，转而选择了ArchLinux. 详细配置如下&lt;/p&gt;
-&lt;figure class=&quot;highlight</summary>
-        
-      
-    
-    
-    
-    <category term="archlinux" scheme="https://blog.askk.cc/categories/archlinux/"/>
-    
-    
-    <category term="AMD" scheme="https://blog.askk.cc/tags/AMD/"/>
-    
-    <category term="KDE" scheme="https://blog.askk.cc/tags/KDE/"/>
     
   </entry>
   
