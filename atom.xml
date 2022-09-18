@@ -6,7 +6,7 @@
   <link href="https://blog.askk.cc/atom.xml" rel="self"/>
   
   <link href="https://blog.askk.cc/"/>
-  <updated>2022-09-07T11:57:45.975Z</updated>
+  <updated>2022-09-18T07:33:09.007Z</updated>
   <id>https://blog.askk.cc/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从零开始的 NixOS 安装教程</title>
+    <link href="https://blog.askk.cc/2022/09/18/nixos-installation/"/>
+    <id>https://blog.askk.cc/2022/09/18/nixos-installation/</id>
+    <published>2022-09-18T00:34:35.000Z</published>
+    <updated>2022-09-18T07:33:09.007Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
+&lt;p&gt;与 archlinux 不同， NixOS(以下简称 Nix)因其可复现构建的特性而更加适合服务器。简单来说，在 archlinux 上，你在不同的时间构建同一个版本的软件，构建出来很可能是不一样的，而在 Nix</summary>
+        
+      
+    
+    
+    
+    <category term="linux" scheme="https://blog.askk.cc/categories/linux/"/>
+    
+    
+    <category term="nixos" scheme="https://blog.askk.cc/tags/nixos/"/>
+    
+  </entry>
   
   <entry>
     <title>使用 mitmproxy 抓包 https</title>
@@ -524,33 +550,6 @@
     <category term="Linux" scheme="https://blog.askk.cc/tags/Linux/"/>
     
     <category term="TeXLive" scheme="https://blog.askk.cc/tags/TeXLive/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>利用Oracle免费VPS 搭建Aria2+Caddy+Filebrowser 文件下载器</title>
-    <link href="https://blog.askk.cc/2020/05/07/ariaAndCaddy/"/>
-    <id>https://blog.askk.cc/2020/05/07/ariaAndCaddy/</id>
-    <published>2020-05-06T18:46:28.000Z</published>
-    <updated>2022-03-29T13:26:51.877Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;本文介绍利用甲骨文的免费VPS 搭建 Aria2+Caddy+filebrowser 的下载平台。给自己留一个备份。等到&lt;a href=&quot;https://github.com/helloxz/ccaa&quot;&gt;ccaa2.0&lt;/a&gt;版本支持caddy</summary>
-        
-      
-    
-    
-    
-    <category term="VPS" scheme="https://blog.askk.cc/categories/VPS/"/>
-    
-    
-    <category term="aria2" scheme="https://blog.askk.cc/tags/aria2/"/>
-    
-    <category term="caddy" scheme="https://blog.askk.cc/tags/caddy/"/>
     
   </entry>
   

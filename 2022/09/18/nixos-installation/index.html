@@ -1,0 +1,346 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>从零开始的 NixOS 安装教程 | sukanka 的博客</title><meta name="keywords" content="nixos"><meta name="author" content="sukanka"><meta name="copyright" content="sukanka"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言 与 archlinux 不同， NixOS(以下简称 Nix)因其可复现构建的特性而更加适合服务器。简单来说，在 archlinux 上，你在不同的时间构建同一个版本的软件，构建出来很可能是不一样的，而在 Nix 上，不同时间构建出来的同一份软件应当是二进制级别的相同，而这种特性就非常适合服务器。同时 Nix 每个包的依赖都是独立的，都放在 &#x2F;nix&#x2F;store下面的子文件夹，文件夹名称通常">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始的 NixOS 安装教程">
+<meta property="og:url" content="https://blog.askk.cc/2022/09/18/nixos-installation/index.html">
+<meta property="og:site_name" content="sukanka 的博客">
+<meta property="og:description" content="前言 与 archlinux 不同， NixOS(以下简称 Nix)因其可复现构建的特性而更加适合服务器。简单来说，在 archlinux 上，你在不同的时间构建同一个版本的软件，构建出来很可能是不一样的，而在 Nix 上，不同时间构建出来的同一份软件应当是二进制级别的相同，而这种特性就非常适合服务器。同时 Nix 每个包的依赖都是独立的，都放在 &#x2F;nix&#x2F;store下面的子文件夹，文件夹名称通常">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/c/c4/NixOS_logo.svg">
+<meta property="article:published_time" content="2022-09-18T00:34:35.000Z">
+<meta property="article:modified_time" content="2022-09-18T07:33:09.007Z">
+<meta property="article:author" content="sukanka">
+<meta property="article:tag" content="nixos">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/c/c4/NixOS_logo.svg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.askk.cc/2022/09/18/nixos-installation/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?56ae4326ed7b0c987224d1f8ff8ee3f1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-MB8GTMPF6H"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-MB8GTMPF6H');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '从零开始的 NixOS 安装教程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-18 15:33:09'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="sukanka 的博客" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://bu.dusays.com/2022/03/29/7582123dfaa71.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/c/c4/NixOS_logo.svg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">sukanka 的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">从零开始的 NixOS 安装教程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-09-18T00:34:35.000Z" title="发表于 2022-09-18 08:34:35">2022-09-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-18T07:33:09.007Z" title="更新于 2022-09-18 15:33:09">2022-09-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/linux/">linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="从零开始的 NixOS 安装教程"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言">前言</h2>
+<p>与 archlinux 不同， NixOS(以下简称 Nix)因其可复现构建的特性而更加适合服务器。简单来说，在 archlinux 上，你在不同的时间构建同一个版本的软件，构建出来很可能是不一样的，而在 Nix 上，不同时间构建出来的同一份软件<strong>应当是</strong>二进制级别的相同，而这种特性就非常适合服务器。同时 Nix 每个包的依赖都是独立的，都放在 <code>/nix/store</code>下面的子文件夹，文件夹名称通常是 对应构建的 id，不同版本的依赖直接自动链接到对应的文件。 但是 Nix 由于不支持 <a target="_blank" rel="noopener" href="https://zh.m.wikipedia.org/zh-hans/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84%E6%A0%87%E5%87%86">FHS</a> 规范，个人认为不太适合当成个人电脑的系统，个人电脑上也不需要可复现的构建（至少我作为打包者也不关心，我只要最新的，不要可复现）。还有就是 Nix 应该会在 <code>/nix/store</code> 下面存放好多个不同版本的软件（作为依赖引入嘛），所以磁盘空间会消耗得比较快（服务器上当然无所谓啦）。</p>
+<p>闲话就说到这。我之前申请了甲骨文的 ARM 免费服务器，配置为 4c24g,100G. 由于 arch 没有官方的 arm 支持，所以后来装了 Nix, 但是我还不太会 Nix, 当时是用 cloudinit 脚本一键安装的，安装完完全不会用。想要学也不知道从何开始。因为非常羡慕 <a target="_blank" rel="noopener" href="https://github.com/NickCao/flakes">NickCao</a> 把 他的 Nix 配置直接放在 github，然后服务器自己去拉取最新配置（也可能是push 的时候自动触发服务器来拉取），总之就非常的炫，管理起来也非常方便， 因而我一心想要学习 Nix 的 flake 使用。但是我完全不懂 Nix, 看了些资料也没明白我要如何开始直接用 flake, 而不是手动去维护一堆 <code>/etc/nixos/</code> 下面的文件。</p>
+<p>后来想到，我当初怎么学 archlinux 的？ 去手动安装它啊！遇到不懂的就去查手册、查wiki 呀。我决定也这样子开始学一下 Nix。因此有了这篇从零开始的 Nix 安装教程。</p>
+<h2 id="安装">安装</h2>
+<h3 id="前期准备">前期准备</h3>
+<p>我打算新建一个 qemu 虚拟机用来跑 Nix, 首先去 <a target="_blank" rel="noopener" href="https://nixos.org/download.html#nixos-iso">NixOS 下载页</a> 下载最新的 NixOS 镜像，我有 arch 的经验，因此更偏好于 minimal installation, 而且我的目的也是用在服务器上面，不需要图形界面。</p>
+<p>下载完毕之后直接进 qemu (我用 virtmanager)，新建 nixos 的虚拟机，这一步不展开说。</p>
+<h2 id="安装-2">安装</h2>
+<p>我们启动 新建好的 虚拟机，跟着<a target="_blank" rel="noopener" href="https://nixos.org/manual/nixos/stable/index.html#sec-installation">官方的安装教程</a>一步步开始走。</p>
+<p>进入 livecd 之后，默认登录的用户是 <code>nixos</code>, 我们使用 <code>sudo su</code> 来切换到 <code>root</code>. 然后检查网络是否正常，可以通过 <code>ip a</code> 查看。一般来说都是正常的，我们是通过虚拟机共享的宿主网络。</p>
+<h3 id="磁盘分区">磁盘分区</h3>
+<p>然后我们就可以开始给磁盘分区了，官方教程用的 <code>gparted</code> 我更喜欢用 <code>fdisk</code>。先用 <code>fdisk -l</code> 看下我们的虚拟磁盘叫什么名字，不出意外是叫 <code>vda</code> (我打命令的时候老是打成 <code>sda</code>)。</p>
+<p>现在我们使用 <code>fdisk</code> 对磁盘进行分区。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk /dev/vda</span><br></pre></td></tr></table></figure>
+<p>接下来在 新建一个<code>boot</code> 分区，输入 <code>n</code> (表示 new), 起始点默认，大小选择 <code>+512M</code> 然后回车。接着创建主分区，输入 <code>n</code> 然后一路回车（我们把剩下所有空间都分给它）。</p>
+<p>接着调整分区类型，输入 <code>t</code> (表示 type)，先选 <code>1</code>(这是我们的 <code>boot</code> 分区)， 然后类型输入 <code>EF</code> (表示 EFI)， 接着继续输入 <code>t</code>, 选择 <code>2</code>, 类型选择 <code>linux</code>。<br>
+更改完类型之后输入 <code>w</code> (表示 write) 然后输入 <code>q</code> 退出。</p>
+<p>我们还要格式化磁盘，首先格式化 <code>boot</code> 分区为 <code>FAT32</code> 格式。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs.fat -F 32 -n boot /dev/vda1</span><br></pre></td></tr></table></figure>
+<p>格式化主分区为你喜欢的格式(这里我选的 <code>btrfs</code>, 你也可以使用 <code>ext4</code>, 反正随便尝试嘛，我就想试试这个，我自己笔记本电脑上还是用的 <code>ext4</code>).</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs.btrfs -L nixos /dev/vda2</span><br></pre></td></tr></table></figure>
+<p>现在我们已经调整好磁盘了，开始准备 <code>chroot</code>了。</p>
+<h3 id="开始安装">开始安装</h3>
+<p>先将 主分区 <code>vda2</code> 挂载到 <code>/mnt</code> 下面</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/vda2 /mnt</span><br></pre></td></tr></table></figure>
+<p>然后在 <code>/mnt</code> 下面创建 <code>boot</code> 目录并挂载 <code>vda1</code> 到 该目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /mnt/boot</span><br><span class="line">mount /dev/vda1 /mnt/boot</span><br></pre></td></tr></table></figure>
+<p>接着就可以生成配置文件了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nixos-generate-config --root /mnt</span><br></pre></td></tr></table></figure>
+<p>我们先修改配置文件（在这一步我踩了好多坑，改了好多次配置文件才通过），你不喜欢 <code>nano</code> 的话可以用 <code>vim</code>, 我自己也使用 <code>vim</code> (不会 <code>nano</code>)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /mnt/etc/nixos/configuration.nix</span><br></pre></td></tr></table></figure>
+<p>我选择的是用 <code>grub</code> 启动，所以把 <code>grub</code> 相关的选项都启用了（删掉行首的 <code>#</code>）。值得注意的是，需要修改以下这些行</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">boot.loader.efi.<span class="attr">efiSysMountPoint</span> = <span class="string">&quot;/boot&quot;</span> <span class="comment">#这里本来是 /boot/efi</span></span><br><span class="line">boot.loader.grub.<span class="attr">device</span> = <span class="string">&quot;/dev/vda&quot;</span> <span class="comment"># 这里本来是 sda,但是我们是虚拟机，是 vda</span></span><br></pre></td></tr></table></figure>
+<p>其他的时区、键盘、网络这些我都先没有改。我下一个改的是</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">enviroment.<span class="attr">systemPackages</span> = <span class="keyword">with</span> pkgs; [</span><br><span class="line">    vim</span><br><span class="line">    wget</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<p>不然默认没有 <code>vim</code> 用，而且要记得取消掉最后那个<code>];</code> 的注释，我之前就是因为这个，安装的时候，配置文件检查始终不通过。</p>
+<p>我还启用了 OpenSSH daemon</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">services.openssh.<span class="attr">enable</span> =<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>改好了之后退出（<code>nano</code> 下面提示的 <code>^</code> 表示 <code>Ctrl</code>）</p>
+<p>最后我们就可以运行 <code>nixos-install</code> 来安装啦。如果没成功，你可以使用如下命令来看哪里有问题</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nixos-install --show-trace</span><br></pre></td></tr></table></figure>
+<p>并返回上一步去修改 <code>/mnt/etc/nixos/configuration.nix</code>，再重新执行 <code>nixos-install</code>。<br>
+成功了的话，在最后一步， <code>nixos-install</code> 会提示你设置 root 密码。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setting root password...</span><br><span class="line">New password: ***</span><br><span class="line">Retype new password: ***</span><br></pre></td></tr></table></figure>
+<p>最后执行 <code>reboot</code> 重启就装好了。</p>
+<p>装好 Nix 之后我们仍然可以继续修改 <code>/etc/nixos/configuration.nix</code> ，要切换到修改后的配置需要手动运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nixos-rebuild switch</span><br></pre></td></tr></table></figure>
+<h3 id="使用-SSH-连接">使用 SSH 连接</h3>
+<p>接着我打算采用远程 VNC 登录，毕竟我的 virtmanager 比较简陋，现在还没法从外面复制然后在虚拟机粘贴，而 remmina 可以将剪贴板通过击键的方式发送到远程（有字数限制）。<br>
+在 qemu 对应的虚拟机界面找到 VNC（如果没有先自己添加），虚拟机启动后会显示端口。<br>
+<img src="https://bu.dusays.com/2022/09/18/6326be53029dd.png" alt="VNC 端口"></p>
+<p>我们下面就可以在 remmina 中使用 VNC 通过 localhost:5901 连接到虚拟机。</p>
+<p>接着我们在 <code>configuration.nix</code> 里面添加上 ssh 公钥，之后我们就可以通过 ssh 从主机连到虚拟机了，各种复制粘贴也都可以很方便地使用了。（这里你需要自己学习生成 ssh 密钥）</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">users.users.root.openssh.authorizedKeys.<span class="attr">keys</span> = [</span><br><span class="line">    <span class="string">&quot;ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFzXaUe7Y/3ptNG+xdAf+jC7g1Z7Kj+yXdfcQKZpvsy4 sukanka&quot;</span></span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<p>现在开始我们在虚拟机里面执行 <code>ip a</code> 来查看虚拟机的 ip.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@nixos:/etc/nixos]# ip a</span><br><span class="line">...</span><br><span class="line">2: enp1s0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000</span><br><span class="line">    link/ether 52:54:00:2c:d5:fd brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.122.50/24 brd 192.168.122.255 scope global dynamic noprefixroute enp1s0</span><br><span class="line">       valid_lft 3109sec preferred_lft 2484sec</span><br><span class="line">    inet6 fe80::5054:ff:fe2c:d5fd/64 scope link</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+<p>这里这个 <code>192.168.122.50</code> 就是我们需要的 ip. 之后就可以在外部通过如下的命令连接虚拟机 (<code>~/.ssh/YOU_PRIVATE_KEY</code> 替换成你的私钥文件路径)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@192.168.122.50 -i ~/.ssh/YOU_PRIVATE_KEY</span><br></pre></td></tr></table></figure>
+<h2 id="添加-flake-支持">添加 flake 支持</h2>
+<p>首先还是按照 arch 用户的惯例，换上 unstable 源再说。在这里我也踩了个坑。<br>
+刚开始看的 <a target="_blank" rel="noopener" href="https://www.reddit.com/r/NixOS/comments/pu6zk0/comment/he1o5i8/?utm_source=share&amp;utm_medium=web2x&amp;context=3">reddit 帖子</a><br>
+添加了 unstable 源， 然后我居然把默认的 nixos 源移除了，后来 <code>nixos-rebuild switch</code> 怎么都过不了。结果看到 <a target="_blank" rel="noopener" href="https://nixos.wiki/wiki/Nix_channels">Nix-Channels</a> 上面说，必须要添加一个基础源，而且源的名字必须要是 nixos。<br>
+所以我们实际上的操作如下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nix-channel --add https://nixos.org/channels/nixos-unstable nixos</span><br></pre></td></tr></table></figure>
+<p>接着使用 <code>nix-channel --list</code> 看一下有哪些源，</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@nixos:/etc/nixos]# nix-channel  --list</span><br><span class="line">nixos https://nixos.org/channels/nixos-unstable</span><br></pre></td></tr></table></figure>
+<p>然后使用 <code>nix-channel --remove &lt;name&gt;</code> 移除你不需要的源。</p>
+<p>要启用 flake 支持，需要在 <code>configuration.nix</code> 里面添加 （实际上只要 <code>flakes</code> 那行，我当时把 <code>experimental</code> 写成了 <code>experiment</code> 导致疯狂报错）</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123; pkgs, ... &#125;: &#123;</span><br><span class="line">  nix.settings.<span class="attr">experimental-features</span> = [ <span class="string">&quot;nix-command&quot;</span> <span class="string">&quot;flakes&quot;</span> ];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后创建 <code>/etc/nixos/flake.nix</code></p>
+<h2 id="附录">附录</h2>
+<h3 id="Nix-常用命令">Nix 常用命令</h3>
+<ul>
+<li>
+<p><code>nixos-rebuild switch</code>: 修改完配置后，使配置生效</p>
+</li>
+<li>
+<p><code>nixos-rebuild test</code>: 修改完配置后，使配置生效，但是不将它设置为默认启动项</p>
+</li>
+<li>
+<p><code>nixos-rebuild boot</code>: 修改完配置后，将它设置为默认启动项,（但是要下次启动才生效，不立即生效）</p>
+</li>
+<li>
+<p><code>nixos-rebuild switch -p test</code>： 使配置立即生效并将修改完的配置加入到 <code>grub</code> 选项并命名为 <code>test</code>.</p>
+</li>
+<li>
+<p><code>nixos-rebuild build</code>： 测试配置能否通过构建（但是并不切换到该配置）</p>
+</li>
+</ul>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li>设置 unstable channel: <a target="_blank" rel="noopener" href="https://microeducate.tech/how-to-add-nixos-unstable-channel-declaratively-in-configuration-nix/">https://microeducate.tech/how-to-add-nixos-unstable-channel-declaratively-in-configuration-nix/</a></li>
+<li><a target="_blank" rel="noopener" href="https://lantian.pub/en/article/modify-website/nixos-initial-config-flake-deploy.lantian/#nix-flake">NixOS Series 2: Basic Config, Nix Flake &amp; Batch Deploy</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://blog.askk.cc">sukanka</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.askk.cc/2022/09/18/nixos-installation/">https://blog.askk.cc/2022/09/18/nixos-installation/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.askk.cc" target="_blank">sukanka 的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/nixos/">nixos</a></div><div class="post_share"><div class="social-share" data-image="https://upload.wikimedia.org/wikipedia/commons/c/c4/NixOS_logo.svg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/09/07/use-mitmproxy-to-record-https/"><img class="next-cover" src="https://bu.dusays.com/2022/03/29/2af1b8ffc9a84.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">使用 mitmproxy 抓包 https</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="lv-container" data-id="city" data-uid="MTAyMC8zNDAxNC8xMDU1Mg=="></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://bu.dusays.com/2022/03/29/7582123dfaa71.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">sukanka</div><div class="author-info__description">所有的博客都是孤芳自赏.</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/sukanka"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/sukanka" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:su975853527@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="toc-number">2.1.</span> <span class="toc-text">前期准备</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-2"><span class="toc-number">3.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA"><span class="toc-number">3.1.</span> <span class="toc-text">磁盘分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%85"><span class="toc-number">3.2.</span> <span class="toc-text">开始安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-SSH-%E8%BF%9E%E6%8E%A5"><span class="toc-number">3.3.</span> <span class="toc-text">使用 SSH 连接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0-flake-%E6%94%AF%E6%8C%81"><span class="toc-number">4.</span> <span class="toc-text">添加 flake 支持</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E5%BD%95"><span class="toc-number">5.</span> <span class="toc-text">附录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nix-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">5.1.</span> <span class="toc-text">Nix 常用命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">6.</span> <span class="toc-text">参考资料</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/09/18/nixos-installation/" title="从零开始的 NixOS 安装教程"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/NixOS_logo.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从零开始的 NixOS 安装教程"/></a><div class="content"><a class="title" href="/2022/09/18/nixos-installation/" title="从零开始的 NixOS 安装教程">从零开始的 NixOS 安装教程</a><time datetime="2022-09-18T00:34:35.000Z" title="发表于 2022-09-18 08:34:35">2022-09-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/07/use-mitmproxy-to-record-https/" title="使用 mitmproxy 抓包 https"><img src="https://bu.dusays.com/2022/03/29/2af1b8ffc9a84.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用 mitmproxy 抓包 https"/></a><div class="content"><a class="title" href="/2022/09/07/use-mitmproxy-to-record-https/" title="使用 mitmproxy 抓包 https">使用 mitmproxy 抓包 https</a><time datetime="2022-09-07T11:15:05.000Z" title="发表于 2022-09-07 19:15:05">2022-09-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/07/22/%E4%BD%BF%E7%94%A8%20wireshark%20%E6%8A%93%E5%8C%85%20svstudio/" title="使用 wireshark 抓包 svstudio"><img src="https://www.wireshark.org/assets/theme-2015/images/wireshark_logo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用 wireshark 抓包 svstudio"/></a><div class="content"><a class="title" href="/2022/07/22/%E4%BD%BF%E7%94%A8%20wireshark%20%E6%8A%93%E5%8C%85%20svstudio/" title="使用 wireshark 抓包 svstudio">使用 wireshark 抓包 svstudio</a><time datetime="2022-07-22T07:47:09.000Z" title="发表于 2022-07-22 15:47:09">2022-07-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/07/04/reinstall-arch-on-oracle/" title="重新在 Oracle VPS 上安装 archlinux"><img src="https://bu.dusays.com/2022/07/04/62c2b65d0a82c.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="重新在 Oracle VPS 上安装 archlinux"/></a><div class="content"><a class="title" href="/2022/07/04/reinstall-arch-on-oracle/" title="重新在 Oracle VPS 上安装 archlinux">重新在 Oracle VPS 上安装 archlinux</a><time datetime="2022-07-04T09:33:16.000Z" title="发表于 2022-07-04 17:33:16">2022-07-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/07/02/use-bitwarden/" title="使用 Bitwarden 管理密码"><img src="https://bu.dusays.com/2022/07/02/62c062280f495.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用 Bitwarden 管理密码"/></a><div class="content"><a class="title" href="/2022/07/02/use-bitwarden/" title="使用 Bitwarden 管理密码">使用 Bitwarden 管理密码</a><time datetime="2022-07-02T15:14:37.000Z" title="发表于 2022-07-02 23:14:37">2022-07-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By sukanka</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadLivere () {
+  if (typeof LivereTower === 'object') {
+    window.LivereTower.init()
+  }
+  else {
+    (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  }
+}
+
+if ('Livere' === 'Livere' || !true) {
+  if (true) btf.loadComment(document.getElementById('lv-container'), loadLivere)
+  else loadLivere()
+}
+else {
+  function loadOtherComment () {
+    loadLivere()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="33346913" data-server="netease" data-type="song" data-fixed="true" data-autoplay="false"> </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-MB8GTMPF6H', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
