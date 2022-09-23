@@ -6,7 +6,7 @@
   <link href="https://blog.askk.cc/atom.xml" rel="self"/>
   
   <link href="https://blog.askk.cc/"/>
-  <updated>2022-09-18T07:35:36.053Z</updated>
+  <updated>2022-09-18T08:10:49.225Z</updated>
   <id>https://blog.askk.cc/</id>
   
   <author>
@@ -17,11 +17,37 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>从零开始的 NixOS 安装教程</title>
+    <title>从零开始的 NixOS 教程（Flake篇)</title>
+    <link href="https://blog.askk.cc/2022/09/18/nix-flakes/"/>
+    <id>https://blog.askk.cc/2022/09/18/nix-flakes/</id>
+    <published>2022-09-18T07:50:48.000Z</published>
+    <updated>2022-09-18T08:10:49.225Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;安装教程见&lt;a href=&quot;https://blog.askk.cc/2022/09/18/nixos-installation/&quot;&gt;从零开始的 NixOS 教程（安装篇）&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;Nix 系列最吸引我的地方之一就在于 flake 了，我们可以把所有的</summary>
+        
+      
+    
+    
+    
+    <category term="linux" scheme="https://blog.askk.cc/categories/linux/"/>
+    
+    
+    <category term="nixos" scheme="https://blog.askk.cc/tags/nixos/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>从零开始的 NixOS 教程（安装篇）</title>
     <link href="https://blog.askk.cc/2022/09/18/nixos-installation/"/>
     <id>https://blog.askk.cc/2022/09/18/nixos-installation/</id>
     <published>2022-09-18T00:34:35.000Z</published>
-    <updated>2022-09-18T07:35:36.053Z</updated>
+    <updated>2022-09-18T07:51:59.559Z</updated>
     
     
       
@@ -522,34 +548,6 @@
     <category term="clash" scheme="https://blog.askk.cc/tags/clash/"/>
     
     <category term="AriaNg" scheme="https://blog.askk.cc/tags/AriaNg/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux 系统安装 TeXLive 之后的事</title>
-    <link href="https://blog.askk.cc/2020/05/17/texlive-postinstallation/"/>
-    <id>https://blog.askk.cc/2020/05/17/texlive-postinstallation/</id>
-    <published>2020-05-17T06:18:04.000Z</published>
-    <updated>2020-06-02T08:20:30.699Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在回到学校隔离之后觉得十分无聊，又翻了翻刘海洋老师的 《LaTeX 入门》。发现我的 TeXLive 安装得并不完整，至少字体没有被系统用上。本文大部分内容摘自《LaTeX 入门》第8页至第9页。&lt;/p&gt;
-&lt;p&gt;**Windows 系统没有必要看本文！ **</summary>
-        
-      
-    
-    
-    
-    <category term="LaTeX" scheme="https://blog.askk.cc/categories/LaTeX/"/>
-    
-    
-    <category term="Linux" scheme="https://blog.askk.cc/tags/Linux/"/>
-    
-    <category term="TeXLive" scheme="https://blog.askk.cc/tags/TeXLive/"/>
     
   </entry>
   
