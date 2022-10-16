@@ -6,7 +6,7 @@
   <link href="https://blog.askk.cc/atom.xml" rel="self"/>
   
   <link href="https://blog.askk.cc/"/>
-  <updated>2022-09-18T08:10:49.225Z</updated>
+  <updated>2022-10-16T11:18:13.489Z</updated>
   <id>https://blog.askk.cc/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从巨潮资讯爬取上市公司公告</title>
+    <link href="https://blog.askk.cc/2022/10/16/cninfo-crawler/"/>
+    <id>https://blog.askk.cc/2022/10/16/cninfo-crawler/</id>
+    <published>2022-10-16T10:18:05.000Z</published>
+    <updated>2022-10-16T11:18:13.489Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
+&lt;p&gt;最近闲着没什么事，就帮同学写了个爬取巨潮资讯上市公司公告的 python 脚本，根据公司的股票代码以及公告的日期自动下载公告( pdf 或者 html 格式)。&lt;br&gt;
+脚本开源在 &lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="python" scheme="https://blog.askk.cc/categories/python/"/>
+    
+    
+    <category term="python" scheme="https://blog.askk.cc/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>从零开始的 NixOS 教程（Flake篇)</title>
@@ -520,34 +547,6 @@
     
     
     <category term="kdeconnect" scheme="https://blog.askk.cc/tags/kdeconnect/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>为 localhost 启用 https</title>
-    <link href="https://blog.askk.cc/2020/08/03/localhost-https/"/>
-    <id>https://blog.askk.cc/2020/08/03/localhost-https/</id>
-    <published>2020-08-02T16:30:25.000Z</published>
-    <updated>2020-08-02T16:47:32.817Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1&gt;引言&lt;/h1&gt;
-&lt;p&gt;我一直使用 &lt;a href=&quot;http://ariang.mayswind.net/latest/#!/settings/ariang&quot;&gt;AriaNG&lt;/a&gt; 作为 aria2 的图形界面，同时使用 &lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="软件" scheme="https://blog.askk.cc/categories/%E8%BD%AF%E4%BB%B6/"/>
-    
-    
-    <category term="clash" scheme="https://blog.askk.cc/tags/clash/"/>
-    
-    <category term="AriaNg" scheme="https://blog.askk.cc/tags/AriaNg/"/>
     
   </entry>
   

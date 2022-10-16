@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>从巨潮资讯爬取上市公司公告</title>
+      <link href="/2022/10/16/cninfo-crawler/"/>
+      <url>/2022/10/16/cninfo-crawler/</url>
+      
+        <content type="html"><![CDATA[<h2 id="背景">背景</h2><p>最近闲着没什么事，就帮同学写了个爬取巨潮资讯上市公司公告的 python 脚本，根据公司的股票代码以及公告的日期自动下载公告( pdf 或者 html 格式)。<br>脚本开源在 <a href="https://github.com/sukanka/cninfo-crawler">cninfo-crawler</a>。</p><p>刚开始本来想用 selenium 爬的，结果搞到一半发现完全没有反爬，就直接用 requests 库了。</p><h2 id="爬取过程">爬取过程</h2><p>我们先进入<a href="http://www.cninfo.com.cn/new/index">巨潮资讯主页</a>，打开 F12 开发人员工具，再随便搜索一个公司的股票代码跟公告日期。</p><p><img src="https://bu.dusays.com/2022/10/16/634be36334042.png" alt="image-20221016185005940"></p><p>点击查询，然后关注右边开发者工具捕捉到的消息，将它们按照 <code>Type</code> 排序，我们要找的应该在 <code>xhr</code> 里面，而且方法应该是 <code>POST</code>。</p><p><img src="https://bu.dusays.com/2022/10/16/634be3eec2aa5.png" alt="image-20221016185854408"></p><p>一眼我们就发现 <code>query</code> 特别可疑，点开它看看。</p><p><img src="https://bu.dusays.com/2022/10/16/634be45e7d718.png" alt="image-20221016190046214"></p><p>先看标头 <code>POST</code> 再看载荷</p><p><img src="https://bu.dusays.com/2022/10/16/634be4827227a.png" alt="image-20221016190122109"></p><p>这个应该就是我们搜索的时候填的表单，<code>stock</code> 里面的 <code>300409</code> 就是股票代码， 但是那个 <code>9900023868</code> 是啥，不太懂。 <code>seDate</code> 就是我们查询的时间段。其他参数不用改。</p><h3 id="获取下载链接">获取下载链接</h3><p>看一下预览，很明显 <code>adjunctUrl</code> 就是下载链接了，可惜这是个相对链接，</p><p><img src="https://bu.dusays.com/2022/10/16/634be4fa0dd7c.png" alt="image-20221016190321649"></p><p>我们先点进去看一看，刚开始我尝试从 <em>公告下载</em> 捕获下载链接，但是事实证明完全没有用，后来发现可以点 <strong>全屏</strong></p><p><img src="https://bu.dusays.com/2022/10/16/634be558d267e.png" alt="image-20221016190456492"></p><p>我们点进全屏，立马就发现 chrome 已经帮我们获取到了完整链接。</p><p><img src="https://bu.dusays.com/2022/10/16/634be59af40d7.png" alt="image-20221016190602567"></p><p>因此，完整链接就是 <code>http://static.cninfo.com.cn/</code> 跟 <code>adjunctUrl</code> 拼接一下。</p><p>值得注意的是，并不是所有的文件都是 pdf,也有 html 所以如果要将下载下来的文件重命名的话，要处理下扩展名。</p><h3 id="获取-orgId">获取 orgId</h3><p>这一部分我们说明一下那个神奇的数字 <code>9900023868</code> 怎么来的，因为单用 post 请求不带它的话根本不行，而这个数字每个股票代码不一样。</p><p>注意到 这里有一个 json 文件，我们点进去预览一下，发现有个 <code>orgId</code>，它就是了。</p><p><img src="https://bu.dusays.com/2022/10/16/634be6c06fde8.png" alt="image-20221016191056092"></p><p>保险起见，我们找一下道氏技术的信息（或者搜索一个其他股票对一下）</p><p><img src="https://bu.dusays.com/2022/10/16/634be76aa46ad.png" alt="image-20221016191346392"></p><p>没错，就是这样了。</p><p>因此，所有信息我们都有了。核心的下载代码如下</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">query_url = <span class="string">&quot;http://www.cninfo.com.cn/new/hisAnnouncement/query&quot;</span></span><br><span class="line">download_url = <span class="string">&quot;http://static.cninfo.com.cn&quot;</span></span><br><span class="line"><span class="keyword">if</span> end_date == <span class="literal">None</span>:</span><br><span class="line">    end_date = start_date</span><br><span class="line">data = &#123;</span><br><span class="line">    <span class="string">&quot;pageNum&quot;</span>:    <span class="string">&quot;1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;pageSize&quot;</span>:    <span class="string">&quot;30&quot;</span>,</span><br><span class="line">    <span class="string">&quot;column&quot;</span>:    <span class="string">&quot;szse&quot;</span>,</span><br><span class="line">    <span class="string">&quot;tabName&quot;</span>:    <span class="string">&quot;fulltext&quot;</span>,</span><br><span class="line">    <span class="string">&quot;plate&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;stock&quot;</span>: <span class="string">&quot;&#123;&#125;,&#123;&#125;&quot;</span>.<span class="built_in">format</span>(stockid, org_id),</span><br><span class="line">    <span class="string">&quot;searchkey&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;secid&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;category&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;trade&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;seDate&quot;</span>: <span class="string">&quot;&#123;&#125;~&#123;&#125;&quot;</span>.<span class="built_in">format</span>(start_date, end_date),</span><br><span class="line">    <span class="string">&quot;sortName&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;sortType&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;isHLtitle&quot;</span>: <span class="string">&quot;true&quot;</span>,</span><br><span class="line">&#125;</span><br><span class="line">c = requests.post(query_url, data=data, headers=&#123;<span class="string">&#x27;user-agent&#x27;</span>: ua&#125;)</span><br></pre></td></tr></table></figure><p>其他的工作就是解析返回的json 与下载链接。本文就不再叙述了。</p><h2 id="结语">结语</h2><p>巨潮资讯还是好爬的，完全没有做任何反爬。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>从零开始的 NixOS 教程（Flake篇)</title>
       <link href="/2022/09/18/nix-flakes/"/>
       <url>/2022/09/18/nix-flakes/</url>
