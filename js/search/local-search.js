@@ -56,7 +56,7 @@ window.addEventListener('load', () => {
       const res = await response.text()
       const t = await new window.DOMParser().parseFromString(res, 'text/xml')
       const a = await t
-      data = [...a.querySelectorAll('entry')].map(item =>{
+      data = [...a.querySelectorAll('entry')].map(item => {
         return {
           title: item.querySelector('title').textContent,
           content: item.querySelector('content') && item.querySelector('content').textContent,
@@ -84,8 +84,11 @@ window.addEventListener('load', () => {
     $input.addEventListener('input', function () {
       const keywords = this.value.trim().toLowerCase().split(/[\s]+/)
       if (keywords[0] !== '') $loadingStatus.innerHTML = '<i class="fas fa-spinner fa-pulse"></i>'
+      else {
+        $resultContent.innerHTML = ''
+        return
+      }
 
-      $resultContent.innerHTML = ''
       let str = '<div class="search-result-list">'
       if (keywords.length <= 0) return
       let count = 0
@@ -150,19 +153,18 @@ window.addEventListener('load', () => {
 
               // highlight all keywords
               keywords.forEach(keyword => {
-                const regS = new RegExp(keyword, 'gi')
-                matchContent = matchContent.replace(regS, '<span class="search-keyword">' + keyword + '</span>')
-                dataTitle = dataTitle.replace(regS, '<span class="search-keyword">' + keyword + '</span>')
+                matchContent = matchContent.replaceAll(keyword, '<span class="search-keyword">' + keyword + '</span>')
+                dataTitle = dataTitle.replaceAll(keyword, '<span class="search-keyword">' + keyword + '</span>')
               })
 
-              str += '<div class="local-search__hit-item"><a href="' + dataUrl + '" class="search-result-title">' + dataTitle + '</a>'
+              str += '<div class="local-search__hit-item"><a href="' + dataUrl + '"><span class="search-result-title">' + dataTitle + '</span>'
               count += 1
 
               if (dataContent !== '') {
                 str += '<p class="search-result">' + pre + matchContent + post + '</p>'
               }
             }
-            str += '</div>'
+            str += '</a></div>'
           }
         })
         if (count === 0) {

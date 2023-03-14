@@ -6,7 +6,7 @@
   <link href="https://blog.askk.cc/atom.xml" rel="self"/>
   
   <link href="https://blog.askk.cc/"/>
-  <updated>2022-10-16T11:18:13.489Z</updated>
+  <updated>2023-03-14T12:42:58.712Z</updated>
   <id>https://blog.askk.cc/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>certbot 自动更新 DNSPOD 泛域名证书</title>
+    <link href="https://blog.askk.cc/2023/03/14/certbot-wildchar-auto-renew/"/>
+    <id>https://blog.askk.cc/2023/03/14/certbot-wildchar-auto-renew/</id>
+    <published>2023-03-14T12:23:47.000Z</published>
+    <updated>2023-03-14T12:42:58.712Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近我把服务器上的证书全换成泛域名证书了。域名比较多的话，每一个域名都要申请一份证书，虽然可以用 certbot 自动续期，但是因为不同的域名证书不一样，在写 nginx 配置的时候比较麻烦。&lt;/p&gt;
+&lt;p&gt;由于 certbot 已经支持了</summary>
+        
+      
+    
+    
+    
+    <category term="domain" scheme="https://blog.askk.cc/categories/domain/"/>
+    
+    
+    <category term="dnspod certbot" scheme="https://blog.askk.cc/tags/dnspod-certbot/"/>
+    
+  </entry>
   
   <entry>
     <title>从巨潮资讯爬取上市公司公告</title>
@@ -132,7 +158,7 @@
       
         
         
-    <summary type="html">&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
+    <summary type="html">&lt;h2 id=&quot;背景-4&quot;&gt;背景&lt;/h2&gt;
 &lt;p&gt;昨天我 AUR 上的包 &lt;a href=&quot;https://aur.archlinux.org/packages/svstudio-bin&quot;&gt;svstudio-bin&lt;/a&gt; 又被人标记过期了，说提示应用内更新，新版本为</summary>
         
       
@@ -209,7 +235,7 @@
       
         
         
-    <summary type="html">&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
+    <summary type="html">&lt;h2 id=&quot;背景-2&quot;&gt;背景&lt;/h2&gt;
 &lt;p&gt;前段时间部署了 matrix 服务器，并水了&lt;a href=&quot;https://blog.askk.cc/2022/02/28/deploy-dendrite/&quot;&gt;一篇博客&lt;/a&gt;，现在又对 mastodon</summary>
         
       
@@ -271,9 +297,9 @@
     <category term="archlinux" scheme="https://blog.askk.cc/categories/archlinux/"/>
     
     
-    <category term="vnpy" scheme="https://blog.askk.cc/tags/vnpy/"/>
-    
     <category term="python" scheme="https://blog.askk.cc/tags/python/"/>
+    
+    <category term="vnpy" scheme="https://blog.askk.cc/tags/vnpy/"/>
     
   </entry>
   
@@ -447,7 +473,7 @@
       
         
         
-    <summary type="html">&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
+    <summary type="html">&lt;h2 id=&quot;背景-3&quot;&gt;背景&lt;/h2&gt;
 &lt;p&gt;我在linux 上用 steam 通过 proton 打游戏时，游戏内无法输入中文，经过寻找，找到了这篇文章，做一个备份。&lt;/p&gt;
 &lt;h2 id=&quot;解决方案&quot;&gt;解决方案&lt;/h2&gt;
 &lt;ol&gt;
@@ -522,31 +548,6 @@
     <category term="高级微观经济学" scheme="https://blog.askk.cc/tags/%E9%AB%98%E7%BA%A7%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
     
     <category term="效用函数" scheme="https://blog.askk.cc/tags/%E6%95%88%E7%94%A8%E5%87%BD%E6%95%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>fix-kdeconnect</title>
-    <link href="https://blog.askk.cc/2020/10/23/fix-kdeconnect/"/>
-    <id>https://blog.askk.cc/2020/10/23/fix-kdeconnect/</id>
-    <published>2020-10-23T14:38:30.000Z</published>
-    <updated>2022-04-16T08:07:58.948Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;本文记录了使用 &lt;code&gt;cgproxy&lt;/code&gt; 配合 &lt;code&gt;qv2ray&lt;/code&gt; 进行透明代理时导致的 &lt;code&gt;kdeconnect&lt;/code&gt; 无法传输文件的问题的解决方案。&lt;/p&gt;
-&lt;h1&gt;系统信息&lt;/h1&gt;
-&lt;figure</summary>
-        
-      
-    
-    
-    
-    
-    <category term="kdeconnect" scheme="https://blog.askk.cc/tags/kdeconnect/"/>
     
   </entry>
   
