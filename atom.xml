@@ -6,7 +6,7 @@
   <link href="https://blog.askk.cc/atom.xml" rel="self"/>
   
   <link href="https://blog.askk.cc/"/>
-  <updated>2023-03-14T12:42:58.712Z</updated>
+  <updated>2023-05-29T09:20:49.569Z</updated>
   <id>https://blog.askk.cc/</id>
   
   <author>
@@ -17,11 +17,37 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>从零开始的 NixOS 教程（Flake篇)</title>
+    <link href="https://blog.askk.cc/2023/05/29/nix-flakes/"/>
+    <id>https://blog.askk.cc/2023/05/29/nix-flakes/</id>
+    <published>2023-05-29T07:50:48.000Z</published>
+    <updated>2023-05-29T09:20:49.569Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;想不到还有人看，本来我都弃坑了，想到有人看，又捡起来了。我的 flake 已经托管到 &lt;a href=&quot;https://github.com/sukanka/flakes&quot;&gt;github 仓库&lt;/a&gt;了，目前我还算新手，因此提交信息还比较乱。&lt;/p&gt;
+&lt;p&gt;安装教程见&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="linux" scheme="https://blog.askk.cc/categories/linux/"/>
+    
+    
+    <category term="nixos" scheme="https://blog.askk.cc/tags/nixos/"/>
+    
+  </entry>
+  
+  <entry>
     <title>certbot 自动更新 DNSPOD 泛域名证书</title>
     <link href="https://blog.askk.cc/2023/03/14/certbot-wildchar-auto-renew/"/>
     <id>https://blog.askk.cc/2023/03/14/certbot-wildchar-auto-renew/</id>
     <published>2023-03-14T12:23:47.000Z</published>
-    <updated>2023-03-14T12:42:58.712Z</updated>
+    <updated>2023-03-14T12:43:30.551Z</updated>
     
     
       
@@ -66,32 +92,6 @@
     
     
     <category term="python" scheme="https://blog.askk.cc/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>从零开始的 NixOS 教程（Flake篇)</title>
-    <link href="https://blog.askk.cc/2022/09/18/nix-flakes/"/>
-    <id>https://blog.askk.cc/2022/09/18/nix-flakes/</id>
-    <published>2022-09-18T07:50:48.000Z</published>
-    <updated>2022-09-18T08:10:49.225Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;安装教程见&lt;a href=&quot;https://blog.askk.cc/2022/09/18/nixos-installation/&quot;&gt;从零开始的 NixOS 教程（安装篇）&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;Nix 系列最吸引我的地方之一就在于 flake 了，我们可以把所有的</summary>
-        
-      
-    
-    
-    
-    <category term="linux" scheme="https://blog.askk.cc/categories/linux/"/>
-    
-    
-    <category term="nixos" scheme="https://blog.askk.cc/tags/nixos/"/>
     
   </entry>
   
