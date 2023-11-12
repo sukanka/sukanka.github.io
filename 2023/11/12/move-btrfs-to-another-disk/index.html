@@ -1,0 +1,305 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>复制 btrfs 分区到另一块硬盘 | sukanka 的博客</title><meta name="author" content="sukanka"><meta name="copyright" content="sukanka"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="双十一来了，我入手了心心念念的致钛Ti 7100 plus。 但是迟迟没有将它换到我的笔记本上，直到这周末，才终于有时间将数据迁移到新盘上面，可惜的是，我的 $HOME 已经在周五晚上的测试打包过程中被误删了，后来回滚到了今年 7 月的快照。不过幸运的是除了我以外没有其他用户被删 $HOME，咱不用被挂在耻辱柱上了。 基本思路 由于 btrfs 有子卷 (subvolume)，无法像以前 ext4">
+<meta property="og:type" content="article">
+<meta property="og:title" content="复制 btrfs 分区到另一块硬盘">
+<meta property="og:url" content="https://blog.askk.cc/2023/11/12/move-btrfs-to-another-disk/index.html">
+<meta property="og:site_name" content="sukanka 的博客">
+<meta property="og:description" content="双十一来了，我入手了心心念念的致钛Ti 7100 plus。 但是迟迟没有将它换到我的笔记本上，直到这周末，才终于有时间将数据迁移到新盘上面，可惜的是，我的 $HOME 已经在周五晚上的测试打包过程中被误删了，后来回滚到了今年 7 月的快照。不过幸运的是除了我以外没有其他用户被删 $HOME，咱不用被挂在耻辱柱上了。 基本思路 由于 btrfs 有子卷 (subvolume)，无法像以前 ext4">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg">
+<meta property="article:published_time" content="2023-11-12T12:47:00.000Z">
+<meta property="article:modified_time" content="2023-11-12T15:00:39.974Z">
+<meta property="article:author" content="sukanka">
+<meta property="article:tag" content="btrfs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.askk.cc/2023/11/12/move-btrfs-to-another-disk/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?56ae4326ed7b0c987224d1f8ff8ee3f1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-MB8GTMPF6H"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-MB8GTMPF6H');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: {"limitDay":180,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '复制 btrfs 分区到另一块硬盘',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-12 23:00:39'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="sukanka 的博客" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://bu.dusays.com/2022/03/29/7582123dfaa71.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">34</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">45</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="sukanka 的博客"><span class="site-name">sukanka 的博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">复制 btrfs 分区到另一块硬盘</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-11-12T12:47:00.000Z" title="发表于 2023-11-12 20:47:00">2023-11-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-11-12T15:00:39.974Z" title="更新于 2023-11-12 23:00:39">2023-11-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/archlinux/">archlinux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="复制 btrfs 分区到另一块硬盘"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>双十一来了，我入手了心心念念的致钛Ti 7100 plus。 但是迟迟没有将它换到我的笔记本上，直到这周末，才终于有时间将数据迁移到新盘上面，可惜的是，我的 <code>$HOME</code> 已经在周五晚上的测试打包过程中被误删了，后来回滚到了今年 7 月的快照。不过幸运的是除了我以外没有其他用户被删 <code>$HOME</code>，咱不用被挂在耻辱柱上了。</p>
+<h2 id="基本思路">基本思路</h2>
+<p>由于 btrfs 有子卷 (subvolume)，无法像以前 ext4 时候一样直接用 rsync 同步数据。但是我又不想直接全盘 <code>dd</code>。<br>
+在咨询了群友以及在谷歌后，决定使用 <code>dd</code> 来迁移数据。基本步骤是</p>
+<ol>
+<li>缩小 btrfs 所在分区</li>
+<li><code>dd</code> 缩小后的分区到新的硬盘上。</li>
+</ol>
+<h2 id="开始操作">开始操作</h2>
+<p>应某群友的要求，这一部分我尽量详细地介绍具体操作。本操作需要你的电脑具有至少两个 nvme 硬盘位。</p>
+<h3 id="拆机换硬盘">拆机换硬盘</h3>
+<ol>
+<li>电脑关机，拔掉电源。</li>
+<li>脱下毛衣等易产生静电的衣物，双手摸墙 10s 放静电</li>
+<li>用螺丝刀将电脑后盖拆开。</li>
+<li>断开电脑的内置电池。</li>
+<li>长按电源键 15s 放电。</li>
+<li>顺便清一下灰，这一步可以不做。</li>
+<li>换上新的硬盘到另一个槽位。</li>
+<li>合上后盖（轻轻合在一起即可，不要拧后盖螺丝）。</li>
+</ol>
+<h3 id="复制文件">复制文件</h3>
+<ol>
+<li>接上电源，外接 USB, 从 livecd 启动。启动后可以拔掉 U 盘。（默认 copytoram）。</li>
+<li>给新硬盘分区，分区布局与旧硬盘一样（我的是 512M EFI,其他全给 btrfs），这一步不用 mkfs。</li>
+<li>用 <code>dd</code> 拷贝旧的 EFI 分区。</li>
+<li>挂载旧硬盘的 btrfs 分区到 <code>/mnt</code></li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount <span class="regexp">/dev/</span>nvme0n1p2 /mnt</span><br></pre></td></tr></table></figure>
+<ul>
+<li>a. 查看 btrfs 分区的用量，注意两个地方，<code>Device allocated</code> 与 <code>Free</code> 的 <code>min</code>.</li>
+</ul>
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">➜  ~ btrfs filesystem usage /mnt</span></span><br><span class="line"><span class="attribute">Overall</span><span class="punctuation">:</span></span><br><span class="line">    <span class="attribute">Device size</span><span class="punctuation">:</span> <span class="string">                  1.86TiB</span></span><br><span class="line">    <span class="attribute">Device allocated</span><span class="punctuation">:</span> <span class="string">           815.02GiB</span></span><br><span class="line">    <span class="attribute">Device unallocated</span><span class="punctuation">:</span> <span class="string">           1.07TiB</span></span><br><span class="line">    <span class="attribute">Device missing</span><span class="punctuation">:</span> <span class="string">                 0.00B</span></span><br><span class="line">    <span class="attribute">Device slack</span><span class="punctuation">:</span> <span class="string">                   0.00B</span></span><br><span class="line">    <span class="attribute">Used</span><span class="punctuation">:</span> <span class="string">                       807.01GiB</span></span><br><span class="line">    <span class="attribute">Free (estimated)</span><span class="punctuation">:</span> <span class="string">             1.07TiB      (min: 548.94GiB)</span></span><br><span class="line">    <span class="attribute">Free (statfs, df)</span><span class="punctuation">:</span> <span class="string">            1.07TiB</span></span><br><span class="line">    <span class="attribute">Data ratio</span><span class="punctuation">:</span> <span class="string">                      1.00</span></span><br><span class="line">    <span class="attribute">Metadata ratio</span><span class="punctuation">:</span> <span class="string">                  2.00</span></span><br><span class="line">    <span class="attribute">Global reserve</span><span class="punctuation">:</span> <span class="string">             512.00MiB      (used: 0.00B)</span></span><br><span class="line">    <span class="attribute">Multiple profiles</span><span class="punctuation">:</span> <span class="string">                 no</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">Data,single</span><span class="punctuation">:</span> <span class="string">Size:789.01GiB, Used:786.17GiB (99.64%)</span></span><br><span class="line">   <span class="attribute">/dev/nvme0n1p2        789.01GiB</span></span><br><span class="line"><span class="attribute"></span></span><br><span class="line"><span class="attribute">Metadata,DUP</span><span class="punctuation">:</span> <span class="string">Size:13.00GiB, Used:10.42GiB (80.17%)</span></span><br><span class="line">   <span class="attribute">/dev/nvme0n1p2         26.00GiB</span></span><br><span class="line"><span class="attribute"></span></span><br><span class="line"><span class="attribute">System,DUP</span><span class="punctuation">:</span> <span class="string">Size:8.00MiB, Used:128.00KiB (1.56%)</span></span><br><span class="line">   <span class="attribute">/dev/nvme0n1p2         16.00MiB</span></span><br><span class="line"><span class="attribute"></span></span><br><span class="line"><span class="attribute">Unallocated</span><span class="punctuation">:</span></span><br><span class="line">   /dev/nvme0n1p2          1.07TiB</span><br></pre></td></tr></table></figure>
+<ul>
+<li>b. 缩小分区，我们将分区缩小比 <code>min: 548.94GiB</code> 稍微小一点的大小，比如缩小 <code>540G</code>.</li>
+</ul>
+<figure class="highlight nsis"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">btrfs <span class="keyword">file</span><span class="params">system</span> resize -<span class="number">540</span>G /mnt</span><br></pre></td></tr></table></figure>
+<p>重复上述缩小分区的过程，直到不能再缩小（或者到你认为合适的大小）。<br>
+操作完毕之后将它卸载掉</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">umount /mnt</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>开始拷贝分区。这里 <code>/dev/nvme0n1p2</code> 是旧硬盘，<code>/dev/nvme1n1p2</code> 是新硬盘。其中 <code>bs</code> 是 block size, 需要大于一个扇区的大小（通常为4k），可以设置得大一些，这样复制得快。（比如 <code>16M</code>）， <code>count</code> 是块数量，需要满足<br>
+<code>bs * count &gt;= Device size</code>，我们假设 <code>bs=16M</code>, 设备大小我们成功缩小到了 1T, 则 <code>count</code> 至少应该为 65536, 实际中应该稍微再多一些为好。</li>
+</ol>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dd <span class="attribute">if</span>=/dev/nvme0n1p2 <span class="attribute">of</span>=/dev/nvme1n1p2 <span class="attribute">status</span>=progress <span class="attribute">bs</span>=4M <span class="attribute">count</span>=XXX</span><br></pre></td></tr></table></figure>
+<p>等到跑完就拷贝完毕了。</p>
+<h3 id="重建-boot-分区">重建 boot 分区</h3>
+<p>这一步可能不是必要的，但是保险起见还是操作下。</p>
+<ol>
+<li>将新硬盘挂载上，然后 <code>chroot</code> 进去</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mount <span class="regexp">/dev/</span>nvme1n1p2 /mnt</span><br><span class="line">mount <span class="regexp">/dev/</span>nvme1n1p1 <span class="regexp">/mnt/</span>boot</span><br><span class="line">arch-chroot /mnt</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>在 <code>chroot</code> 里面 执行 <code>mkinitcpio -P</code> 重新生成引导。<br>
+注意可以不用修改 <code>fstab</code> 并重新生成 <code>grub.cfg</code></li>
+</ol>
+<h3 id="检查能否启动">检查能否启动</h3>
+<p>关机，断开电源，打开后盖，双手摸墙放静电，拔掉旧硬盘，将其他的硬盘一并插回去（比如 windows 盘）。</p>
+<p>按电源键开机，进入 BIOS, 添加启动项指向新的硬盘，<code>EFI/GRUB/grubx64.efi</code>，然后将它调到第一启动项，保存重启。应当会正常进入 linux 系统。</p>
+<p>关机，断开电源，双手摸墙放静电，长按电源键放电。然后将电池插上。按电源键开机，能正常进入系统即可。</p>
+<p>然后继续关机，把后盖合上，卡扣也扣上，螺丝拧上，插上电源，开机。</p>
+<p>教程完毕。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://blog.askk.cc">sukanka</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.askk.cc/2023/11/12/move-btrfs-to-another-disk/">https://blog.askk.cc/2023/11/12/move-btrfs-to-another-disk/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.askk.cc" target="_blank">sukanka 的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/btrfs/">btrfs</a></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/05/29/nix-flakes/" title="从零开始的 NixOS 教程（Flake篇)"><img class="cover" src="https://upload.wikimedia.org/wikipedia/commons/c/c4/NixOS_logo.svg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">从零开始的 NixOS 教程（Flake篇)</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://bu.dusays.com/2022/03/29/7582123dfaa71.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">sukanka</div><div class="author-info__description">所有的博客都是孤芳自赏.</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">34</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">45</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/sukanka"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/sukanka" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:su975853527@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF"><span class="toc-number">1.</span> <span class="toc-text">基本思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E6%93%8D%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">开始操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%86%E6%9C%BA%E6%8D%A2%E7%A1%AC%E7%9B%98"><span class="toc-number">2.1.</span> <span class="toc-text">拆机换硬盘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E6%96%87%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">复制文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%BB%BA-boot-%E5%88%86%E5%8C%BA"><span class="toc-number">2.3.</span> <span class="toc-text">重建 boot 分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E8%83%BD%E5%90%A6%E5%90%AF%E5%8A%A8"><span class="toc-number">2.4.</span> <span class="toc-text">检查能否启动</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/11/12/move-btrfs-to-another-disk/" title="复制 btrfs 分区到另一块硬盘"><img src="https://bu.dusays.com/2022/03/29/3158c71b0524f.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="复制 btrfs 分区到另一块硬盘"/></a><div class="content"><a class="title" href="/2023/11/12/move-btrfs-to-another-disk/" title="复制 btrfs 分区到另一块硬盘">复制 btrfs 分区到另一块硬盘</a><time datetime="2023-11-12T12:47:00.000Z" title="发表于 2023-11-12 20:47:00">2023-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/05/29/nix-flakes/" title="从零开始的 NixOS 教程（Flake篇)"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/NixOS_logo.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从零开始的 NixOS 教程（Flake篇)"/></a><div class="content"><a class="title" href="/2023/05/29/nix-flakes/" title="从零开始的 NixOS 教程（Flake篇)">从零开始的 NixOS 教程（Flake篇)</a><time datetime="2023-05-29T07:50:48.000Z" title="发表于 2023-05-29 15:50:48">2023-05-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/14/certbot-wildchar-auto-renew/" title="certbot 自动更新 DNSPOD 泛域名证书"><img src="https://bu.dusays.com/2022/03/29/4b31de2e005b0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="certbot 自动更新 DNSPOD 泛域名证书"/></a><div class="content"><a class="title" href="/2023/03/14/certbot-wildchar-auto-renew/" title="certbot 自动更新 DNSPOD 泛域名证书">certbot 自动更新 DNSPOD 泛域名证书</a><time datetime="2023-03-14T12:23:47.000Z" title="发表于 2023-03-14 20:23:47">2023-03-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/16/cninfo-crawler/" title="从巨潮资讯爬取上市公司公告"><img src="https://bu.dusays.com/2022/03/30/9f30699b4319f.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从巨潮资讯爬取上市公司公告"/></a><div class="content"><a class="title" href="/2022/10/16/cninfo-crawler/" title="从巨潮资讯爬取上市公司公告">从巨潮资讯爬取上市公司公告</a><time datetime="2022-10-16T10:18:05.000Z" title="发表于 2022-10-16 18:18:05">2022-10-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/18/nixos-installation/" title="从零开始的 NixOS 教程（安装篇）"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/NixOS_logo.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从零开始的 NixOS 教程（安装篇）"/></a><div class="content"><a class="title" href="/2022/09/18/nixos-installation/" title="从零开始的 NixOS 教程（安装篇）">从零开始的 NixOS 教程（安装篇）</a><time datetime="2022-09-18T00:34:35.000Z" title="发表于 2022-09-18 08:34:35">2022-09-18</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By sukanka</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><div class="aplayer no-destroy" data-id="004gGqJu0TdYh8" data-server="tencent" data-type="song" data-fixed="true" data-autoplay="false"> </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: true,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', 'G-MB8GTMPF6H', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></body></html>

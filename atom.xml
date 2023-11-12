@@ -6,7 +6,7 @@
   <link href="https://blog.askk.cc/atom.xml" rel="self"/>
   
   <link href="https://blog.askk.cc/"/>
-  <updated>2023-05-29T09:20:49.569Z</updated>
+  <updated>2023-11-12T15:00:39.974Z</updated>
   <id>https://blog.askk.cc/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>复制 btrfs 分区到另一块硬盘</title>
+    <link href="https://blog.askk.cc/2023/11/12/move-btrfs-to-another-disk/"/>
+    <id>https://blog.askk.cc/2023/11/12/move-btrfs-to-another-disk/</id>
+    <published>2023-11-12T12:47:00.000Z</published>
+    <updated>2023-11-12T15:00:39.974Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;双十一来了，我入手了心心念念的致钛Ti 7100 plus。 但是迟迟没有将它换到我的笔记本上，直到这周末，才终于有时间将数据迁移到新盘上面，可惜的是，我的 &lt;code&gt;$HOME&lt;/code&gt; 已经在周五晚上的测试打包过程中被误删了，后来回滚到了今年 7</summary>
+        
+      
+    
+    
+    
+    <category term="archlinux" scheme="https://blog.askk.cc/categories/archlinux/"/>
+    
+    
+    <category term="btrfs" scheme="https://blog.askk.cc/tags/btrfs/"/>
+    
+  </entry>
+  
+  <entry>
     <title>从零开始的 NixOS 教程（Flake篇)</title>
     <link href="https://blog.askk.cc/2023/05/29/nix-flakes/"/>
     <id>https://blog.askk.cc/2023/05/29/nix-flakes/</id>
     <published>2023-05-29T07:50:48.000Z</published>
-    <updated>2023-05-29T09:20:49.569Z</updated>
+    <updated>2023-11-10T18:46:47.467Z</updated>
     
     
       
@@ -519,35 +544,6 @@
     <category term="archlinux" scheme="https://blog.askk.cc/tags/archlinux/"/>
     
     <category term="clash" scheme="https://blog.askk.cc/tags/clash/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>高级微观总结：从支出函数到效用函数</title>
-    <link href="https://blog.askk.cc/2021/01/07/adv-micro/"/>
-    <id>https://blog.askk.cc/2021/01/07/adv-micro/</id>
-    <published>2021-01-07T11:15:43.000Z</published>
-    <updated>2022-03-29T12:27:42.537Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;这学期在学高级微观经济学，学了如何由效用函数出发得到支出函数，但一直不会反过来计算。直到期末考试复习的时候看到了如何由成本函数推导生产函数。&lt;/p&gt;
-&lt;h1&gt;从成本函数到生产函数&lt;/h1&gt;
-&lt;p&gt;假设有生产函数 &lt;span class=&quot;katex&quot;&gt;&lt;span</summary>
-        
-      
-    
-    
-    
-    <category term="经济学" scheme="https://blog.askk.cc/categories/%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
-    
-    
-    <category term="高级微观经济学" scheme="https://blog.askk.cc/tags/%E9%AB%98%E7%BA%A7%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
-    
-    <category term="效用函数" scheme="https://blog.askk.cc/tags/%E6%95%88%E7%94%A8%E5%87%BD%E6%95%B0/"/>
     
   </entry>
   
