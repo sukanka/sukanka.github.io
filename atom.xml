@@ -6,7 +6,7 @@
   <link href="https://blog.askk.cc/atom.xml" rel="self"/>
   
   <link href="https://blog.askk.cc/"/>
-  <updated>2023-11-12T15:05:44.485Z</updated>
+  <updated>2024-03-30T15:23:53.082Z</updated>
   <id>https://blog.askk.cc/</id>
   
   <author>
@@ -15,6 +15,59 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>制作自定义的 archlinux initramfs 与 rootfs</title>
+    <link href="https://blog.askk.cc/2024/03/30/custom-archlinux-initramfs-and-rootfs/"/>
+    <id>https://blog.askk.cc/2024/03/30/custom-archlinux-initramfs-and-rootfs/</id>
+    <published>2024-03-30T10:48:39.000Z</published>
+    <updated>2024-03-30T15:23:53.082Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近想做一个自定义的 archlinux pxe 启动环境，由于 pxe 走的 tftp, 因此希望 initramfs 尽量小，官方 iso 里面的 initramfs 带了一些 glibc 的动态链接库，因此体积还是比较大的。我打算基于 busybox 去做一个</summary>
+        
+      
+    
+    
+    
+    <category term="archlinux" scheme="https://blog.askk.cc/categories/archlinux/"/>
+    
+    
+    <category term="initramfs" scheme="https://blog.askk.cc/tags/initramfs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PXE 启动 archlinux</title>
+    <link href="https://blog.askk.cc/2023/12/24/archlinux-pxeboot/"/>
+    <id>https://blog.askk.cc/2023/12/24/archlinux-pxeboot/</id>
+    <published>2023-12-24T13:28:11.000Z</published>
+    <updated>2024-03-30T15:24:57.977Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;本文没有编写完成，以后也许不会更新。&lt;/p&gt;
+&lt;p&gt;最近想整个 PXE 启动的 archlinux 环境，启动之后像 archiso 一样，跑在内存里面。&lt;/p&gt;
+&lt;h2 id=&quot;实现思路&quot;&gt;实现思路&lt;/h2&gt;
+&lt;p&gt;PXE 启动 grub, 然后走 http 下载</summary>
+        
+      
+    
+    
+    
+    <category term="archlinux" scheme="https://blog.askk.cc/categories/archlinux/"/>
+    
+    
+    <category term="pxeboot" scheme="https://blog.askk.cc/tags/pxeboot/"/>
+    
+  </entry>
   
   <entry>
     <title>复制 btrfs 分区到另一块硬盘</title>
@@ -483,67 +536,6 @@
     <category term="R" scheme="https://blog.askk.cc/tags/R/"/>
     
     <category term="vscode" scheme="https://blog.askk.cc/tags/vscode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>解决 Steam pronton 游戏中无法输入中文</title>
-    <link href="https://blog.askk.cc/2021/09/06/proton-CJK/"/>
-    <id>https://blog.askk.cc/2021/09/06/proton-CJK/</id>
-    <published>2021-09-05T16:43:09.000Z</published>
-    <updated>2022-04-16T08:04:59.638Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;背景-3&quot;&gt;背景&lt;/h2&gt;
-&lt;p&gt;我在linux 上用 steam 通过 proton 打游戏时，游戏内无法输入中文，经过寻找，找到了这篇文章，做一个备份。&lt;/p&gt;
-&lt;h2 id=&quot;解决方案&quot;&gt;解决方案&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;在 steam</summary>
-        
-      
-    
-    
-    
-    <category term="archlinux" scheme="https://blog.askk.cc/categories/archlinux/"/>
-    
-    
-    <category term="steam" scheme="https://blog.askk.cc/tags/steam/"/>
-    
-    <category term="fcitx5" scheme="https://blog.askk.cc/tags/fcitx5/"/>
-    
-    <category term="Linux" scheme="https://blog.askk.cc/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在 ArchLinux 服务器上搭建 sub-web</title>
-    <link href="https://blog.askk.cc/2021/04/09/sub-web-on-archlinux/"/>
-    <id>https://blog.askk.cc/2021/04/09/sub-web-on-archlinux/</id>
-    <published>2021-04-09T06:30:54.000Z</published>
-    <updated>2022-03-29T12:14:43.128Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://github.com/CareyWang/sub-web&quot;&gt;sub-web&lt;/a&gt; 是一个基于 vue-cli 与 &lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="archlinux" scheme="https://blog.askk.cc/categories/archlinux/"/>
-    
-    
-    <category term="archlinux" scheme="https://blog.askk.cc/tags/archlinux/"/>
-    
-    <category term="clash" scheme="https://blog.askk.cc/tags/clash/"/>
     
   </entry>
   

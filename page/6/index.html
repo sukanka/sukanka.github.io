@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>sukanka 的博客 - sukanka 的博客</title><meta name="author" content="sukanka"><meta name="copyright" content="sukanka"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="所有的博客都是孤芳自赏.">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>sukanka 的博客 - sukanka 的博客</title><meta name="author" content="sukanka"><meta name="copyright" content="sukanka"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="所有的博客都是孤芳自赏.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="sukanka 的博客">
 <meta property="og:url" content="https://blog.askk.cc/page/6/index.html">
@@ -8,7 +8,7 @@
 <meta property="og:image" content="https://bu.dusays.com/2022/03/29/7582123dfaa71.png">
 <meta property="article:author" content="sukanka">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://bu.dusays.com/2022/03/29/7582123dfaa71.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.askk.cc/page/6/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+<meta name="twitter:image" content="https://bu.dusays.com/2022/03/29/7582123dfaa71.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://blog.askk.cc/page/6/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
   hm.src = "https://hm.baidu.com/hm.js?56ae4326ed7b0c987224d1f8ff8ee3f1";
@@ -19,13 +19,13 @@
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-MB8GTMPF6H');
-</script><script>const GLOBAL_CONFIG = { 
+</script><script>const GLOBAL_CONFIG = {
   root: '/',
   algolia: undefined,
-  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
   translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
   noticeOutdate: {"limitDay":180,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
   copy: {
     success: '复制成功',
     error: '复制错误',
@@ -36,7 +36,7 @@ gtag('config', 'G-MB8GTMPF6H');
     post: false
   },
   runtime: '',
-  date_suffix: {
+  dateSuffix: {
     just: '刚刚',
     min: '分钟前',
     hour: '小时前',
@@ -46,11 +46,9 @@ gtag('config', 'G-MB8GTMPF6H');
   copyright: undefined,
   lightbox: 'fancybox',
   Snackbar: undefined,
-  source: {
-    justifiedGallery: {
-      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
-    }
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
   },
   isPhotoFigcaption: false,
   islazyload: false,
@@ -58,92 +56,86 @@ gtag('config', 'G-MB8GTMPF6H');
   percent: {
     toc: true,
     rightside: false,
-  }
+  },
+  autoDarkmode: false
 }</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
   title: 'sukanka 的博客',
   isPost: false,
   isHome: true,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2023-12-03 11:10:11'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
-
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
+  postUpdate: '2024-03-30 23:25:07'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
         }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
-
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
-
-        if (!itemStr) {
-          return undefined
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
         }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
 
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
         }
-        return item.value
-      }
-    }
-  
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = url
-      if (id) link.id = id
-      link.onerror = reject
-      link.onload = link.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        link.onload = link.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(link)
-    })
-  
-      win.activateDarkMode = function () {
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
         document.documentElement.setAttribute('data-theme', 'dark')
         if (document.querySelector('meta[name="theme-color"]') !== null) {
           document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
         }
       }
-      win.activateLightMode = function () {
+      win.activateLightMode = () => {
         document.documentElement.setAttribute('data-theme', 'light')
         if (document.querySelector('meta[name="theme-color"]') !== null) {
           document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
@@ -151,9 +143,9 @@ gtag('config', 'G-MB8GTMPF6H');
       }
       const t = saveToLocal.get('theme')
     
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
-        
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
       const asideStatus = saveToLocal.get('aside-status')
       if (asideStatus !== undefined) {
         if (asideStatus === 'hide') {
@@ -163,14 +155,59 @@ gtag('config', 'G-MB8GTMPF6H');
         }
       }
     
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
       }
-    }
-    detectApple()
+      detectApple()
     })(window)</script><meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="sukanka 的博客" type="application/atom+xml">
-</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://bu.dusays.com/2022/03/29/7582123dfaa71.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">34</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">45</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('https://bu.dusays.com/2022/03/29/81f99087d4308.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="sukanka 的博客"><span class="site-name">sukanka 的博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">sukanka 的博客</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/sukanka" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:su975853527@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/2018/04/20/Fisher-and-MLE/" title="Fisher信息量学习笔记"><img class="post-bg" src="https://bu.dusays.com/2022/03/29/f158900bd55e2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Fisher信息量学习笔记"></a></div><div class="recent-post-info"><a class="article-title" href="/2018/04/20/Fisher-and-MLE/" title="Fisher信息量学习笔记">Fisher信息量学习笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-04-20T14:09:58.000Z" title="发表于 2018-04-20 22:09:58">2018-04-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><div class="content">本文记录了Fisher 信息量的两种等价计算方式.
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://bu.dusays.com/2022/03/29/7582123dfaa71.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">36</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">47</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('https://bu.dusays.com/2022/03/29/81f99087d4308.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="sukanka 的博客"><span class="site-name">sukanka 的博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">sukanka 的博客</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/sukanka" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:su975853527@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/2018/11/06/NFC%E5%88%B7%E9%97%A8%E7%A6%81/" title="NFC刷公交、地铁、门禁"><img class="post-bg" src="https://bu.dusays.com/2022/03/29/2af1b8ffc9a84.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="NFC刷公交、地铁、门禁"></a></div><div class="recent-post-info"><a class="article-title" href="/2018/11/06/NFC%E5%88%B7%E9%97%A8%E7%A6%81/" title="NFC刷公交、地铁、门禁">NFC刷公交、地铁、门禁</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-11-06T14:51:55.000Z" title="发表于 2018-11-06 22:51:55">2018-11-06</time></span></div><div class="content">前两天从锦江区坐公交回来,没有零钱,还是跟路人换零钱才回来的。之所以不办天府通是因为我之前掉过好几次公交卡了，不敢再办了，而且公交坐的不多，基本都是地铁，而地铁可以用微信。之后又在网上看到天府通开始支持NFC刷卡了。遂有了开卡的想法。还顺便搞了NFC模拟校园卡刷门禁，从此出宿舍不用带卡！
+
+前期准备
+
+
+一部有NFC功能的Android 手机；
+
+
+电信卡或者移动卡。必须是NFC-sim 卡，不是的可以去营业厅换，有的收钱，有的不收，不超过20块。
+
+
+#电信用户
+电信用户下载天府通手机app,根据提示注册应该就可以了。（PS:我不是电信用户，所以不太清楚，捂脸）
+移动用户
+移动用户无法使用天府通app,需要使用移动的和包支付，没有注册过和包支付的新用户可以先参加充10元得20的活动
+
+
+微信搜索公众号  和包， 关注第一个， 中国移动和包
+
+
+选择“热门活动”， 点击“领10元话费”
+
+
+输入手机号和验证码领优惠
+
+
+
+下载和包支付，注册和包
+
+
+绑定银行卡或者信用卡，
+
+
+
+
+点击首页的充话费，金额自定义输入20，如果领取成功的话就是10元充20话费。
+
+NFC天府通
+Androi ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2018/08/20/About-Julia/" title="在 Jupyterlab 上使用Julia"><img class="post-bg" src="https://bu.dusays.com/2022/03/30/9f30699b4319f.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="在 Jupyterlab 上使用Julia"></a></div><div class="recent-post-info"><a class="article-title" href="/2018/08/20/About-Julia/" title="在 Jupyterlab 上使用Julia">在 Jupyterlab 上使用Julia</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-08-20T11:30:49.000Z" title="发表于 2018-08-20 19:30:49">2018-08-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Julia/">Julia</a></span></div><div class="content">昨天偶然看见了Julia 的一篇介绍,介绍中有一段话使我开始对Julia 感兴趣起来
+
+一群拥有各种语言丰富编程经验的Matlab高级用户，对现有的科学计算编程工具感到不满——这些软件对自己专长的领域表现得非常棒，但在其它领域却非常糟糕。他们想要的是一个开源的软件，它要像C语言一般快速而有拥有如同Ruby的动态性；要具有Lisp般真正的同像性而又有Matlab般熟悉的数学记号；要像Python般通用、像R般在统计分析上得心应手、像Perl般自然地处理字符串、像Matlab般具有强大的线性代数运算能力、像shell般胶水语言的能力，易于学习而又不让真正的黑客感到无聊；还有，它应该是交互式的，同时又是编译型的……
+
+
+2018-11-10 更新: 增加Julia 安装PyCall而不自动装Miniconda. bilibili 有个讲julia 的视频讲得挺好的,可惜没出第二期.
+Julia 的快速、通用、还有强大的线性代数运算能力，以及熟悉的数学符号 吸引了我. （其实我以前只接触过 Matlab, Python, 还有C++, 每个还都只是半吊子）
+因此我马上就去下载了Julia 的安 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2018/04/20/Fisher-and-MLE/" title="Fisher信息量学习笔记"><img class="post-bg" src="https://bu.dusays.com/2022/03/29/f158900bd55e2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Fisher信息量学习笔记"></a></div><div class="recent-post-info"><a class="article-title" href="/2018/04/20/Fisher-and-MLE/" title="Fisher信息量学习笔记">Fisher信息量学习笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-04-20T14:09:58.000Z" title="发表于 2018-04-20 22:09:58">2018-04-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><div class="content">本文记录了Fisher 信息量的两种等价计算方式.
 
 说明
 本文积分以∫\int∫表示∫−∞+∞\int_{-\infty}^{+\infty}∫−∞+∞​ (主要原因是懒,请谅解.)
@@ -231,16 +268,16 @@ Archlinux 用户可以去 Clansty’s Archlinux Repository 下载打包好的软
 Mathematica 是由英国科学家斯蒂芬·沃尔夫勒姆提出构想，并且由他所领导的沃尔夫勒姆研究公司（位于美国伊利诺伊州香槟市）开发的一款广泛使用的科学计算软件。它拥有强大的数值计算和符号运算能力，是目前为止使用最广泛的数学软件之一。
 获取正版 Mathematica
 用盗版是迫不得已，有能力的还是去支持一下正版吧，需要 VISA 或者 MasterCard 卡。购买链接在这里 根据自己所在的行业选择不同的版本。另外 Wolfram 公司为学生和老师提供教育版软件。其中学生版低至3折，售价 $50。
-虽然点进 Students 栏，显示的是标准版 $155, 但是点击 BUY NOW 之后，你 ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/5/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#content-inner">5</a><span class="page-number current">6</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://bu.dusays.com/2022/03/29/7582123dfaa71.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">sukanka</div><div class="author-info__description">所有的博客都是孤芳自赏.</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">34</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">45</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/sukanka"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/sukanka" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:su975853527@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/11/12/move-btrfs-to-another-disk/" title="复制 btrfs 分区到另一块硬盘"><img src="https://bu.dusays.com/2022/03/29/2af1b8ffc9a84.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="复制 btrfs 分区到另一块硬盘"/></a><div class="content"><a class="title" href="/2023/11/12/move-btrfs-to-another-disk/" title="复制 btrfs 分区到另一块硬盘">复制 btrfs 分区到另一块硬盘</a><time datetime="2023-11-12T12:47:00.000Z" title="发表于 2023-11-12 20:47:00">2023-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/05/29/nix-flakes/" title="从零开始的 NixOS 教程（Flake篇)"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/NixOS_logo.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从零开始的 NixOS 教程（Flake篇)"/></a><div class="content"><a class="title" href="/2023/05/29/nix-flakes/" title="从零开始的 NixOS 教程（Flake篇)">从零开始的 NixOS 教程（Flake篇)</a><time datetime="2023-05-29T07:50:48.000Z" title="发表于 2023-05-29 15:50:48">2023-05-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/14/certbot-wildchar-auto-renew/" title="certbot 自动更新 DNSPOD 泛域名证书"><img src="https://bu.dusays.com/2022/03/29/f158900bd55e2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="certbot 自动更新 DNSPOD 泛域名证书"/></a><div class="content"><a class="title" href="/2023/03/14/certbot-wildchar-auto-renew/" title="certbot 自动更新 DNSPOD 泛域名证书">certbot 自动更新 DNSPOD 泛域名证书</a><time datetime="2023-03-14T12:23:47.000Z" title="发表于 2023-03-14 20:23:47">2023-03-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/16/cninfo-crawler/" title="从巨潮资讯爬取上市公司公告"><img src="https://bu.dusays.com/2022/03/29/4b31de2e005b0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从巨潮资讯爬取上市公司公告"/></a><div class="content"><a class="title" href="/2022/10/16/cninfo-crawler/" title="从巨潮资讯爬取上市公司公告">从巨潮资讯爬取上市公司公告</a><time datetime="2022-10-16T10:18:05.000Z" title="发表于 2022-10-16 18:18:05">2022-10-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/18/nixos-installation/" title="从零开始的 NixOS 教程（安装篇）"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/NixOS_logo.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从零开始的 NixOS 教程（安装篇）"/></a><div class="content"><a class="title" href="/2022/09/18/nixos-installation/" title="从零开始的 NixOS 教程（安装篇）">从零开始的 NixOS 教程（安装篇）</a><time datetime="2022-09-18T00:34:35.000Z" title="发表于 2022-09-18 08:34:35">2022-09-18</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+虽然点进 Students 栏，显示的是标准版 $155, 但是点击 BUY NOW 之后，你 ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/5/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#content-inner">5</a><span class="page-number current">6</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://bu.dusays.com/2022/03/29/7582123dfaa71.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">sukanka</div><div class="author-info__description">所有的博客都是孤芳自赏.</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">36</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">47</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/sukanka"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/sukanka" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:su975853527@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/03/30/custom-archlinux-initramfs-and-rootfs/" title="制作自定义的 archlinux initramfs 与 rootfs"><img src="https://bu.dusays.com/2022/03/29/2af1b8ffc9a84.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="制作自定义的 archlinux initramfs 与 rootfs"/></a><div class="content"><a class="title" href="/2024/03/30/custom-archlinux-initramfs-and-rootfs/" title="制作自定义的 archlinux initramfs 与 rootfs">制作自定义的 archlinux initramfs 与 rootfs</a><time datetime="2024-03-30T10:48:39.000Z" title="发表于 2024-03-30 18:48:39">2024-03-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/24/archlinux-pxeboot/" title="PXE 启动 archlinux"><img src="https://bu.dusays.com/2022/03/29/2af1b8ffc9a84.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PXE 启动 archlinux"/></a><div class="content"><a class="title" href="/2023/12/24/archlinux-pxeboot/" title="PXE 启动 archlinux">PXE 启动 archlinux</a><time datetime="2023-12-24T13:28:11.000Z" title="发表于 2023-12-24 21:28:11">2023-12-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/12/move-btrfs-to-another-disk/" title="复制 btrfs 分区到另一块硬盘"><img src="https://bu.dusays.com/2022/03/29/2af1b8ffc9a84.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="复制 btrfs 分区到另一块硬盘"/></a><div class="content"><a class="title" href="/2023/11/12/move-btrfs-to-another-disk/" title="复制 btrfs 分区到另一块硬盘">复制 btrfs 分区到另一块硬盘</a><time datetime="2023-11-12T12:47:00.000Z" title="发表于 2023-11-12 20:47:00">2023-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/05/29/nix-flakes/" title="从零开始的 NixOS 教程（Flake篇)"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/NixOS_logo.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从零开始的 NixOS 教程（Flake篇)"/></a><div class="content"><a class="title" href="/2023/05/29/nix-flakes/" title="从零开始的 NixOS 教程（Flake篇)">从零开始的 NixOS 教程（Flake篇)</a><time datetime="2023-05-29T07:50:48.000Z" title="发表于 2023-05-29 15:50:48">2023-05-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/14/certbot-wildchar-auto-renew/" title="certbot 自动更新 DNSPOD 泛域名证书"><img src="https://bu.dusays.com/2022/03/29/f158900bd55e2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="certbot 自动更新 DNSPOD 泛域名证书"/></a><div class="content"><a class="title" href="/2023/03/14/certbot-wildchar-auto-renew/" title="certbot 自动更新 DNSPOD 泛域名证书">certbot 自动更新 DNSPOD 泛域名证书</a><time datetime="2023-03-14T12:23:47.000Z" title="发表于 2023-03-14 20:23:47">2023-03-14</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
             <i class="fas fa-folder-open"></i>
             <span>分类</span>
             <a class="card-more-btn" href="/categories/" title="查看更多">
     <i class="fas fa-angle-right"></i></a>
             </div>
             <ul class="card-category-list" id="aside-cat-list">
-            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Julia/"><span class="card-category-list-name">Julia</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/LINGO%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"><span class="card-category-list-name">LINGO学习记录</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/LaTeX/"><span class="card-category-list-name">LaTeX</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Office/"><span class="card-category-list-name">Office</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/VPS/"><span class="card-category-list-name">VPS</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/archlinux/"><span class="card-category-list-name">archlinux</span><span class="card-category-list-count">10</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/domain/"><span class="card-category-list-name">domain</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/linux/"><span class="card-category-list-name">linux</span><span class="card-category-list-count">2</span></a></li>
-            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/TeXLive/" style="font-size: 1.1em; color: #999">TeXLive</a> <a href="/tags/Word/" style="font-size: 1.1em; color: #999">Word</a> <a href="/tags/dendrite/" style="font-size: 1.1em; color: #999">dendrite</a> <a href="/tags/VPS/" style="font-size: 1.5em; color: #99a9bf">VPS</a> <a href="/tags/caddy/" style="font-size: 1.1em; color: #999">caddy</a> <a href="/tags/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" style="font-size: 1.1em; color: #999">数理统计</a> <a href="/tags/python/" style="font-size: 1.5em; color: #99a9bf">python</a> <a href="/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/" style="font-size: 1.5em; color: #99a9bf">论文写作</a> <a href="/tags/Linux/" style="font-size: 1.5em; color: #99a9bf">Linux</a> <a href="/tags/mastodon/" style="font-size: 1.1em; color: #999">mastodon</a> <a href="/tags/nixos/" style="font-size: 1.5em; color: #99a9bf">nixos</a> <a href="/tags/AriaNg/" style="font-size: 1.1em; color: #999">AriaNg</a> <a href="/tags/vnpy/" style="font-size: 1.1em; color: #999">vnpy</a> <a href="/tags/kdeconnect/" style="font-size: 1.1em; color: #999">kdeconnect</a> <a href="/tags/aur-%E5%8A%A9%E6%89%8B/" style="font-size: 1.1em; color: #999">aur 助手</a> <a href="/tags/%E5%A4%9A%E5%85%83%E7%BB%9F%E8%AE%A1/" style="font-size: 1.1em; color: #999">多元统计</a> <a href="/tags/wireshark/" style="font-size: 1.1em; color: #999">wireshark</a> <a href="/tags/LaTeX/" style="font-size: 1.1em; color: #999">LaTeX</a> <a href="/tags/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB/" style="font-size: 1.1em; color: #999">日常生活</a> <a href="/tags/%E9%AB%98%E7%BA%A7%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6/" style="font-size: 1.1em; color: #999">高级微观经济学</a> <a href="/tags/knitr/" style="font-size: 1.1em; color: #999">knitr</a> <a href="/tags/vaultwarden/" style="font-size: 1.1em; color: #999">vaultwarden</a> <a href="/tags/btrfs/" style="font-size: 1.1em; color: #999">btrfs</a> <a href="/tags/fcitx5/" style="font-size: 1.1em; color: #999">fcitx5</a> <a href="/tags/mitmproxy/" style="font-size: 1.1em; color: #999">mitmproxy</a> <a href="/tags/VSCode/" style="font-size: 1.1em; color: #999">VSCode</a> <a href="/tags/steam/" style="font-size: 1.1em; color: #999">steam</a> <a href="/tags/aria2/" style="font-size: 1.1em; color: #999">aria2</a> <a href="/tags/%E6%95%99%E8%82%B2%E4%BC%98%E6%83%A0/" style="font-size: 1.1em; color: #999">教育优惠</a> <a href="/tags/vscode/" style="font-size: 1.1em; color: #999">vscode</a> <a href="/tags/LINGO/" style="font-size: 1.1em; color: #999">LINGO</a> <a href="/tags/R/" style="font-size: 1.1em; color: #999">R</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" style="font-size: 1.1em; color: #999">数学建模</a> <a href="/tags/Julia/" style="font-size: 1.1em; color: #999">Julia</a> <a href="/tags/AMD/" style="font-size: 1.1em; color: #999">AMD</a> <a href="/tags/%E6%96%87%E7%8C%AE%E7%AE%A1%E7%90%86/" style="font-size: 1.5em; color: #99a9bf">文献管理</a> <a href="/tags/%E6%95%88%E7%94%A8%E5%87%BD%E6%95%B0/" style="font-size: 1.1em; color: #999">效用函数</a> <a href="/tags/matrix/" style="font-size: 1.5em; color: #99a9bf">matrix</a> <a href="/tags/Zotero/" style="font-size: 1.1em; color: #999">Zotero</a> <a href="/tags/KDE/" style="font-size: 1.1em; color: #999">KDE</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
-    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/11/"><span class="card-archive-list-date">十一月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/05/"><span class="card-archive-list-date">五月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/03/"><span class="card-archive-list-date">三月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/10/"><span class="card-archive-list-date">十月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/09/"><span class="card-archive-list-date">九月 2022</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/07/"><span class="card-archive-list-date">七月 2022</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/05/"><span class="card-archive-list-date">五月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/04/"><span class="card-archive-list-date">四月 2022</span><span class="card-archive-list-count">1</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">34</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">49.3k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-12-03T03:10:10.816Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By sukanka</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>window.typedJSFn = {
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Julia/"><span class="card-category-list-name">Julia</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/LINGO%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"><span class="card-category-list-name">LINGO学习记录</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/LaTeX/"><span class="card-category-list-name">LaTeX</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Office/"><span class="card-category-list-name">Office</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/VPS/"><span class="card-category-list-name">VPS</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/archlinux/"><span class="card-category-list-name">archlinux</span><span class="card-category-list-count">12</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/domain/"><span class="card-category-list-name">domain</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/linux/"><span class="card-category-list-name">linux</span><span class="card-category-list-count">2</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/clash/" style="font-size: 1.3em; color: #99a1ac">clash</a> <a href="/tags/btrfs/" style="font-size: 1.1em; color: #999">btrfs</a> <a href="/tags/mastodon/" style="font-size: 1.1em; color: #999">mastodon</a> <a href="/tags/Zotero/" style="font-size: 1.1em; color: #999">Zotero</a> <a href="/tags/%E5%A4%9A%E5%85%83%E7%BB%9F%E8%AE%A1/" style="font-size: 1.1em; color: #999">多元统计</a> <a href="/tags/dendrite/" style="font-size: 1.1em; color: #999">dendrite</a> <a href="/tags/aria2/" style="font-size: 1.1em; color: #999">aria2</a> <a href="/tags/Julia/" style="font-size: 1.1em; color: #999">Julia</a> <a href="/tags/AMD/" style="font-size: 1.1em; color: #999">AMD</a> <a href="/tags/caddy/" style="font-size: 1.1em; color: #999">caddy</a> <a href="/tags/TeXLive/" style="font-size: 1.1em; color: #999">TeXLive</a> <a href="/tags/%E6%95%88%E7%94%A8%E5%87%BD%E6%95%B0/" style="font-size: 1.1em; color: #999">效用函数</a> <a href="/tags/VPS/" style="font-size: 1.3em; color: #99a1ac">VPS</a> <a href="/tags/LINGO/" style="font-size: 1.1em; color: #999">LINGO</a> <a href="/tags/matrix/" style="font-size: 1.3em; color: #99a1ac">matrix</a> <a href="/tags/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" style="font-size: 1.1em; color: #999">数理统计</a> <a href="/tags/steam/" style="font-size: 1.1em; color: #999">steam</a> <a href="/tags/Linux/" style="font-size: 1.3em; color: #99a1ac">Linux</a> <a href="/tags/nixos/" style="font-size: 1.3em; color: #99a1ac">nixos</a> <a href="/tags/vnpy/" style="font-size: 1.1em; color: #999">vnpy</a> <a href="/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/" style="font-size: 1.3em; color: #99a1ac">论文写作</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" style="font-size: 1.1em; color: #999">数学建模</a> <a href="/tags/KDE/" style="font-size: 1.1em; color: #999">KDE</a> <a href="/tags/Word/" style="font-size: 1.1em; color: #999">Word</a> <a href="/tags/LaTeX/" style="font-size: 1.1em; color: #999">LaTeX</a> <a href="/tags/wireshark/" style="font-size: 1.1em; color: #999">wireshark</a> <a href="/tags/archlinux/" style="font-size: 1.5em; color: #99a9bf">archlinux</a> <a href="/tags/%E6%96%87%E7%8C%AE%E7%AE%A1%E7%90%86/" style="font-size: 1.3em; color: #99a1ac">文献管理</a> <a href="/tags/vscode/" style="font-size: 1.1em; color: #999">vscode</a> <a href="/tags/knitr/" style="font-size: 1.1em; color: #999">knitr</a> <a href="/tags/bitwarden/" style="font-size: 1.3em; color: #99a1ac">bitwarden</a> <a href="/tags/python/" style="font-size: 1.3em; color: #99a1ac">python</a> <a href="/tags/aur-%E5%8A%A9%E6%89%8B/" style="font-size: 1.1em; color: #999">aur 助手</a> <a href="/tags/fcitx5/" style="font-size: 1.1em; color: #999">fcitx5</a> <a href="/tags/vaultwarden/" style="font-size: 1.1em; color: #999">vaultwarden</a> <a href="/tags/kdeconnect/" style="font-size: 1.1em; color: #999">kdeconnect</a> <a href="/tags/%E6%95%99%E8%82%B2%E4%BC%98%E6%83%A0/" style="font-size: 1.1em; color: #999">教育优惠</a> <a href="/tags/R/" style="font-size: 1.1em; color: #999">R</a> <a href="/tags/initramfs/" style="font-size: 1.1em; color: #999">initramfs</a> <a href="/tags/remote-desktop/" style="font-size: 1.1em; color: #999">remote desktop</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/03/"><span class="card-archive-list-date">三月 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/12/"><span class="card-archive-list-date">十二月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/11/"><span class="card-archive-list-date">十一月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/05/"><span class="card-archive-list-date">五月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/03/"><span class="card-archive-list-date">三月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/10/"><span class="card-archive-list-date">十月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/09/"><span class="card-archive-list-date">九月 2022</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/07/"><span class="card-archive-list-date">七月 2022</span><span class="card-archive-list-count">3</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">36</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">51.5k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-03-30T15:25:07.287Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By sukanka</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>window.typedJSFn = {
   init: (str) => {
     window.typed = new Typed('#subtitle', Object.assign({
       strings: str,
@@ -255,7 +292,7 @@ Mathematica 是由英国科学家斯蒂芬·沃尔夫勒姆提出构想，并且
       if (typeof Typed === 'function') {
         subtitleType()
       } else {
-        getScript('https://cdn.jsdelivr.net/npm/typed.js/lib/typed.min.js').then(subtitleType)
+        getScript('https://cdn.jsdelivr.net/npm/typed.js/dist/typed.umd.min.js').then(subtitleType)
       }
     } else {
       subtitleType()
@@ -266,7 +303,7 @@ Mathematica 是由英国科学家斯蒂芬·沃尔夫勒姆提出构想，并且
   if (true) {
     typedJSFn.init("嘿！进了我家的门，就是我家的人了！")
   } else {
-    document.getElementById("subtitle").innerHTML = '嘿'
+    document.getElementById("subtitle").textContent = "嘿"
   }
 }
 typedJSFn.run(subtitleType)</script></div><div class="aplayer no-destroy" data-id="004gGqJu0TdYh8" data-server="tencent" data-type="song" data-fixed="true" data-autoplay="false"> </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
@@ -281,11 +318,11 @@ var pjax = new Pjax({
 
 document.addEventListener('pjax:send', function () {
 
-  // removeEventListener scroll 
-  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
-  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
 
-  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  document.getElementById('rightside').classList.remove('rightside-show')
   
   if (window.aplayers) {
     for (let i = 0; i < window.aplayers.length; i++) {
@@ -317,7 +354,6 @@ document.addEventListener('pjax:complete', function () {
 
   GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
 
-  typeof chatBtnFn === 'function' && chatBtnFn()
   typeof panguInit === 'function' && panguInit()
 
   // google analytics
@@ -332,8 +368,8 @@ document.addEventListener('pjax:complete', function () {
   typeof Prism === 'object' && Prism.highlightAll()
 })
 
-document.addEventListener('pjax:error', (e) => {
+document.addEventListener('pjax:error', e => {
   if (e.request.status === 404) {
     pjax.loadUrl('/404.html')
   }
-})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></body></html>
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
