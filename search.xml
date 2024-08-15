@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>PKGBUILD 鲜为人知的变量</title>
+      <link href="/2024/08/15/extra-varaibles-in-PKGBUILD/"/>
+      <url>/2024/08/15/extra-varaibles-in-PKGBUILD/</url>
+      
+        <content type="html"><![CDATA[<h2 id="背景">背景</h2><p>最近在打一个软件包 <code>yade</code>, 由于软件包东西比较多，打算按照 split package 的方式去写 PKGBUILD。 计划 <code>pkgbase=yade</code>, <code>pkgname=(yade yade-cuda yade-doc)</code>。在官方仓库中这是很常见的，只要先构建本体，然后构建文档就可以了。但是这个软件包比较坑的点在于：构建文档需要先安装本体，因为它需要用本体去处理一些文件。</p><p>但是，在通过 split package 的方式打包的时候，由于它们的 <code>pkgname</code> 不一致，导致我们没法通过下面的方式去调整 <code>PATH</code> 和 <code>LD_LIBRARY_PATH</code></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$&#123;PATH&#125;</span>:<span class="hljs-variable">$&#123;pkgdir&#125;</span>/usr/bin<br><span class="hljs-built_in">export</span> LD_LIBRARY_PATH=<span class="hljs-variable">$&#123;LD_LIBRARY_PATH&#125;</span>:<span class="hljs-variable">$&#123;pkgdir&#125;</span>/usr/lib<br></code></pre></td></tr></table></figure><h2 id="一种解决方案">一种解决方案</h2><p>一种临时的办法是在 <code>build()</code> 过程中先将本体安装到一个临时的目录，比如 <code>$srcdir/tmproot</code>, 然后用这个目录来调整 <code>PATH</code> 和 <code>LD_LIBRARY_PATH</code>。（我最终是这样做的）。</p><h2 id="另一种解决方案">另一种解决方案</h2><p>不过还有另一种解决方案，可以使用 <code>pkgdirbase</code> 这个变量。在 <code>/usr/bin/makepkg</code> 中，它的定义是这样的：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pkgdirbase=<span class="hljs-string">&quot;<span class="hljs-variable">$BUILDDIR</span>/<span class="hljs-variable">$pkgbase</span>/pkg&quot;</span><br></code></pre></td></tr></table></figure><p>因此我们可以通过 <code>$&#123;pkgdirbase&#125;/yade-cuda</code> 访问到 <code>yade-cuda</code> 在 <code>package()</code> 完成之后的内容，对于 <code>yade</code> 也是一样，即可以</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$&#123;PATH&#125;</span>:<span class="hljs-variable">$&#123;pkgdirbase&#125;</span>/yade/usr/bin<br><span class="hljs-built_in">export</span> LD_LIBRARY_PATH=<span class="hljs-variable">$&#123;LD_LIBRARY_PATH&#125;</span>:<span class="hljs-variable">$&#123;pkgdirbase&#125;</span>/yade/usr/lib<br></code></pre></td></tr></table></figure><h2 id="结语">结语</h2><p>我最终还是选择了先将它安装到 <code>$&#123;srcdir&#125;</code> 下面的一个临时文件夹，而不是去用 <code>$&#123;pkgdirbase&#125;</code>（后者感觉技巧性太强，有点利用未定义行为的感觉）。<br>不过这提醒了我，后续可以去看看 <code>makepkg</code> 的源码，看看还有哪些有意思的变量可以在打包阶段用。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> archlinux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> PKGBUILD </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>制作自定义的 archlinux initramfs 与 rootfs</title>
       <link href="/2024/03/30/custom-archlinux-initramfs-and-rootfs/"/>
       <url>/2024/03/30/custom-archlinux-initramfs-and-rootfs/</url>

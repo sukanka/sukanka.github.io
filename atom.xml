@@ -6,7 +6,7 @@
   <link href="https://blog.askk.cc/atom.xml" rel="self"/>
   
   <link href="https://blog.askk.cc/"/>
-  <updated>2024-03-30T15:23:53.082Z</updated>
+  <updated>2024-08-15T15:57:58.913Z</updated>
   <id>https://blog.askk.cc/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>PKGBUILD 鲜为人知的变量</title>
+    <link href="https://blog.askk.cc/2024/08/15/extra-varaibles-in-PKGBUILD/"/>
+    <id>https://blog.askk.cc/2024/08/15/extra-varaibles-in-PKGBUILD/</id>
+    <published>2024-08-15T15:40:35.000Z</published>
+    <updated>2024-08-15T15:57:58.913Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
+&lt;p&gt;最近在打一个软件包 &lt;code&gt;yade&lt;/code&gt;, 由于软件包东西比较多，打算按照 split package 的方式去写 PKGBUILD。 计划 &lt;code&gt;pkgbase=yade&lt;/code&gt;,</summary>
+        
+      
+    
+    
+    
+    <category term="archlinux" scheme="https://blog.askk.cc/categories/archlinux/"/>
+    
+    
+    <category term="PKGBUILD" scheme="https://blog.askk.cc/tags/PKGBUILD/"/>
+    
+  </entry>
   
   <entry>
     <title>制作自定义的 archlinux initramfs 与 rootfs</title>
@@ -508,34 +534,6 @@
     
     
     <category term="多元统计" scheme="https://blog.askk.cc/tags/%E5%A4%9A%E5%85%83%E7%BB%9F%E8%AE%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在 vscode 上编写 Rnw 文档</title>
-    <link href="https://blog.askk.cc/2021/09/28/rnw-on-vscode/"/>
-    <id>https://blog.askk.cc/2021/09/28/rnw-on-vscode/</id>
-    <published>2021-09-28T02:23:05.000Z</published>
-    <updated>2021-09-28T10:31:05.870Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1&gt;引言&lt;/h1&gt;
-&lt;p&gt;最近要开始写时间序列的作业了，作业里面既有代码，又有公式，没法轻易用 LaTeX 搞定了，就回到以前用的 &lt;code&gt;R+knitr&lt;/code&gt; ，写 &lt;code&gt;rnw&lt;/code&gt; 了。以前是在 Rstudio 上面写，基本不用配置什么，但是</summary>
-        
-      
-    
-    
-    
-    
-    <category term="knitr" scheme="https://blog.askk.cc/tags/knitr/"/>
-    
-    <category term="R" scheme="https://blog.askk.cc/tags/R/"/>
-    
-    <category term="vscode" scheme="https://blog.askk.cc/tags/vscode/"/>
     
   </entry>
   
