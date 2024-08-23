@@ -287,6 +287,15 @@
 
     
     
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
   </div>
 
 
@@ -336,13 +345,13 @@
 <p>首先本地上安装一个 rustdesk, aur 的 <a target="_blank" rel="noopener" href="https://aur.archlinux.org/packages/rustdesk/">rustdesk</a> 编译不出来，因此考虑 <a target="_blank" rel="noopener" href="https://aur.archlinux.org/packages/rustdesk-bin/">rustdesk-bin</a>, 但是，我看到了 <code>taotieren</code> 认证！然后看到一堆的依赖，一个 <code>bin</code> 包的 <code>makedepends</code> 居然有 <code>gcc</code>, <code>cmake</code> <code>clang</code> 等等。搞的真的要编译什么一样。</p>
 <p>因此打算自己写一个。写好的客户端 <code>PKGBUILD</code> 参考 <a target="_blank" rel="noopener" href="https://gist.github.com/sukanka/88ddc411ea8e424dde707a800d1003c9">PKGBUILD for rustdesk</a>.</p>
 <p>包里面有自带 <code>systemd service</code>, 安装之后你可以使用如下命令启动并开启 rustdesk 的开机自启。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start rustdesk.service</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> rustdesk.service</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> systemctl start rustdesk.service<br><span class="hljs-built_in">sudo</span> systemctl <span class="hljs-built_in">enable</span> rustdesk.service<br></code></pre></td></tr></table></figure>
 <h2 id="服务器端">服务器端</h2>
 <p>目前服务器端只有一个开源的免费 Demo, 我也写了一个 <code>PKGBUILD</code>,参见 <a target="_blank" rel="noopener" href="https://gist.github.com/sukanka/b41e9a3033ef31befa51e06344f5e164">PKGBUILD for rustdesk-server-demo</a>.</p>
 <p>这个 <code>PKGBUILD</code> 在构建的时候会自动获取你的服务器的 IP 地址，并写入到 <code>systemd service</code> 文件里面，如果你不是在要用作 rustdesk server 的服务器上构建，你可以把如下行进行修改：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Environment=\&quot;IP=<span class="variable">$&#123;_ip&#125;</span>\&quot;</span><br><span class="line">Environment=你的服务器域名或者 ip 地址。</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">Environment=\&quot;IP=<span class="hljs-variable">$&#123;_ip&#125;</span>\&quot;<br>Environment=你的服务器域名或者 ip 地址。<br></code></pre></td></tr></table></figure>
 <p>在服务器端安装好 <code>rustdesk-server-demo</code> 之后，运行</p>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="keyword">start</span> rustdesk-<span class="keyword">server</span>.service</span><br><span class="line">sudo systemctl <span class="keyword">enable</span> rustdesk-<span class="keyword">server</span>.service</span><br></pre></td></tr></table></figure>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">sudo systemctl <span class="hljs-keyword">start</span> rustdesk-<span class="hljs-keyword">server</span>.service<br>sudo systemctl <span class="hljs-keyword">enable</span> rustdesk-<span class="hljs-keyword">server</span>.service<br></code></pre></td></tr></table></figure>
 <p>将 <code>rustdesk-server-demo</code> 启动并加入开机自启。</p>
 <h2 id="注意事项">注意事项</h2>
 <p>在配置好服务器端之后不要忘记了在服务器提供商处放行 rustdesk 连接的端口（或者在服务器端进行端口转发）。我这里选择直接放行端口。下面是开发者的说明，参见<a target="_blank" rel="noopener" href="https://gitee.com/rustdesk/rustdesk-server/blob/master/id-relay-set.md#%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E8%BF%90%E8%A1%8C-hbbs-%E5%92%8C-hbbr">在服务器上运行 hbbs 和 hbbr</a>.</p>
@@ -402,9 +411,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               

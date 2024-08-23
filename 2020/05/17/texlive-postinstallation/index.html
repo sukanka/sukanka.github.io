@@ -288,6 +288,15 @@
 
     
     
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
   </div>
 
 
@@ -338,16 +347,16 @@
 <ol>
 <li>
 <p>将 <code>TEXMFSYSVAR/fonts/conf/texlive-fontconfig.conf</code> 链接到 <code>/etc/fonts/conf.d/09-texlive.conf</code>。 其中 <code>TEXMFSYSVAR</code> 是一个变量，在安装时指定，我使用的是 TeXLive 2020, 安装于 <code>/opt/texlive</code>.我使用的命令为</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">ln</span> -s /opt/texlive/2020/texmf-var/fonts/conf/texlive-fontconfig.conf  /etc/fonts/conf.d/09-texlive.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> <span class="hljs-built_in">ln</span> -s /opt/texlive/2020/texmf-var/fonts/conf/texlive-fontconfig.conf  /etc/fonts/conf.d/09-texlive.conf<br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>刷新字体缓存。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo fc-cache -fsv</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> fc-cache -fsv<br></code></pre></td></tr></table></figure>
 </li>
 </ol>
 <h1>让 XeTeX 能按字体文件名找到系统字体</h1>
 <p>有时候字体的名称和字体名并不相同，字体的名称并不容易看到。但是可以通过修改 TeXLive 安装目录下的 <code>texmf.cnf</code>, 在里面修改 <code>OSFONTDIR</code> 的值， 如</p>
-<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OSFONTDIR = <span class="regexp">/usr/</span>share/fonts<span class="comment">//</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf"><span class="hljs-attribute">OSFONTDIR</span> <span class="hljs-operator">=</span> /usr/share/fonts//<br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -419,9 +428,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               

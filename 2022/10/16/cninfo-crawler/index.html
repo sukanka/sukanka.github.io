@@ -297,6 +297,15 @@
 
     
     
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
   </div>
 
 
@@ -371,9 +380,9 @@
 <p><img src="https://bu.dusays.com/2022/10/16/634be76aa46ad.png" srcset="/img/loading.gif" lazyload alt="image-20221016191346392"></p>
 <p>没错，就是这样了。</p>
 <p>因此，所有信息我们都有了。核心的下载代码如下</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">query_url = <span class="string">&quot;http://www.cninfo.com.cn/new/hisAnnouncement/query&quot;</span></span><br><span class="line">download_url = <span class="string">&quot;http://static.cninfo.com.cn&quot;</span></span><br><span class="line"><span class="keyword">if</span> end_date == <span class="literal">None</span>:</span><br><span class="line">    end_date = start_date</span><br><span class="line">data = &#123;</span><br><span class="line">    <span class="string">&quot;pageNum&quot;</span>:    <span class="string">&quot;1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;pageSize&quot;</span>:    <span class="string">&quot;30&quot;</span>,</span><br><span class="line">    <span class="string">&quot;column&quot;</span>:    <span class="string">&quot;szse&quot;</span>,</span><br><span class="line">    <span class="string">&quot;tabName&quot;</span>:    <span class="string">&quot;fulltext&quot;</span>,</span><br><span class="line">    <span class="string">&quot;plate&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;stock&quot;</span>: <span class="string">&quot;&#123;&#125;,&#123;&#125;&quot;</span>.<span class="built_in">format</span>(stockid, org_id),</span><br><span class="line">    <span class="string">&quot;searchkey&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;secid&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;category&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;trade&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;seDate&quot;</span>: <span class="string">&quot;&#123;&#125;~&#123;&#125;&quot;</span>.<span class="built_in">format</span>(start_date, end_date),</span><br><span class="line">    <span class="string">&quot;sortName&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;sortType&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;isHLtitle&quot;</span>: <span class="string">&quot;true&quot;</span>,</span><br><span class="line">&#125;</span><br><span class="line">c = requests.post(query_url, data=data, headers=&#123;<span class="string">&#x27;user-agent&#x27;</span>: ua&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python">query_url = <span class="hljs-string">&quot;http://www.cninfo.com.cn/new/hisAnnouncement/query&quot;</span><br>download_url = <span class="hljs-string">&quot;http://static.cninfo.com.cn&quot;</span><br><span class="hljs-keyword">if</span> end_date == <span class="hljs-literal">None</span>:<br>    end_date = start_date<br>data = &#123;<br>    <span class="hljs-string">&quot;pageNum&quot;</span>:    <span class="hljs-string">&quot;1&quot;</span>,<br>    <span class="hljs-string">&quot;pageSize&quot;</span>:    <span class="hljs-string">&quot;30&quot;</span>,<br>    <span class="hljs-string">&quot;column&quot;</span>:    <span class="hljs-string">&quot;szse&quot;</span>,<br>    <span class="hljs-string">&quot;tabName&quot;</span>:    <span class="hljs-string">&quot;fulltext&quot;</span>,<br>    <span class="hljs-string">&quot;plate&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-string">&quot;stock&quot;</span>: <span class="hljs-string">&quot;&#123;&#125;,&#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(stockid, org_id),<br>    <span class="hljs-string">&quot;searchkey&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-string">&quot;secid&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-string">&quot;category&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-string">&quot;trade&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-string">&quot;seDate&quot;</span>: <span class="hljs-string">&quot;&#123;&#125;~&#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(start_date, end_date),<br>    <span class="hljs-string">&quot;sortName&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-string">&quot;sortType&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-string">&quot;isHLtitle&quot;</span>: <span class="hljs-string">&quot;true&quot;</span>,<br>&#125;<br>c = requests.post(query_url, data=data, headers=&#123;<span class="hljs-string">&#x27;user-agent&#x27;</span>: ua&#125;)<br></code></pre></td></tr></table></figure>
 <p>其他的工作就是解析返回的json 与下载链接。本文就不再叙述了。</p>
-<h2 id="结语-2">结语</h2>
+<h2 id="结语">结语</h2>
 <p>巨潮资讯还是好爬的，完全没有做任何反爬。</p>
 
                 
@@ -444,9 +453,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               

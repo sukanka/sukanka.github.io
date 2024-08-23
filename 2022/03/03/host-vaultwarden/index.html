@@ -288,6 +288,15 @@
 
     
     
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
   </div>
 
 
@@ -351,28 +360,28 @@
 <p>介绍完了我们开始讲部署服务器端。</p>
 <h2 id="部署">部署</h2>
 <p>在 archlinux 上部署vaultwarden 是很方便的，直接从官方仓库安装。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S vaultwarden vaultwarden-web</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">yay -S vaultwarden vaultwarden-web<br></code></pre></td></tr></table></figure>
 <p>然后修改配置文件 <code>/etc/vaultwarden.env</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/vaultwarden.env</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> vim /etc/vaultwarden.env<br></code></pre></td></tr></table></figure>
 <p>根据自己的喜好修改即可。重要的是 <code>ADMIN_TOKEN</code>,这是你登录 web 管理员面板时候的密码。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Token for the admin interface, preferably use a long random string</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># One option is to use &#x27;openssl rand -base64 48&#x27;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># If not set, the admin panel is disabled</span></span></span><br><span class="line">ADMIN_TOKEN=YOUR_ADMIN_TOKEN</span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment">## Token for the admin interface, preferably use a long random string</span><br><span class="hljs-comment">## One option is to use &#x27;openssl rand -base64 48&#x27;</span><br><span class="hljs-comment">## If not set, the admin panel is disabled</span><br><span class="hljs-attr">ADMIN_TOKEN</span>=YOUR_ADMIN_TOKEN<br></code></pre></td></tr></table></figure>
 <p>注意， web 的部分也要改，通过取消注释的方式改成如下样子（使用 <code>vaultwarden-web</code> )。</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Web vault settings</span></span><br><span class="line"><span class="attr">WEB_VAULT_FOLDER</span>=/usr/share/webapps/vaultwarden-web</span><br><span class="line"><span class="attr">WEB_VAULT_ENABLED</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment">## Web vault settings</span><br><span class="hljs-attr">WEB_VAULT_FOLDER</span>=/usr/share/webapps/vaultwarden-web<br><span class="hljs-attr">WEB_VAULT_ENABLED</span>=<span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
 <p>还有其他部分也要改，这里我放一下我改好的，大家可以参照着改。</p>
 <p>这里附一份我的配置,通过 <code>cat /etc/vaultwarden.env |grep -E '^[^#]'</code> 产生（即取消了注释的行）。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">DATA_FOLDER=/var/lib/vaultwarden</span><br><span class="line">WEB_VAULT_FOLDER=/usr/share/webapps/vaultwarden-web</span><br><span class="line">WEB_VAULT_ENABLED=<span class="literal">true</span></span><br><span class="line">WEBSOCKET_ENABLED=<span class="literal">true</span></span><br><span class="line">WEBSOCKET_ADDRESS=0.0.0.0</span><br><span class="line">WEBSOCKET_PORT=3012</span><br><span class="line">SENDS_ALLOWED=<span class="literal">true</span></span><br><span class="line">EMERGENCY_ACCESS_ALLOWED=<span class="literal">true</span></span><br><span class="line">ICON_SERVICE=bitwarden</span><br><span class="line">ICON_REDIRECT_CODE=301</span><br><span class="line">ICON_BLACKLIST_REGEX=<span class="string">&#x27;^(192\.168\.0\.[0-9]+|192\.168\.1\.[0-9]+)$&#x27;</span></span><br><span class="line">ICON_BLACKLIST_NON_GLOBAL_IPS=<span class="literal">true</span></span><br><span class="line">SIGNUPS_ALLOWED=<span class="literal">true</span></span><br><span class="line">ADMIN_TOKEN=YOUR_ADMIN_TOKEN</span><br><span class="line">DOMAIN=https://YOUR_DOMAIN</span><br><span class="line">AUTHENTICATOR_DISABLE_TIME_DRIFT=<span class="literal">true</span></span><br><span class="line">ROCKET_LIMITS=&#123;json=10485760&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash">DATA_FOLDER=/var/lib/vaultwarden<br>WEB_VAULT_FOLDER=/usr/share/webapps/vaultwarden-web<br>WEB_VAULT_ENABLED=<span class="hljs-literal">true</span><br>WEBSOCKET_ENABLED=<span class="hljs-literal">true</span><br>WEBSOCKET_ADDRESS=0.0.0.0<br>WEBSOCKET_PORT=3012<br>SENDS_ALLOWED=<span class="hljs-literal">true</span><br>EMERGENCY_ACCESS_ALLOWED=<span class="hljs-literal">true</span><br>ICON_SERVICE=bitwarden<br>ICON_REDIRECT_CODE=301<br>ICON_BLACKLIST_REGEX=<span class="hljs-string">&#x27;^(192\.168\.0\.[0-9]+|192\.168\.1\.[0-9]+)$&#x27;</span><br>ICON_BLACKLIST_NON_GLOBAL_IPS=<span class="hljs-literal">true</span><br>SIGNUPS_ALLOWED=<span class="hljs-literal">true</span><br>ADMIN_TOKEN=YOUR_ADMIN_TOKEN<br>DOMAIN=https://YOUR_DOMAIN<br>AUTHENTICATOR_DISABLE_TIME_DRIFT=<span class="hljs-literal">true</span><br>ROCKET_LIMITS=&#123;json=10485760&#125;<br></code></pre></td></tr></table></figure>
 <p>然后启动它并加入开机自启，再看一下是否启动成功</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> --now vaultwarden</span><br><span class="line">systemctl status vaultwarden</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> systemctl <span class="hljs-built_in">enable</span> --now vaultwarden<br>systemctl status vaultwarden<br></code></pre></td></tr></table></figure>
 <p>如果显示 <code>running</code> 就说明跑起来了。</p>
 <p>我们还需要配置一个 反向代理，以便使用 web 面板，这里以 nginx 为例，可以参考官方 wiki  <a target="_blank" rel="noopener" href="https://github.com/dani-garcia/vaultwarden/wiki/Proxy-examples">Proxy examples</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/nginx/conf.d/vaultwarden.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> vim /etc/nginx/conf.d/vaultwarden.conf<br></code></pre></td></tr></table></figure>
 <p>配置内容直接抄官方教程，我抄的 <code>Nginx (by blackdex)</code>, 记得把 <code>&lt;SERVER&gt;</code> 改为你的服务器地址，我使用的 <code>localhost</code>， 然后把 <code>server_name</code> 那里</p>
 <p><code>vault.*</code> 替换为你准备提供服务的域名。 <code>auth_basic</code>那两行我不需要，直接注释掉。在 archlinux 上 vaultwarde 用的端口是 8000, 记得改一下。</p>
 <p>然后，给域名申请证书</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo certbot</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> certbot<br></code></pre></td></tr></table></figure>
 <p>选择你的域名序号，回车。</p>
 <p>最后重启 <code>nginx</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart nginx</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> systemctl restart nginx<br></code></pre></td></tr></table></figure>
 <p>到这里，我们就已经部署好啦。</p>
 <p>可以访问 <code>https://YOUR_SERVER_NAME/admin</code> 进入管理员面板。在里面进行一些高级配置。（记得把 <code>YOUR_SERVER_NAME</code> 替换为你的域名）。</p>
 <p>你需要使用你在配置文件里面写的密码。</p>
@@ -431,9 +440,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               

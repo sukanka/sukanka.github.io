@@ -301,6 +301,15 @@
 
     
     
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
   </div>
 
 
@@ -357,7 +366,7 @@
 <p>编译链配置可以参考 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/38178015">使用VSCode编写LaTeX</a>。</p>
 <p>在实际中经常用到的编译工具主要有编译文档的pdflatex, xelatex 和编译bib文件的 bibtex 和bier。 如果把各种常用情形都考虑在内至少需要6种编译链。实际上，在tex 文档设置好了编译工具之后，可以通过快捷键编译而不需要手动选择编译链。</p>
 <p>在你的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>TeX</mtext></mrow><annotation encoding="application/x-tex">\TeX</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span> 主文件的最开头设置好编译工具，如下面的命令指定了使用 xelatex 来编译文档，biber 来编译bib文件，然后在 tex 文档中使用 快捷键调起 <code>TeXMagicProgramWithArgs</code> 就可以编译。</p>
-<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">%!TEX program = xelatex</span></span><br><span class="line"><span class="meta">%!BIB program = biber</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-meta">%!TEX program = xelatex</span><br><span class="hljs-meta">%!BIB program = biber</span><br></code></pre></td></tr></table></figure>
 <p><img src="https://bu.dusays.com/2022/04/16/bebe513fc0646.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p>下面是我常用的一些快捷方式</p>
 <ul>
@@ -366,7 +375,7 @@
 <li>逆向跳转（pdf 到 tex): Ctrl+Click</li>
 </ul>
 <p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>LaTeX</mtext></mrow><annotation encoding="application/x-tex">\LaTeX</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">L</span><span class="mspace" style="margin-right:-0.36em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6833em;"><span style="top:-2.905em;"><span class="pstrut" style="height:2.7em;"></span><span class="mord"><span class="mord textrm mtight sizing reset-size6 size3">A</span></span></span></span></span></span><span class="mspace" style="margin-right:-0.15em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span></span>-WorkShop 插件还提供了各种各样的代码片段，例如可以使用 <code>\equation</code> 产生</p>
-<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">\begin</span>&#123;equation&#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">\end</span>&#123;equation&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-keyword">\begin</span>&#123;equation&#125;<br>    <br><span class="hljs-keyword">\end</span>&#123;equation&#125;<br></code></pre></td></tr></table></figure>
 <p>此外还有 <code>\figure</code> 等代码片段用于插入图片。插入表格虽然有 <code>\table</code> 代码片段但是仍然比较麻烦，推荐先在 Excel 做好表格，然后使用 <a target="_blank" rel="noopener" href="https://github.com/krlmlr/Excel2LaTeX">Excel2LaTeX</a> 或者 <a target="_blank" rel="noopener" href="https://www.tablesgenerator.com/latex_tables">LaTeX Tables Generator 网站</a>将Excel 表格转换成 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>LaTeX</mtext></mrow><annotation encoding="application/x-tex">\LaTeX</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8988em;vertical-align:-0.2155em;"></span><span class="mord text"><span class="mord textrm">L</span><span class="mspace" style="margin-right:-0.36em;"></span><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6833em;"><span style="top:-2.905em;"><span class="pstrut" style="height:2.7em;"></span><span class="mord"><span class="mord textrm mtight sizing reset-size6 size3">A</span></span></span></span></span></span><span class="mspace" style="margin-right:-0.15em;"></span><span class="mord text"><span class="mord textrm">T</span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.4678em;"><span style="top:-2.7845em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord textrm">E</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2155em;"><span></span></span></span></span><span class="mspace" style="margin-right:-0.125em;"></span><span class="mord textrm">X</span></span></span></span></span></span> 表格并粘贴。</p>
 <p><img src="https://bu.dusays.com/2022/04/16/dcd62af2d0201.gif" srcset="/img/loading.gif" lazyload alt=""></p>
 <h3 id="其他插件">其他插件</h3>
@@ -377,7 +386,7 @@
 <h2 id="格式化代码">格式化代码</h2>
 <p><strong>这部分仅适用于 ArchLinux!</strong> 其他系统仅作参考。</p>
 <p>为了格式化代码，我们需要安装以下插件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yay -S perl-log-log4perl perl-log-dispatch perl-namespace-autoclean \</span><br><span class="line">perl-specio perl-eval-closure perl-params-validationcompiler \</span><br><span class="line">perl-yaml-tiny perl-file-homedir perl-unicode-linebreak</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">yay -S perl-log-log4perl perl-log-dispatch perl-namespace-autoclean \<br>perl-specio perl-eval-closure perl-params-validationcompiler \<br>perl-yaml-tiny perl-file-homedir perl-unicode-linebreak<br></code></pre></td></tr></table></figure>
 <p>然后才能成功格式化代码。</p>
 <h1>Zotero</h1>
 <p><strong>Zotero</strong> <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Help:%E8%8B%B1%E8%AA%9E%E5%9C%8B%E9%9A%9B%E9%9F%B3%E6%A8%99">/zoʊˈtɛroʊ/</a>是一款<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%87%AA%E7%94%B1%E5%8F%8A%E5%BC%80%E6%94%BE%E6%BA%90%E4%BB%A3%E7%A0%81%E8%BD%AF%E4%BB%B6">自由及开放源代码</a>的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%96%87%E7%8C%AE%E7%AE%A1%E7%90%86%E8%BD%AF%E4%BB%B6">文献管理软件</a>，管理书目信息（如作者、标题、出版社、摘要、阅读笔记等）及相关材料（如<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/PDF">PDF</a>文件等)。其最著名的特性是作为浏览器插件、在线同步、与文档编辑软件如<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Microsoft_Word">Microsoft Word</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/LibreOffice">LibreOffice</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/OpenOffice.org_Writer">OpenOffice.org Writer</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/NeoOffice">NeoOffice</a>等集成，可生成<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/w/index.php?title=%E6%96%87%E5%86%85%E5%BC%95%E7%94%A8&amp;action=edit&amp;redlink=1">文内引用</a>、生成页面脚注或文后的参考文献（bibliographies）。</p>
@@ -487,9 +496,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               

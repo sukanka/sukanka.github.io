@@ -290,6 +290,15 @@
 
     
     
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
   </div>
 
 
@@ -350,22 +359,22 @@
 <li>复制得到的路径，先粘贴到记事本备用，将<code>\</code>改为<code>\\</code>，得到``C:\ProgramData\Anaconda3\Scripts\jupyter.exe`（<s>我用的是notepad++</s>）</li>
 <li>打开 Julia,输入以下代码</li>
 </ol>
-<figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Pkg <span class="comment">#Julia 下的包管理器，类似于python的pip</span></span><br><span class="line"><span class="literal">ENV</span>[<span class="string">&quot;JUPYTER&quot;</span>]=<span class="string">&quot;C:\\ProgramData\\Anaconda3\\Scripts\\jupyter&quot;</span> </span><br><span class="line"><span class="comment"># 刚刚得到的jupyter 路径，注意是\\,注意没有.exe</span></span><br><span class="line"><span class="comment"># 如果你将jupyter 加入到了系统路径，那么输入 ENV[&quot;JUPYTER&quot;]=&quot;jupyter&quot; 也可以</span></span><br><span class="line">Pkg.add(<span class="string">&quot;IJulia&quot;</span>)</span><br><span class="line">Pkg.build(<span class="string">&quot;IJulia&quot;</span>)</span><br><span class="line"><span class="keyword">using</span> IJulia</span><br><span class="line">notebook()</span><br></pre></td></tr></table></figure>
+<figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs Julia"><span class="hljs-keyword">import</span> Pkg <span class="hljs-comment">#Julia 下的包管理器，类似于python的pip</span><br><span class="hljs-literal">ENV</span>[<span class="hljs-string">&quot;JUPYTER&quot;</span>]=<span class="hljs-string">&quot;C:\\ProgramData\\Anaconda3\\Scripts\\jupyter&quot;</span> <br><span class="hljs-comment"># 刚刚得到的jupyter 路径，注意是\\,注意没有.exe</span><br><span class="hljs-comment"># 如果你将jupyter 加入到了系统路径，那么输入 ENV[&quot;JUPYTER&quot;]=&quot;jupyter&quot; 也可以</span><br>Pkg.add(<span class="hljs-string">&quot;IJulia&quot;</span>)<br>Pkg.build(<span class="hljs-string">&quot;IJulia&quot;</span>)<br><span class="hljs-keyword">using</span> IJulia<br>notebook()<br></code></pre></td></tr></table></figure>
 <p>我按照上面的步骤弄好之后，进入到了jupyter 界面，新建一个Julia文档， 然后输入一个简单的计算<code>1+1</code> 结果一直没有反馈。当然，用jupyter lab 也不行，即使是kernel idle 状态也不能。</p>
 <p><img src="https://bu.dusays.com/2022/04/16/a3d9880db2cc1.png" srcset="/img/loading.gif" lazyload alt="jupyter notebook"></p>
 <p>本着不服输的精神，我又开始疯狂搜索相关的提问，终于在Ijulia 的 issue里面找到了解决方案，原链接在<a target="_blank" rel="noopener" href="https://github.com/JuliaLang/IJulia.jl/issues/693">这里</a></p>
 <p>具体的做法是：</p>
-<figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">julia&gt; <span class="keyword">import</span> Pkg</span><br><span class="line">(v1<span class="number">.0</span>) pkg&gt; add IJulia</span><br><span class="line">julia&gt; <span class="literal">ENV</span>[<span class="string">&quot;IJULIA_DEBUG&quot;</span>] = <span class="literal">true</span> </span><br><span class="line">(v1<span class="number">.0</span>) pkg&gt; dev IJulia </span><br><span class="line">(v1<span class="number">.0</span>) pkg&gt; build IJulia</span><br></pre></td></tr></table></figure>
+<figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Julia">julia&gt; <span class="hljs-keyword">import</span> Pkg<br>(v1<span class="hljs-number">.0</span>) pkg&gt; add IJulia<br>julia&gt; <span class="hljs-literal">ENV</span>[<span class="hljs-string">&quot;IJULIA_DEBUG&quot;</span>] = <span class="hljs-literal">true</span> <br>(v1<span class="hljs-number">.0</span>) pkg&gt; dev IJulia <br>(v1<span class="hljs-number">.0</span>) pkg&gt; build IJulia<br></code></pre></td></tr></table></figure>
 <p>其中，在julia 的console 里面按<code>]</code>即可切换到 <code>(v1.0) pkg&gt;</code>,再按backspace 键即可切换回 <code>julia&gt;</code></p>
 <p>最后输入</p>
-<figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> IJulia</span><br><span class="line">notebook()</span><br></pre></td></tr></table></figure>
+<figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Julia"><span class="hljs-keyword">using</span> IJulia<br>notebook()<br></code></pre></td></tr></table></figure>
 <p>即可， 此后就可以通过powershell 直接输入 <code>jupyter lab</code> 打开jupyterlab 了, 并且可以正常使用julia 的功能。</p>
 <p><img src="https://bu.dusays.com/2022/04/16/4753c19e78102.png" srcset="/img/loading.gif" lazyload alt="julia in jupyterlab"></p>
 <p>Julia 还可以调用Python, 这可以通过PyCall 库来实现,如果直接</p>
-<figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> Pkg</span><br><span class="line">Pkg.add(<span class="string">&quot;PyCall&quot;</span>)</span><br><span class="line">Pkg.build(<span class="string">&quot;PyCall&quot;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Julia"><span class="hljs-keyword">using</span> Pkg<br>Pkg.add(<span class="hljs-string">&quot;PyCall&quot;</span>)<br>Pkg.build(<span class="hljs-string">&quot;PyCall&quot;</span>)<br></code></pre></td></tr></table></figure>
 <p>会安装一个MiniConda, 但是我已经有Anaconda 了,不需要miniconda</p>
 <p>因此只需要事先指定python的路径就好了,查询python 路径得方法和查询jupyter 得方法是一样的.</p>
-<figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">ENV</span>[<span class="string">&quot;PYTHON&quot;</span>]=<span class="string">&quot;C:\\ProgramData\\Anaconda3\\python&quot;</span></span><br><span class="line"><span class="keyword">using</span> Pkg</span><br><span class="line">Pkg.add(<span class="string">&quot;PyCall&quot;</span>)</span><br><span class="line">Pkg.build(<span class="string">&quot;PyCall&quot;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Julia"><span class="hljs-literal">ENV</span>[<span class="hljs-string">&quot;PYTHON&quot;</span>]=<span class="hljs-string">&quot;C:\\ProgramData\\Anaconda3\\python&quot;</span><br><span class="hljs-keyword">using</span> Pkg<br>Pkg.add(<span class="hljs-string">&quot;PyCall&quot;</span>)<br>Pkg.build(<span class="hljs-string">&quot;PyCall&quot;</span>)<br></code></pre></td></tr></table></figure>
 <p>这样就不会安装miniconda了.</p>
 <p>最后，希望我能 <s>学好Julia</s> 坚持学得久一点</p>
 
@@ -437,9 +446,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               

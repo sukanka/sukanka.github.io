@@ -6,7 +6,7 @@
   <link href="https://blog.askk.cc/atom.xml" rel="self"/>
   
   <link href="https://blog.askk.cc/"/>
-  <updated>2024-08-15T16:00:13.256Z</updated>
+  <updated>2024-08-23T14:43:53.211Z</updated>
   <id>https://blog.askk.cc/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在 vscode 为 leetcode 开启 rust 代码提示</title>
+    <link href="https://blog.askk.cc/2024/08/23/write-rust-in-vscode-leetcode/"/>
+    <id>https://blog.askk.cc/2024/08/23/write-rust-in-vscode-leetcode/</id>
+    <published>2024-08-23T14:15:54.000Z</published>
+    <updated>2024-08-23T14:43:53.211Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近突然又想刷一些 leetcode 题目了，顺便再练一练 rust，好久不写代码已经手生了。之前在 vscode 的 leetcode 插件刷 rust 题目时，基本没有代码提示与补全，很难受。今天搜到一篇解决这个问题的&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="leetcode" scheme="https://blog.askk.cc/categories/leetcode/"/>
+    
+    
+    <category term="rust" scheme="https://blog.askk.cc/tags/rust/"/>
+    
+  </entry>
   
   <entry>
     <title>PKGBUILD 中鲜为人知的变量</title>
@@ -262,7 +287,7 @@
       
         
         
-    <summary type="html">&lt;h2 id=&quot;背景-4&quot;&gt;背景&lt;/h2&gt;
+    <summary type="html">&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
 &lt;p&gt;昨天我 AUR 上的包 &lt;a href=&quot;https://aur.archlinux.org/packages/svstudio-bin&quot;&gt;svstudio-bin&lt;/a&gt; 又被人标记过期了，说提示应用内更新，新版本为</summary>
         
       
@@ -332,14 +357,14 @@
     <link href="https://blog.askk.cc/2022/05/05/mastodon-and-matrix-under-same-domain/"/>
     <id>https://blog.askk.cc/2022/05/05/mastodon-and-matrix-under-same-domain/</id>
     <published>2022-05-05T14:08:37.000Z</published>
-    <updated>2022-07-05T11:42:57.397Z</updated>
+    <updated>2024-08-23T14:49:55.808Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;背景-2&quot;&gt;背景&lt;/h2&gt;
+    <summary type="html">&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
 &lt;p&gt;前段时间部署了 matrix 服务器，并水了&lt;a href=&quot;https://blog.askk.cc/2022/02/28/deploy-dendrite/&quot;&gt;一篇博客&lt;/a&gt;，现在又对 mastodon</summary>
         
       
@@ -509,31 +534,6 @@
     
     
     <category term="remote desktop" scheme="https://blog.askk.cc/tags/remote-desktop/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>多元正态的条件分布与 Hotelling&#39;s T square 统计量</title>
-    <link href="https://blog.askk.cc/2021/10/28/multivariate%20normal%20and%20hotelling&#39;s%20T%20square/"/>
-    <id>https://blog.askk.cc/2021/10/28/multivariate%20normal%20and%20hotelling&#39;s%20T%20square/</id>
-    <published>2021-10-28T01:45:36.000Z</published>
-    <updated>2022-03-29T12:29:20.921Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;这篇文章来源于一次作业，本文介绍了多元正态的条件分布，介绍了 Hotelling’s &lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math</summary>
-        
-      
-    
-    
-    
-    <category term="统计" scheme="https://blog.askk.cc/categories/%E7%BB%9F%E8%AE%A1/"/>
-    
-    
-    <category term="多元统计" scheme="https://blog.askk.cc/tags/%E5%A4%9A%E5%85%83%E7%BB%9F%E8%AE%A1/"/>
     
   </entry>
   

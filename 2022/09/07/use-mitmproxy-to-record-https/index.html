@@ -269,7 +269,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          790 字
+          789 字
         
       </span>
     
@@ -286,6 +286,15 @@
     
 
     
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
     
   </div>
 
@@ -331,37 +340,37 @@
               <div class="markdown-body">
                 
                 <p>这一次是要抓腾讯会议的包，前段时间有人在 AUR 给我维护的 <a target="_blank" rel="noopener" href="https://aur.archlinux.org/packages/wemeet-bin">wemeet-bin</a> 标记了过期，并提供了新的版本号，但是，腾讯会议的下载链接不能由版本号完全确定。例如 <code>https://updatecdn.meeting.qq.com/cos/60bbaecfb3bf32615331b07d46001353/TencentMeeting_0300000000_3.10.0.400_x86_64_default.publish.deb</code> 这个链接中 <code>60bbaecfb3bf32615331b07d46001353</code> 的含义不明（其实是 deb 包 的 md5sum)，我们没法由版本号推断出下载链接。因而只能跟随官网更新。</p>
-<p>一开始我尝试按照 <a href="https://blog.askk.cc/2022/07/22/%E4%BD%BF%E7%94%A8%20wireshark%20%E6%8A%93%E5%8C%85%20svstudio/">使用 wireshark 抓包 svstudio</a> 的经验，采用了 <code>SSLKEYLOGFILE</code> 环境变量，但是发现完全没有用， QT 的应用不吃这个环境变量[^1]，没有办法使用 Wireshark 来抓包。后来在群友的推荐下使用 mitmproxy 来抓包。</p>
-<h2 id="具体步骤-2">具体步骤</h2>
-<h3 id="安装-3">安装</h3>
+<p>一开始我尝试按照 <a href="https://blog.askk.cc/2022/07/22/%E4%BD%BF%E7%94%A8%20wireshark%20%E6%8A%93%E5%8C%85%20svstudio/">使用 wireshark 抓包 svstudio</a> 的经验，采用了 <code>SSLKEYLOGFILE</code> 环境变量，但是发现完全没有用， QT 的应用不吃这个环境变量<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="[Support SSLKEYLOGFILE variable for debugging connections over SSL/TLS](https://bugreports.qt.io/browse/QTBUG-64310)">[1]</span></a></sup>，没有办法使用 Wireshark 来抓包。后来在群友的推荐下使用 mitmproxy 来抓包。</p>
+<h2 id="具体步骤">具体步骤</h2>
+<h3 id="安装">安装</h3>
 <p>首先安装 <code>mitmproxy</code></p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">yay -S mitmproxy</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">yay -S mitmproxy</span><br></code></pre></td></tr></table></figure>
 <p>然后执行 <code>mitmweb</code> 启动 web gui,  然后安装 mitmproxy 的证书。</p>
 <p>进入 <code>~/.mitmproxy</code> 打开终端，先将证书转换为 <code>crt</code> 格式</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -inform der -in mitmproxy-ca-cert.cer -out mitmproxy-ca-cert.crt</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">openssl x509 -inform der -in mitmproxy-ca-cert.cer -out mitmproxy-ca-cert.crt<br></code></pre></td></tr></table></figure>
 <p>然后安装证书</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo trust anchor --store mitmproxy-ca-cert.crt</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo trust anchor --store mitmproxy-ca-cert.crt<br></code></pre></td></tr></table></figure>
 <h3 id="抓包">抓包</h3>
 <p>使用 mitmproxy 抓包需要把流量重定向到 mitmproxy 的端口，默认 <code>127.0.0.1:8080</code>. 可以在系统设置里面设定代理，但是我这样做的话，在抓包的时候会导致 mitmproxy 崩溃，而且会抓到其他应用的包。具体信息如下</p>
 <blockquote>
 <p>mitmproxy has crashed.</p>
 </blockquote>
 <blockquote>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Error: Minified React error <span class="comment">#185; visit https://reactjs.org/docs/error-decoder.html?invariant=185 for the full message or use the non-minified dev environment for full errors and additional helpful warnings.</span></span><br><span class="line">    at Jg (http:<span class="regexp">//</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8081</span><span class="regexp">/static/</span>app.js:<span class="number">7</span>:<span class="number">8533</span>)</span><br><span class="line">    at Object.enqueueSetState (http:<span class="regexp">//</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8081</span><span class="regexp">/static/</span>app.js:<span class="number">5</span>:<span class="number">44513</span>)</span><br><span class="line">    at Oc.setState (http:<span class="regexp">//</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8081</span><span class="regexp">/static/</span>app.js:<span class="number">1</span>:<span class="number">3945</span>)</span><br><span class="line">    at t.onViewportUpdate (http:<span class="regexp">//</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8081</span><span class="regexp">/static/</span>app.js:<span class="number">58</span>:<span class="number">48851</span>)</span><br><span class="line">    at t.componentDidUpdate (http:<span class="regexp">//</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8081</span><span class="regexp">/static/</span>app.js:<span class="number">58</span>:<span class="number">48148</span>)</span><br><span class="line">    at t.componentDidUpdate (http:<span class="regexp">//</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8081</span><span class="regexp">/static/</span>app.js:<span class="number">58</span>:<span class="number">46203</span>)</span><br><span class="line">    at Yi (http:<span class="regexp">//</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8081</span><span class="regexp">/static/</span>app.js:<span class="number">7</span>:<span class="number">1828</span>)</span><br><span class="line">    at dk (http:<span class="regexp">//</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8081</span><span class="regexp">/static/</span>app.js:<span class="number">9</span>:<span class="number">5215</span>)</span><br><span class="line">    at Dt.unstable_runWithPriority (http:<span class="regexp">//</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8081</span><span class="regexp">/static/</span>app.js:<span class="number">1</span>:<span class="number">12961</span>)</span><br><span class="line">    at gg (http:<span class="regexp">//</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8081</span><span class="regexp">/static/</span>app.js:<span class="number">5</span>:<span class="number">40220</span>)</span><br><span class="line"></span><br><span class="line">Component Stack:</span><br><span class="line">    at AutoScrollWrapper (http:<span class="regexp">//</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8081</span><span class="regexp">/static/</span>app.js:<span class="number">58</span>:<span class="number">45836</span>)</span><br><span class="line">    at ConnectFunction (http:<span class="regexp">//</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8081</span><span class="regexp">/static/</span>app.js:<span class="number">51</span>:<span class="number">11352</span>)</span><br><span class="line">    at div</span><br><span class="line">    at MainView (http:<span class="regexp">//</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8081</span><span class="regexp">/static/</span>app.js:<span class="number">58</span>:<span class="number">49804</span>)</span><br><span class="line">    at div</span><br><span class="line">    at ProxyAppMain (http:<span class="regexp">//</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8081</span><span class="regexp">/static/</span>app.js:<span class="number">62</span>:<span class="number">3048</span>)</span><br><span class="line">    at ConnectFunction (http:<span class="regexp">//</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8081</span><span class="regexp">/static/</span>app.js:<span class="number">51</span>:<span class="number">11352</span>)</span><br><span class="line">    at Provider (http:<span class="regexp">//</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8081</span><span class="regexp">/static/</span>app.js:<span class="number">51</span>:<span class="number">8664</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Error</span>: Minified React error #<span class="hljs-number">185</span>; visit https://reactjs.org/docs/error-decoder.html?invariant=<span class="hljs-number">185</span> for the full message or use the non-minified dev environment for full errors and additional helpful warnings.<br>    <span class="hljs-attribute">at</span> Jg (http://<span class="hljs-number">127.0.0.1:8081</span>/static/app.js:<span class="hljs-number">7</span>:<span class="hljs-number">8533</span>)<br>    <span class="hljs-attribute">at</span> Object.enqueueSetState (http://<span class="hljs-number">127.0.0.1:8081</span>/static/app.js:<span class="hljs-number">5</span>:<span class="hljs-number">44513</span>)<br>    <span class="hljs-attribute">at</span> Oc.setState (http://<span class="hljs-number">127.0.0.1:8081</span>/static/app.js:<span class="hljs-number">1</span>:<span class="hljs-number">3945</span>)<br>    <span class="hljs-attribute">at</span> t.onViewportUpdate (http://<span class="hljs-number">127.0.0.1:8081</span>/static/app.js:<span class="hljs-number">58</span>:<span class="hljs-number">48851</span>)<br>    <span class="hljs-attribute">at</span> t.componentDidUpdate (http://<span class="hljs-number">127.0.0.1:8081</span>/static/app.js:<span class="hljs-number">58</span>:<span class="hljs-number">48148</span>)<br>    <span class="hljs-attribute">at</span> t.componentDidUpdate (http://<span class="hljs-number">127.0.0.1:8081</span>/static/app.js:<span class="hljs-number">58</span>:<span class="hljs-number">46203</span>)<br>    <span class="hljs-attribute">at</span> Yi (http://<span class="hljs-number">127.0.0.1:8081</span>/static/app.js:<span class="hljs-number">7</span>:<span class="hljs-number">1828</span>)<br>    <span class="hljs-attribute">at</span> dk (http://<span class="hljs-number">127.0.0.1:8081</span>/static/app.js:<span class="hljs-number">9</span>:<span class="hljs-number">5215</span>)<br>    <span class="hljs-attribute">at</span> Dt.unstable_runWithPriority (http://<span class="hljs-number">127.0.0.1:8081</span>/static/app.js:<span class="hljs-number">1</span>:<span class="hljs-number">12961</span>)<br>    <span class="hljs-attribute">at</span> gg (http://<span class="hljs-number">127.0.0.1:8081</span>/static/app.js:<span class="hljs-number">5</span>:<span class="hljs-number">40220</span>)<br><br><span class="hljs-attribute">Component</span> Stack:<br>    <span class="hljs-attribute">at</span> AutoScrollWrapper (http://<span class="hljs-number">127.0.0.1:8081</span>/static/app.js:<span class="hljs-number">58</span>:<span class="hljs-number">45836</span>)<br>    <span class="hljs-attribute">at</span> ConnectFunction (http://<span class="hljs-number">127.0.0.1:8081</span>/static/app.js:<span class="hljs-number">51</span>:<span class="hljs-number">11352</span>)<br>    <span class="hljs-attribute">at</span> div<br>    <span class="hljs-attribute">at</span> MainView (http://<span class="hljs-number">127.0.0.1:8081</span>/static/app.js:<span class="hljs-number">58</span>:<span class="hljs-number">49804</span>)<br>    <span class="hljs-attribute">at</span> div<br>    <span class="hljs-attribute">at</span> ProxyAppMain (http://<span class="hljs-number">127.0.0.1:8081</span>/static/app.js:<span class="hljs-number">62</span>:<span class="hljs-number">3048</span>)<br>    <span class="hljs-attribute">at</span> ConnectFunction (http://<span class="hljs-number">127.0.0.1:8081</span>/static/app.js:<span class="hljs-number">51</span>:<span class="hljs-number">11352</span>)<br>    <span class="hljs-attribute">at</span> Provider (http://<span class="hljs-number">127.0.0.1:8081</span>/static/app.js:<span class="hljs-number">51</span>:<span class="hljs-number">8664</span>)<br></code></pre></td></tr></table></figure>
 </blockquote>
 <p>因此我采用 <code>proxychains-ng</code> 把对腾讯会议进行代理，将它的流量重定向到 <code>mitmproxy</code>。</p>
 <p>然后修改 <code>/etc/proxychains.conf</code></p>
 <p>将最后一行改为 mitmproxychains 的地址。</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">http</span> 	<span class="number">127.0.0.1</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">http</span> 	<span class="hljs-number">127.0.0.1</span> <span class="hljs-number">8080</span><br></code></pre></td></tr></table></figure>
 <p>然后我们通过 <code>proxychains</code> 代理腾讯会议。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxychains wemeet</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">proxychains wemeet<br></code></pre></td></tr></table></figure>
 <p>现在我们就可以在 mitmweb 里面看到腾讯会议的各种请求了，而且全都是明文。我直接找到了腾讯会议检查更新的网址</p>
-<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://meeting.tencent.com/web-service/query-app-<span class="keyword">update</span>-info?auth_type=package<span class="variable">&amp;os</span>=Linux<span class="variable">&amp;appid</span>=200000001<span class="variable">&amp;appver</span>=3.9.0.1<span class="variable">&amp;app_publish_channel</span>=TencentInside<span class="variable">&amp;app_uid</span>=144115222682129107<span class="variable">&amp;sdk_id</span>=0300000000<span class="variable">&amp;platform</span>=linux<span class="variable">&amp;arch</span>=x86_64</span><br></pre></td></tr></table></figure>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sas">https://meeting.tencent.com/web-service/query-app-<span class="hljs-keyword">update</span>-info?auth_type=package<span class="hljs-variable">&amp;os</span>=Linux<span class="hljs-variable">&amp;appid</span>=200000001<span class="hljs-variable">&amp;appver</span>=3.9.0.1<span class="hljs-variable">&amp;app_publish_channel</span>=TencentInside<span class="hljs-variable">&amp;app_uid</span>=144115222682129107<span class="hljs-variable">&amp;sdk_id</span>=0300000000<span class="hljs-variable">&amp;platform</span>=linux<span class="hljs-variable">&amp;arch</span>=x86_64<br></code></pre></td></tr></table></figure>
 <p>直接访问这个网址就可以得到最新版的下载链接。</p>
 <h2 id="后记">后记</h2>
 <p>在尝试用 wireshark 抓包的过程中我还发现了腾讯会议会把更新包下载到 <code>/tmp/Temp</code> 文件夹下，因此只要拿到 deb 包， 算下 md5sum 我们就可以拿到下载链接了 (不过那时候我们还不知道下载链接里面那一串代表 md5) 。</p>
-<p>[^1]:  <a target="_blank" rel="noopener" href="https://bugreports.qt.io/browse/QTBUG-64310">Support SSLKEYLOGFILE variable for debugging connections over SSL/TLS</a></p>
-
+<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://bugreports.qt.io/browse/QTBUG-64310">Support SSLKEYLOGFILE variable for debugging connections over SSL/TLS</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
@@ -430,9 +439,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               

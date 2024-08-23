@@ -287,6 +287,15 @@
 
     
     
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
   </div>
 
 
@@ -358,30 +367,30 @@
 <li>用 <code>dd</code> 拷贝旧的 EFI 分区。</li>
 <li>挂载旧硬盘的 btrfs 分区到 <code>/mnt</code></li>
 </ol>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount <span class="regexp">/dev/</span>nvme0n1p2 /mnt</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">mount /dev/nvme0n1p2 /mnt<br></code></pre></td></tr></table></figure>
 <ul>
 <li>a. 查看 btrfs 分区的用量，注意两个地方，<code>Device allocated</code> 与 <code>Free</code> 的 <code>min</code>.</li>
 </ul>
-<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">➜  ~ btrfs filesystem usage /mnt</span></span><br><span class="line"><span class="attribute">Overall</span><span class="punctuation">:</span></span><br><span class="line">    <span class="attribute">Device size</span><span class="punctuation">:</span> <span class="string">                  1.86TiB</span></span><br><span class="line">    <span class="attribute">Device allocated</span><span class="punctuation">:</span> <span class="string">           815.02GiB</span></span><br><span class="line">    <span class="attribute">Device unallocated</span><span class="punctuation">:</span> <span class="string">           1.07TiB</span></span><br><span class="line">    <span class="attribute">Device missing</span><span class="punctuation">:</span> <span class="string">                 0.00B</span></span><br><span class="line">    <span class="attribute">Device slack</span><span class="punctuation">:</span> <span class="string">                   0.00B</span></span><br><span class="line">    <span class="attribute">Used</span><span class="punctuation">:</span> <span class="string">                       807.01GiB</span></span><br><span class="line">    <span class="attribute">Free (estimated)</span><span class="punctuation">:</span> <span class="string">             1.07TiB      (min: 548.94GiB)</span></span><br><span class="line">    <span class="attribute">Free (statfs, df)</span><span class="punctuation">:</span> <span class="string">            1.07TiB</span></span><br><span class="line">    <span class="attribute">Data ratio</span><span class="punctuation">:</span> <span class="string">                      1.00</span></span><br><span class="line">    <span class="attribute">Metadata ratio</span><span class="punctuation">:</span> <span class="string">                  2.00</span></span><br><span class="line">    <span class="attribute">Global reserve</span><span class="punctuation">:</span> <span class="string">             512.00MiB      (used: 0.00B)</span></span><br><span class="line">    <span class="attribute">Multiple profiles</span><span class="punctuation">:</span> <span class="string">                 no</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">Data,single</span><span class="punctuation">:</span> <span class="string">Size:789.01GiB, Used:786.17GiB (99.64%)</span></span><br><span class="line">   <span class="attribute">/dev/nvme0n1p2        789.01GiB</span></span><br><span class="line"><span class="attribute"></span></span><br><span class="line"><span class="attribute">Metadata,DUP</span><span class="punctuation">:</span> <span class="string">Size:13.00GiB, Used:10.42GiB (80.17%)</span></span><br><span class="line">   <span class="attribute">/dev/nvme0n1p2         26.00GiB</span></span><br><span class="line"><span class="attribute"></span></span><br><span class="line"><span class="attribute">System,DUP</span><span class="punctuation">:</span> <span class="string">Size:8.00MiB, Used:128.00KiB (1.56%)</span></span><br><span class="line">   <span class="attribute">/dev/nvme0n1p2         16.00MiB</span></span><br><span class="line"><span class="attribute"></span></span><br><span class="line"><span class="attribute">Unallocated</span><span class="punctuation">:</span></span><br><span class="line">   /dev/nvme0n1p2          1.07TiB</span><br></pre></td></tr></table></figure>
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">➜  ~ btrfs filesystem usage /mnt</span><br><span class="hljs-attribute">Overall</span><span class="hljs-punctuation">:</span><br>    <span class="hljs-attribute">Device size</span><span class="hljs-punctuation">:</span> <span class="hljs-string">                  1.86TiB</span><br>    <span class="hljs-attribute">Device allocated</span><span class="hljs-punctuation">:</span> <span class="hljs-string">           815.02GiB</span><br>    <span class="hljs-attribute">Device unallocated</span><span class="hljs-punctuation">:</span> <span class="hljs-string">           1.07TiB</span><br>    <span class="hljs-attribute">Device missing</span><span class="hljs-punctuation">:</span> <span class="hljs-string">                 0.00B</span><br>    <span class="hljs-attribute">Device slack</span><span class="hljs-punctuation">:</span> <span class="hljs-string">                   0.00B</span><br>    <span class="hljs-attribute">Used</span><span class="hljs-punctuation">:</span> <span class="hljs-string">                       807.01GiB</span><br>    <span class="hljs-attribute">Free (estimated)</span><span class="hljs-punctuation">:</span> <span class="hljs-string">             1.07TiB      (min: 548.94GiB)</span><br>    <span class="hljs-attribute">Free (statfs, df)</span><span class="hljs-punctuation">:</span> <span class="hljs-string">            1.07TiB</span><br>    <span class="hljs-attribute">Data ratio</span><span class="hljs-punctuation">:</span> <span class="hljs-string">                      1.00</span><br>    <span class="hljs-attribute">Metadata ratio</span><span class="hljs-punctuation">:</span> <span class="hljs-string">                  2.00</span><br>    <span class="hljs-attribute">Global reserve</span><span class="hljs-punctuation">:</span> <span class="hljs-string">             512.00MiB      (used: 0.00B)</span><br>    <span class="hljs-attribute">Multiple profiles</span><span class="hljs-punctuation">:</span> <span class="hljs-string">                 no</span><br><br><span class="hljs-attribute">Data,single</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Size:789.01GiB, Used:786.17GiB (99.64%)</span><br>   <span class="hljs-attribute">/dev/nvme0n1p2        789.01GiB</span><br><span class="hljs-attribute"></span><br><span class="hljs-attribute">Metadata,DUP</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Size:13.00GiB, Used:10.42GiB (80.17%)</span><br>   <span class="hljs-attribute">/dev/nvme0n1p2         26.00GiB</span><br><span class="hljs-attribute"></span><br><span class="hljs-attribute">System,DUP</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Size:8.00MiB, Used:128.00KiB (1.56%)</span><br>   <span class="hljs-attribute">/dev/nvme0n1p2         16.00MiB</span><br><span class="hljs-attribute"></span><br><span class="hljs-attribute">Unallocated</span><span class="hljs-punctuation">:</span><br>   /dev/nvme0n1p2          1.07TiB<br></code></pre></td></tr></table></figure>
 <ul>
 <li>b. 缩小分区，我们将分区缩小比 <code>min: 548.94GiB</code> 稍微小一点的大小，比如缩小 <code>540G</code>.</li>
 </ul>
-<figure class="highlight nsis"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">btrfs <span class="keyword">file</span><span class="params">system</span> resize -<span class="number">540</span>G /mnt</span><br></pre></td></tr></table></figure>
+<figure class="highlight nsis"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nsis">btrfs <span class="hljs-keyword">file</span><span class="hljs-params">system</span> resize -<span class="hljs-number">540</span>G /mnt<br></code></pre></td></tr></table></figure>
 <p>重复上述缩小分区的过程，直到不能再缩小（或者到你认为合适的大小）。<br>
 操作完毕之后将它卸载掉</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">umount /mnt</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">umount /mnt<br></code></pre></td></tr></table></figure>
 <ol start="5">
 <li>开始拷贝分区。这里 <code>/dev/nvme0n1p2</code> 是旧硬盘，<code>/dev/nvme1n1p2</code> 是新硬盘。其中 <code>bs</code> 是 block size, 需要大于一个扇区的大小（通常为4k），可以设置得大一些，这样复制得快。（比如 <code>16M</code>）， <code>count</code> 是块数量，需要满足<br>
 <code>bs * count &gt;= Device size</code>，我们假设 <code>bs=16M</code>, 设备大小我们成功缩小到了 1T, 则 <code>count</code> 至少应该为 65536, 实际中应该稍微再多一些为好。</li>
 </ol>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dd <span class="attribute">if</span>=/dev/nvme0n1p2 <span class="attribute">of</span>=/dev/nvme1n1p2 <span class="attribute">status</span>=progress <span class="attribute">bs</span>=4M <span class="attribute">count</span>=XXX</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">dd <span class="hljs-attribute">if</span>=/dev/nvme0n1p2 <span class="hljs-attribute">of</span>=/dev/nvme1n1p2 <span class="hljs-attribute">status</span>=progress <span class="hljs-attribute">bs</span>=4M <span class="hljs-attribute">count</span>=XXX<br></code></pre></td></tr></table></figure>
 <p>等到跑完就拷贝完毕了。</p>
 <h3 id="重建-boot-分区">重建 boot 分区</h3>
 <p>这一步可能不是必要的，但是保险起见还是操作下。</p>
 <ol>
 <li>将新硬盘挂载上，然后 <code>chroot</code> 进去</li>
 </ol>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mount <span class="regexp">/dev/</span>nvme1n1p2 /mnt</span><br><span class="line">mount <span class="regexp">/dev/</span>nvme1n1p1 <span class="regexp">/mnt/</span>boot</span><br><span class="line">arch-chroot /mnt</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">mount /dev/nvme1n1p2 /mnt<br>mount /dev/nvme1n1p1 /mnt/boot<br>arch-chroot /mnt<br></code></pre></td></tr></table></figure>
 <ol start="2">
 <li>在 <code>chroot</code> 里面 执行 <code>mkinitcpio -P</code> 重新生成引导。<br>
 注意可以不用修改 <code>fstab</code> 并重新生成 <code>grub.cfg</code></li>
@@ -466,9 +475,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               

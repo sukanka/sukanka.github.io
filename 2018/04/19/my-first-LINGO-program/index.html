@@ -287,6 +287,15 @@
 
     
     
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
   </div>
 
 
@@ -378,7 +387,7 @@
 <li>同时将另一个空白的38行,93列的区域命名为<code>data2</code> ,用于导出结果<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">X</mi></mrow><annotation encoding="application/x-tex">\mathbf{X}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6861em;"></span><span class="mord mathbf">X</span></span></span></span></li>
 </ul>
 <h2 id="LINGO-代码">LINGO 代码</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">!模型:见面会安排;</span><br><span class="line">sets:</span><br><span class="line">time/1..93/;</span><br><span class="line">student/1..38/;</span><br><span class="line">!Student 为行,time为列;</span><br><span class="line">timetable(student,time):c,x;</span><br><span class="line">endsets</span><br><span class="line">data:</span><br><span class="line">!导入数据将data的数据传输给C;</span><br><span class="line">c=@ole(&#x27;D:\Users\ASUS\Desktop\data.xlsx&#x27;,&#x27;data&#x27;);</span><br><span class="line">!输出结果输出X到data2;</span><br><span class="line">@ole(&#x27;D:\Users\ASUS\Desktop\data.xlsx&#x27;,&#x27;data2&#x27;)=x;</span><br><span class="line">enddata</span><br><span class="line">!期望尽早安排完;</span><br><span class="line">min= @sum(timetable(i,j):j*x(i,j));</span><br><span class="line">!只在有空的时间去;</span><br><span class="line">@for(timetable(i,j):x(i,j)&lt;= c(i,j));</span><br><span class="line">!每个人只去一次;</span><br><span class="line">@for(student(i):@sum(time(j):x(i,j))=1);</span><br><span class="line">!每个时间最多有一个人;</span><br><span class="line">@for(time(j):@sum(student(i):x(i,j))&lt;=1);</span><br><span class="line">!去或不去为0,1变量;</span><br><span class="line">@for(timetable(i,j):@bin(x(i,j)));</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs LINGO">!模型:见面会安排;<br>sets:<br>time/1..93/;<br>student/1..38/;<br>!Student 为行,time为列;<br>timetable(student,time):c,x;<br>endsets<br>data:<br>!导入数据将data的数据传输给C;<br>c=@ole(&#x27;D:\Users\ASUS\Desktop\data.xlsx&#x27;,&#x27;data&#x27;);<br>!输出结果输出X到data2;<br>@ole(&#x27;D:\Users\ASUS\Desktop\data.xlsx&#x27;,&#x27;data2&#x27;)=x;<br>enddata<br>!期望尽早安排完;<br>min= @sum(timetable(i,j):j*x(i,j));<br>!只在有空的时间去;<br>@for(timetable(i,j):x(i,j)&lt;= c(i,j));<br>!每个人只去一次;<br>@for(student(i):@sum(time(j):x(i,j))=1);<br>!每个时间最多有一个人;<br>@for(time(j):@sum(student(i):x(i,j))&lt;=1);<br>!去或不去为0,1变量;<br>@for(timetable(i,j):@bin(x(i,j)));<br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -448,9 +457,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               

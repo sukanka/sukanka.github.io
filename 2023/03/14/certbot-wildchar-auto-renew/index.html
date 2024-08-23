@@ -287,6 +287,15 @@
 
     
     
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
   </div>
 
 
@@ -336,18 +345,18 @@
 <p>首先，我们需要一个软件包：<a target="_blank" rel="noopener" href="https://github.com/SkyLothar/certbot-dns-dnspod">certbot-dns-dnspod</a>, arch 用户的话，我已经打包好了<a target="_blank" rel="noopener" href="https://aur.archlinux.org/packages/certbot-dns-dnspod-git">certbot-dns-dnspod-git</a>.<br>
 安装上该软件包之后，去 DNSPOD 申请 APIKEY. 具体做法参考 <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1117551">腾讯云 DNSPod 域名 API 申请 Let’s Encrypt 泛域名 SSL 证书过程记录</a>。<br>
 然后记录下ID 与 KEY，写到文件里(我写到 <code>/etc/letsencrypt/dnspod.ini</code>) 记得将文件权限设置为 <code>600</code>。</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /etc/letsencrypt/dnspod.ini</span></span><br><span class="line"><span class="attr">dns_dnspod_api_id</span>=<span class="string">&quot;YOUR_ID&quot;</span></span><br><span class="line"><span class="attr">dns_dnspod_api_token</span>=<span class="string">&quot;YOUR_KEY&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment"># cat /etc/letsencrypt/dnspod.ini</span><br><span class="hljs-attr">dns_dnspod_api_id</span>=<span class="hljs-string">&quot;YOUR_ID&quot;</span><br><span class="hljs-attr">dns_dnspod_api_token</span>=<span class="hljs-string">&quot;YOUR_KEY&quot;</span><br></code></pre></td></tr></table></figure>
 <p>接下来为每个泛域名手动申请一遍证书以便 certbot 记录下更新参数（可以看 <code>/etc/letsencrypt/renewal/askk.cc.conf</code>）。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo certbot certonly  --preferred-challenges dns -d <span class="string">&quot;*.askk.cc&quot;</span> -d askk.cc --dns-dnspod-credentials /etc/letsencrypt/dnspod.ini</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> certbot certonly  --preferred-challenges dns -d <span class="hljs-string">&quot;*.askk.cc&quot;</span> -d askk.cc --dns-dnspod-credentials /etc/letsencrypt/dnspod.ini<br></code></pre></td></tr></table></figure>
 <p>到这里其实泛域名证书就申请完了，记得启动 <code>certbot.timer</code> 让它帮你自动更新。</p>
 <h2 id="Nginx-配置">Nginx 配置</h2>
 <p>再说一下如何在 Nginx里面使用泛域名证书，<br>
 首先创建这样一个文件（一个泛域名一个文件）</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/etc/nginx/conf.d/001-certbot-askk.cc.conf</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">ssl_certificate</span> /etc/letsencrypt/live/askk.cc/fullchain.pem; <span class="comment"># managed by Certbot</span></span><br><span class="line"><span class="attribute">ssl_certificate_key</span> /etc/letsencrypt/live/askk.cc/privkey.pem; <span class="comment"># managed by Certbot</span></span><br><span class="line"><span class="attribute">include</span> /etc/letsencrypt/options-ssl-nginx.conf; <span class="comment"># managed by Certbot</span></span><br><span class="line"><span class="attribute">ssl_dhparam</span> /etc/letsencrypt/ssl-dhparams.pem; <span class="comment"># managed by Certbot</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-comment">#/etc/nginx/conf.d/001-certbot-askk.cc.conf</span><br><br><span class="hljs-attribute">ssl_certificate</span> /etc/letsencrypt/live/askk.cc/fullchain.pem; <span class="hljs-comment"># managed by Certbot</span><br><span class="hljs-attribute">ssl_certificate_key</span> /etc/letsencrypt/live/askk.cc/privkey.pem; <span class="hljs-comment"># managed by Certbot</span><br><span class="hljs-attribute">include</span> /etc/letsencrypt/options-ssl-nginx.conf; <span class="hljs-comment"># managed by Certbot</span><br><span class="hljs-attribute">ssl_dhparam</span> /etc/letsencrypt/ssl-dhparams.pem; <span class="hljs-comment"># managed by Certbot</span><br></code></pre></td></tr></table></figure>
 <p>然后在你的每个网站的配置里都加上这么一行就配置好证书了。</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">include</span> conf.d/<span class="number">001</span>-certbot-askk.cc.conf;</span><br></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">include</span> conf.d/<span class="hljs-number">001</span>-certbot-askk.cc.conf;<br></code></pre></td></tr></table></figure>
 <p>本期到这里就结束了</p>
-<h2 id="参考资料-2">参考资料</h2>
+<h2 id="参考资料">参考资料</h2>
 <ol>
 <li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1117551">腾讯云 DNSPod 域名 API 申请 Let’s Encrypt 泛域名 SSL 证书过程记录</a></li>
 </ol>
@@ -420,9 +429,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               

@@ -288,6 +288,15 @@
 
     
     
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
   </div>
 
 
@@ -343,7 +352,7 @@
 <li><code>paru &lt;search terms&gt;</code>  例如： <code>paru foo</code></li>
 </ul>
 <p>通过 <code>paru</code> 搜索带有 <code>foo</code> 关键词的软件包，并询问你要安装哪一个。以下是 <code>paru texlive-full</code> 的输出。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1 aur/texlive-full 1:2022.20220406-1 [+5 ~0.00] [已安装]</span><br><span class="line">    This packages provides texlive-full <span class="keyword">in</span> /opt. It also tricks ArchLinux into thinking it has its texlive packages installed.</span><br><span class="line">:: 需要安装的包 (例如: 1 2 3, 1-3):</span><br><span class="line">:: </span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">1 aur/texlive-full 1:2022.20220406-1 [+5 ~0.00] [已安装]<br>    This packages provides texlive-full <span class="hljs-keyword">in</span> /opt. It also tricks ArchLinux into thinking it has its texlive packages installed.<br>:: 需要安装的包 (例如: 1 2 3, 1-3):<br>:: <br></code></pre></td></tr></table></figure>
 <ul>
 <li><code>paru &lt;operation&gt; [options] [targets]</code></li>
 </ul>
@@ -424,7 +433,7 @@
 <li><code>-s</code> (<code>--state</code>)</li>
 </ul>
 <p>展示安装的软件包的信息以及系统健康情况，以及是否有过期、孤儿包等。下面是 <code>paru -Ps</code> 的输出</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">paru v1.10.0 +git - libalpm v13.0.1</span></span><br><span class="line"><span class="section">===========================================</span></span><br><span class="line">共安装包: 1543</span><br><span class="line">AUR 包: 42</span><br><span class="line">软件库包: 1500</span><br><span class="line">单独指定安装的包: 349</span><br><span class="line"><span class="section">软件包共占用空间: 57.29GiB</span></span><br><span class="line"><span class="section">===========================================</span></span><br><span class="line">最大的十个包:</span><br><span class="line">matlab: 26.43GiB</span><br><span class="line">texlive-full: 6.90GiB</span><br><span class="line">cuda: 4.01GiB</span><br><span class="line">anaconda: 3.18GiB</span><br><span class="line">wps-office-cn: 1.19GiB</span><br><span class="line">dingtalk-bin: 652.62MiB</span><br><span class="line">zoom: 456.30MiB</span><br><span class="line">go: 445.68MiB</span><br><span class="line">nvidia-utils: 437.66MiB</span><br><span class="line"><span class="section">blender: 325.33MiB</span></span><br><span class="line"><span class="section">===========================================</span></span><br><span class="line"><span class="meta">:: 不在 AUR 中的软件包:</span> foxitpdfeditor-bin</span><br><span class="line"><span class="meta">:: 被标记为已过期:</span> mongodb-tools</span><br></pre></td></tr></table></figure>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-section">paru v1.10.0 +git - libalpm v13.0.1</span><br><span class="hljs-section">===========================================</span><br>共安装包: 1543<br>AUR 包: 42<br>软件库包: 1500<br>单独指定安装的包: 349<br><span class="hljs-section">软件包共占用空间: 57.29GiB</span><br><span class="hljs-section">===========================================</span><br>最大的十个包:<br>matlab: 26.43GiB<br>texlive-full: 6.90GiB<br>cuda: 4.01GiB<br>anaconda: 3.18GiB<br>wps-office-cn: 1.19GiB<br>dingtalk-bin: 652.62MiB<br>zoom: 456.30MiB<br>go: 445.68MiB<br>nvidia-utils: 437.66MiB<br><span class="hljs-section">blender: 325.33MiB</span><br><span class="hljs-section">===========================================</span><br><span class="hljs-meta">:: 不在 AUR 中的软件包:</span> foxitpdfeditor-bin<br><span class="hljs-meta">:: 被标记为已过期:</span> mongodb-tools<br></code></pre></td></tr></table></figure>
 <ul>
 <li><code>-w</code> (<code>--news</code>)</li>
 </ul>
@@ -433,7 +442,7 @@
 <li><code>-o</code> (<code>--order</code>)</li>
 </ul>
 <p>展示 目标软件包的构建顺序，例如 <code>paru -Po icalingua++ </code></p>
-<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">AUR TARGET icalingua</span><span class="literal">++</span> <span class="comment">icalingua</span><span class="literal">++</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">AUR TARGET icalingua</span><span class="hljs-literal">++</span> <span class="hljs-comment">icalingua</span><span class="hljs-literal">++</span><br></code></pre></td></tr></table></figure>
 <h2 id="获取-PKGBUILD-相关-G-getpkgbuild">获取 PKGBUILD 相关 <code>-G</code> (<code>--getpkgbuild</code>)</h2>
 <ul>
 <li><code>-p</code> (<code>--print</code>)</li>
@@ -820,9 +829,9 @@
 <li>查看最大的10个软件包:  <code>paru -Ps</code></li>
 </ol>
 <p>就写这几个吧，其实有些是 <code>pacman</code>命令的。</p>
-<h2 id="结语-3">结语</h2>
+<h2 id="结语">结语</h2>
 <p>其实我是从 <code>yay</code> 转到 <code>paru</code> 的，还是习惯打 <code>yay</code>，于是我在我的 <code>.zshrc</code> 里面加上了一行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> yay=paru</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">alias</span> yay=paru<br></code></pre></td></tr></table></figure>
 <p>于是我又可以愉快地使用 <code>yay</code> 了！</p>
 
                 
@@ -874,9 +883,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               

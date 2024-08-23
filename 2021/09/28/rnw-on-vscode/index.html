@@ -289,6 +289,15 @@
 
     
     
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
   </div>
 
 
@@ -336,23 +345,23 @@
 <p>最近要开始写时间序列的作业了，作业里面既有代码，又有公式，没法轻易用 LaTeX 搞定了，就回到以前用的 <code>R+knitr</code> ，写 <code>rnw</code> 了。以前是在 Rstudio 上面写，基本不用配置什么，但是 Rstudio 的 LaTeX 支持真的一般。现在切换到了 vscode, 用 LaTeX Workshop 写，还支持 <code>rnw</code> 跟 <code>jnw</code>。为了配置好 <code>rnw</code> 我真的踩了很多坑，到现在其实也还没有完全配置好。</p>
 <h2 id="配置方案">配置方案</h2>
 <p>以前写 LaTeX 的时候，我是特别喜欢用 magic comments 的，因为特别方便，只要在主文档开头加上</p>
-<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">%!TEX program=xelatex</span></span><br><span class="line"><span class="meta">%!BIB program=biber</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-meta">%!TEX program=xelatex</span><br><span class="hljs-meta">%!BIB program=biber</span><br></code></pre></td></tr></table></figure>
 <p>就能设置 <code>xelatex</code> 和 <code>biber</code>。但是，在 rnw 里面不能这么干，否则自动编译会出问题，因为默认情况下，在 没有 magic comments 的时候，自动构建<code>rnw</code> 会使用第一个含有 <code>rnw</code> 的 Recipe, 具体来说就是</p>
 <p><code>Recipe: Compile Rnw files</code>，但是，<strong>有了 magic comments, 就会使用 magic comments 去构建！</strong></p>
-<h3 id="例子-2">例子</h3>
+<h3 id="例子">例子</h3>
 <p>下面是一个例子，去掉首行，一切正常，但是带上它，你会发现 R 代码不会被自动编译。第一次手动编译一切正常，但是当你把 <code>2*x</code> 改成 <code>3*x</code> ，触发自动编译，结果 pdf 确实会刷新，但是pdf 里面还是 <code>2*x</code>。</p>
-<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">%!TEX program=xelatex</span></span><br><span class="line"><span class="keyword">\documentclass</span>&#123;article&#125;</span><br><span class="line"><span class="keyword">\begin</span>&#123;document&#125;</span><br><span class="line">&lt;&lt;&gt;&gt;=</span><br><span class="line">x=c(1:5)</span><br><span class="line">x</span><br><span class="line">2*x</span><br><span class="line">@</span><br><span class="line"><span class="keyword">\end</span>&#123;document&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight latex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs latex"><span class="hljs-meta">%!TEX program=xelatex</span><br><span class="hljs-keyword">\documentclass</span>&#123;article&#125;<br><span class="hljs-keyword">\begin</span>&#123;document&#125;<br>&lt;&lt;&gt;&gt;=<br>x=c(1:5)<br>x<br>2*x<br>@<br><span class="hljs-keyword">\end</span>&#123;document&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="配置">配置</h2>
 <p>如果你的文档不需要中文，那当然直接把首行的 magic comments 删除就好啦。如果需要中文，这时候可以通过 <code>latexmk</code> 来实现，<code>latexmk</code>的文档可以通过 <code>texdoc latexmk</code> 来查看（如果你装了 texlive 的话）。</p>
 <p>具体到我们的例子，我们需要一个 <code>.latexmkrc</code> 文件，与我们的 <code>rnw</code> 文件在同一目录下。但是 CTAN 给我们提供了一些模板 <code>latexmkrc</code>，可以下载 <a target="_blank" rel="noopener" href="http://mirrors.ctan.org/support/latexmk/example_rcfiles/knitr-latexmkrc"><code>knitr-latexmkrc</code></a>，改名为 <code>.latexmkrc</code>，并修改它里面 <code>$pdflatex</code> 的定义：</p>
-<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">-$pdflatex = &quot;pdflatex -interaction=nonstopmode -synctex=1 %O %B ;&quot;</span></span><br><span class="line"><span class="addition">+$pdflatex = &quot;xelatex -interaction=nonstopmode -synctex=1 %O %B ;&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs diff"><span class="hljs-deletion">-$pdflatex = &quot;pdflatex -interaction=nonstopmode -synctex=1 %O %B ;&quot;</span><br><span class="hljs-addition">+$pdflatex = &quot;xelatex -interaction=nonstopmode -synctex=1 %O %B ;&quot;</span><br></code></pre></td></tr></table></figure>
 <p>其他的行不变。</p>
 <p>另外，需要注意，此后我们的 <code>rnw</code> 文件需要把拓展名改为 <code>Rnw</code>，而不是 <code>rnw</code>。</p>
 <p>之后就可以愉快的在 vscode 里面写 <code>rnw</code> 了。</p>
 <h2 id="已知问题">已知问题</h2>
 <p><code>rnw</code> 文件中，<code>R</code> 代码的格式化不可用，会全部左对齐，<strong>影响最后生成的 pdf</strong>。<code>R</code> 的代码补全也不可用。</p>
 <p>不过可以使用 <code>R</code> 的 <code>styler</code> 包来手动格式化。</p>
-<h2 id="参考资料-8">参考资料</h2>
+<h2 id="参考资料">参考资料</h2>
 <ol>
 <li>
 <p><a target="_blank" rel="noopener" href="https://github.com/James-Yu/LaTeX-Workshop/issues/2880">AutoBuild for rnw not working with <code>%!TEX program=xelatex</code></a></p>
@@ -416,9 +425,21 @@
             
               
               
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
                   </span>
                 </a>
               
