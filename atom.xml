@@ -6,7 +6,7 @@
   <link href="https://blog.askk.cc/atom.xml" rel="self"/>
   
   <link href="https://blog.askk.cc/"/>
-  <updated>2024-10-16T12:50:07.746Z</updated>
+  <updated>2024-10-16T12:50:50.081Z</updated>
   <id>https://blog.askk.cc/</id>
   
   <author>
@@ -17,19 +17,18 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>update spl for visionfive v2</title>
+    <title>为 VisionFive V2 更新 uboot</title>
     <link href="https://blog.askk.cc/2024/10/07/update-spl-for-visionfive-v2/"/>
     <id>https://blog.askk.cc/2024/10/07/update-spl-for-visionfive-v2/</id>
     <published>2024-10-07T03:04:30.000Z</published>
-    <updated>2024-10-16T12:50:07.746Z</updated>
+    <updated>2024-10-16T12:50:50.081Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;最近根据这个帖子的说明更新了我的 rv 板子的固件，但是更新之后系统起不来了，具体表现为开机一秒钟左右就卡死了，具体日志如下。&lt;/p&gt;
-&lt;figure class=&quot;highlight dns&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+    <summary type="html">&lt;p&gt;最近根据&lt;a href=&quot;https://forum.rvspace.org/t/arch-linux-image-for-visionfive-2/1459/204&quot;&gt;这个帖子&lt;/a&gt;的说明更新了我的 rv</summary>
         
       
     
