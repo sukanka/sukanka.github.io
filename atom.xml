@@ -6,7 +6,7 @@
   <link href="https://blog.askk.cc/atom.xml" rel="self"/>
   
   <link href="https://blog.askk.cc/"/>
-  <updated>2024-10-16T12:50:50.081Z</updated>
+  <updated>2024-10-16T13:15:07.047Z</updated>
   <id>https://blog.askk.cc/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux 上看北京联通 iptv</title>
+    <link href="https://blog.askk.cc/2024/10/16/iptv-beijing-unicom/"/>
+    <id>https://blog.askk.cc/2024/10/16/iptv-beijing-unicom/</id>
+    <published>2024-10-16T12:55:27.000Z</published>
+    <updated>2024-10-16T13:15:07.047Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
+&lt;p&gt;最近折腾光猫桥接的时候发现北京联通宽带是可以直接看 iptv 的，不用交钱开通功能。&lt;br&gt;
+由于我用的 tplink路由器，不像openwrt 可以直接组播转单播，所以没有可以直接参考的帖子。&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="linux" scheme="https://blog.askk.cc/categories/linux/"/>
+    
+    
+    <category term="iptv" scheme="https://blog.askk.cc/tags/iptv/"/>
+    
+  </entry>
   
   <entry>
     <title>为 VisionFive V2 更新 uboot</title>
@@ -505,33 +533,6 @@
     <category term="dendrite" scheme="https://blog.askk.cc/tags/dendrite/"/>
     
     <category term="matrix" scheme="https://blog.askk.cc/tags/matrix/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在 Oracle 免费 VPS 上安装 Archlinux</title>
-    <link href="https://blog.askk.cc/2022/02/14/install-ArchLinux-On-Oracle-VPS/"/>
-    <id>https://blog.askk.cc/2022/02/14/install-ArchLinux-On-Oracle-VPS/</id>
-    <published>2022-02-13T16:20:47.000Z</published>
-    <updated>2022-07-14T16:11:29.429Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;今天的故事是，在 甲骨文 (Oracle) 提供的免费 VPS 上安装 Archlinux。我很早以前就白嫖了两台 VPS, 配置为 &lt;code&gt;1C1G+50G +480Mbps&lt;/code&gt;. 默认提供的系统不含</summary>
-        
-      
-    
-    
-    
-    <category term="archlinux" scheme="https://blog.askk.cc/categories/archlinux/"/>
-    
-    
-    <category term="archlinux" scheme="https://blog.askk.cc/tags/archlinux/"/>
-    
-    <category term="VPS" scheme="https://blog.askk.cc/tags/VPS/"/>
     
   </entry>
   
