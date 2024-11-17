@@ -146,17 +146,16 @@
     <link href="https://blog.askk.cc/2023/12/24/archlinux-pxeboot/"/>
     <id>https://blog.askk.cc/2023/12/24/archlinux-pxeboot/</id>
     <published>2023-12-24T13:28:11.000Z</published>
-    <updated>2024-03-30T15:24:57.977Z</updated>
+    <updated>2024-11-16T18:28:11.000Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;本文没有编写完成，以后也许不会更新。&lt;/p&gt;
-&lt;p&gt;最近想整个 PXE 启动的 archlinux 环境，启动之后像 archiso 一样，跑在内存里面。&lt;/p&gt;
+    <summary type="html">&lt;p&gt;最近想整个 PXE 启动的 archlinux 环境，启动之后像 archiso 一样，跑在内存里面。&lt;/p&gt;
 &lt;h2 id=&quot;实现思路&quot;&gt;实现思路&lt;/h2&gt;
-&lt;p&gt;PXE 启动 grub, 然后走 http 下载</summary>
+&lt;p&gt;PXE 启动 grub, 然后走 http 下载 kernel 和 initramfs, 在</summary>
         
       
     
