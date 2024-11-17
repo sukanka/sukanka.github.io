@@ -269,7 +269,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          1.8k 字
         
       </span>
     
@@ -280,7 +280,7 @@
         
         
         
-          14 分钟
+          15 分钟
         
       </span>
     
@@ -403,10 +403,12 @@ HTTP服务： 在 <code>/tmp/x64/pxe/archiso</code> 执行 <code>sudo python3 -m
 <li>bios+ mkimage+ 单文件（无i386-pc文件夹）:25.32s</li>
 <li>bios+ mkimage+ 多文件（有i386-pc文件夹，有无不影响启动）:25.25s （和单文件其实没差异）</li>
 </ul>
-<h2 id="暂时未解决的问题">暂时未解决的问题</h2>
+<h2 id="结语">结语</h2>
+<p>本文提出了一种通过 pxe/http 引导grub来启动内存系统的方案，该方案除了拉取 grub 核心引导文件是通过 tftp 以外，后续所有请求都是通过 http 完成，避免了 tftp 丢包的问题。但是本文也存在以下待进一步完善的问题：</p>
 <ol>
 <li>UEFI情况下 <code>grub.cfg.pre.*</code> 硬编码了 <code>efinet0</code>, 应该用 <code>$net_default_interface</code> 替代。</li>
 <li>UEFI HTTP BOOT 的情况下，需要手动 <code>net_dhcp</code> 否则不会自动加载网络，如果能成功加载网络，则<code>grub.cfg.pre.http</code> 只需要写一行 <code>configfile $&#123;cmdpath&#125;/grub.cfg</code> 即可，我之前成功过，但是目前无法复现。</li>
+<li>我们在使用 grub-mkimage 的时候会将一行模块打到 grub 引导文件中，这会导致引导文件变大，从而拖慢启动速度，但是不包含进去又会导致从http 服务器下载，也会拖慢启动速度，本文并没有进一步比较两种方案的好坏并找到一个建议的方案。</li>
 </ol>
 <h2 id="参考资料">参考资料</h2>
 <ol>
