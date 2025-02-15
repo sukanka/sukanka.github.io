@@ -269,7 +269,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          1.9k 字
         
       </span>
     
@@ -280,7 +280,7 @@
         
         
         
-          15 分钟
+          17 分钟
         
       </span>
     
@@ -374,7 +374,7 @@
 <h2 id="架设-dhcp-与-tftp-服务器。">架设 dhcp 与 tftp 服务器。</h2>
 <p>本文选用了 dnsmasq, 你可以可选用 dhcpcd.<br>
 本文使用的配置文件如下。其实设置了三种启动方式，X86-64_EFI_HTTP (UEFI 的http boot), efi-x86_64 pxe 和 bios pxe. http boot的情况下，dhcp 服务器直接告诉 qemu 去拿 <code>http://192.168.122.1/boot/grub/grubpxe-http.efi</code> 这个文件启动。</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-attribute">port</span>=10053<br><span class="hljs-attribute">interface</span>=wlp4s0<br><span class="hljs-attribute">interface</span>=virbr0<br>bind-interfaces<br><span class="hljs-attribute">dhcp-range</span>=192.168.122.50,192.168.122.150,12h<br><span class="hljs-attribute">dhcp-range</span>=10.0.2.50,10.0.2.150,12h<br><span class="hljs-attribute">dhcp-range</span>=192.168.2.1,proxy<br><span class="hljs-attribute">dhcp-option-force</span>=209,archiso_pxe.cfg<br><span class="hljs-attribute">dhcp-option-force</span>=210,<br><span class="hljs-attribute">dhcp-match</span>=set:X86-64_EFI_HTTP,option:client-arch,16<br><span class="hljs-attribute">dhcp-userclass</span>=set:iPXE,iPXE<br><span class="hljs-attribute">dhcp-boot</span>=tag:X86-64_EFI_HTTP,http://192.168.122.1/boot/grub/grubpxe-http.efi,192.168.122.1,192.168.122.1<br><span class="hljs-attribute">dhcp-match</span>=set:efi-x86_64,option:client-arch,7<br><span class="hljs-attribute">dhcp-match</span>=set:efi-x86_64,option:client-arch,9<br><span class="hljs-attribute">dhcp-match</span>=set:efi-x86,option:client-arch,6<br><span class="hljs-attribute">dhcp-match</span>=set:bios,option:client-arch,0<br><span class="hljs-attribute">dhcp-boot</span>=tag:efi-x86_64,grubpxe.efi,192.168.122.1,192.168.122.1<br><span class="hljs-attribute">dhcp-boot</span>=tag:efi-x86,efi32/syslinux.efi<br><span class="hljs-attribute">dhcp-boot</span>=tag:bios,grubpxe.0,,192.168.122.1<br>enable-tftp<br><span class="hljs-attribute">tftp-root</span>=/tmp/x64/pxe<br>tftp-no-blocksize<br>log-dhcp<br></code></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-attribute">port</span>=10053<br><span class="hljs-attribute">interface</span>=wlp4s0<br><span class="hljs-attribute">interface</span>=virbr0<br>bind-interfaces<br><span class="hljs-attribute">dhcp-range</span>=192.168.122.50,192.168.122.150,12h<br><span class="hljs-attribute">dhcp-range</span>=10.0.2.50,10.0.2.150,12h<br><span class="hljs-attribute">dhcp-range</span>=192.168.2.1,proxy<br><span class="hljs-attribute">dhcp-option-force</span>=209,archiso_pxe.cfg<br><span class="hljs-attribute">dhcp-option-force</span>=210,<br><span class="hljs-attribute">dhcp-match</span>=set:X86-64_EFI_HTTP,option:client-arch,16<br><span class="hljs-attribute">dhcp-userclass</span>=set:iPXE,iPXE<br><span class="hljs-attribute">dhcp-boot</span>=tag:X86-64_EFI_HTTP,http://192.168.122.1/boot/grub/grubpxe-http.efi,192.168.122.1,192.168.122.1<br><span class="hljs-attribute">dhcp-match</span>=set:efi-x86_64,option:client-arch,7<br><span class="hljs-attribute">dhcp-match</span>=set:efi-x86_64,option:client-arch,9<br><span class="hljs-attribute">dhcp-match</span>=set:efi-x86,option:client-arch,6<br><span class="hljs-attribute">dhcp-match</span>=set:bios,option:client-arch,0<br><span class="hljs-attribute">dhcp-boot</span>=tag:efi-x86_64,grubpxe.efi,192.168.122.1,192.168.122.1<br><span class="hljs-attribute">dhcp-boot</span>=tag:efi-x86,efi32/syslinux.efi<br><span class="hljs-attribute">dhcp-boot</span>=tag:bios,grubpxe.0,,192.168.122.1<br>enable-tftp<br><span class="hljs-attribute">tftp-root</span>=/tmp/pxe/dhcp<br>tftp-no-blocksize<br>log-dhcp<br></code></pre></td></tr></table></figure>
 <h2 id="资源目录结构">资源目录结构</h2>
 <p>对下面的目录结构进行一个简单说明：</p>
 <ol>
@@ -403,6 +403,9 @@ HTTP服务： 在 <code>/tmp/x64/pxe/archiso</code> 执行 <code>sudo python3 -m
 <li>bios+ mkimage+ 单文件（无i386-pc文件夹）:25.32s</li>
 <li>bios+ mkimage+ 多文件（有i386-pc文件夹，有无不影响启动）:25.25s （和单文件其实没差异）</li>
 </ul>
+<h2 id="局域网实测">局域网实测</h2>
+<p>后来我又了解到，一个网段下可以有多个 dhcp服务器，只要彼此分配的IP不冲突即可。<br>
+因此我又另外找了一台笔记本，通过网线连接到交换机，然后选择 pxe启动，同时在我主用的笔记本上启用 dhcp 服务，使用上面的配置文件即可，不过 nextserver 设置为本机ip, 比如 <code>192.168.2.126</code> （可以简单将上面所有 <code>192.168.2.1</code> 都改为 <code>192.168.2.126</code>, 同时dnsmasq 记得监听有线网卡。</p>
 <h2 id="结语">结语</h2>
 <p>本文提出了一种通过 pxe/http 引导grub来启动内存系统的方案，该方案除了拉取 grub 核心引导文件是通过 tftp 以外，后续所有请求都是通过 http 完成，避免了 tftp 丢包的问题。但是本文也存在以下待进一步完善的问题：</p>
 <ol>

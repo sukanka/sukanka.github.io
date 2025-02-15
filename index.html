@@ -270,6 +270,46 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2025/02/15/ollama-with-780M/" target="_self">
+          ollama 调用 780M
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/02/15/ollama-with-780M/" target="_self">
+        <div>
+          最近安装了 ollama 试试本地跑大模型，直接安装了 ollama 以及 ollama-cuda, 然后调用 ollama run deepseek-r1:32b 大概能有 3tps 的速度，主要卡点在 N 卡爆显存。后续听说可以用 AMD核显来跑，并且由于核显直接共享50%的内存，效果还可以，我有96G内存，核显能有48G左右的共享显存，因此不会爆显存了，打算试一下。 前置知识 开机自启与绑定
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-02-15 22:33" pubdate>
+              2025-02-15
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LLM/">#LLM</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2024/10/16/iptv-beijing-unicom/" target="_self">
           Linux 上看北京联通 iptv
         </a>
@@ -534,67 +574,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/initramfs/">#initramfs</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/12/24/archlinux-pxeboot/" target="_self">
-          PXE 启动 archlinux
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/12/24/archlinux-pxeboot/" target="_self">
-        <div>
-          最近想整个 PXE 启动的 archlinux 环境，启动之后像 archiso 一样，跑在内存里面。 实现思路 PXE 启动 grub, 然后走 http 下载 kernel 和 initramfs, 在 initramfs 启动过程中下载 rootfs，最后 switch_root 到 rootfs。  首先，我们需要制作一个可以启动的 initramfs 和 rootfs, 可以参考制作自定
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-12-24 21:28" pubdate>
-              2023-12-24
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/archlinux/" class="category-chain-item">archlinux</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/pxeboot/">#pxeboot</a>
             
           </div>
         

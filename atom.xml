@@ -6,7 +6,7 @@
   <link href="https://blog.askk.cc/atom.xml" rel="self"/>
   
   <link href="https://blog.askk.cc/"/>
-  <updated>2024-10-16T13:15:07.047Z</updated>
+  <updated>2025-02-15T15:03:52.799Z</updated>
   <id>https://blog.askk.cc/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ollama 调用 780M</title>
+    <link href="https://blog.askk.cc/2025/02/15/ollama-with-780M/"/>
+    <id>https://blog.askk.cc/2025/02/15/ollama-with-780M/</id>
+    <published>2025-02-15T14:33:28.000Z</published>
+    <updated>2025-02-15T15:03:52.799Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近安装了 &lt;a href=&quot;https://archlinux.org/packages/extra/x86_64/ollama/&quot;&gt;ollama&lt;/a&gt; 试试本地跑大模型，直接安装了 &lt;code&gt;ollama&lt;/code&gt; 以及</summary>
+        
+      
+    
+    
+    
+    
+    <category term="LLM" scheme="https://blog.askk.cc/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux 上看北京联通 iptv</title>
@@ -503,35 +526,6 @@
     <category term="bitwarden" scheme="https://blog.askk.cc/tags/bitwarden/"/>
     
     <category term="vaultwarden" scheme="https://blog.askk.cc/tags/vaultwarden/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在 Archlinux 服务器上安装 dendrite</title>
-    <link href="https://blog.askk.cc/2022/02/28/deploy-dendrite/"/>
-    <id>https://blog.askk.cc/2022/02/28/deploy-dendrite/</id>
-    <published>2022-02-28T15:52:57.000Z</published>
-    <updated>2022-07-04T16:00:00.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;摘自维基百科：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Matrix&lt;/strong&gt;是一种用于实时通信的开放协议。它允许拥有一个&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="archlinux" scheme="https://blog.askk.cc/categories/archlinux/"/>
-    
-    
-    <category term="dendrite" scheme="https://blog.askk.cc/tags/dendrite/"/>
-    
-    <category term="matrix" scheme="https://blog.askk.cc/tags/matrix/"/>
     
   </entry>
   

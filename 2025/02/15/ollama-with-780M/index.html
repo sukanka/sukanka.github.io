@@ -19,24 +19,24 @@
   <meta name="author" content="sukanka">
   <meta name="keywords" content="">
   
-    <meta name="description" content="背景 最近折腾光猫桥接的时候发现北京联通宽带是可以直接看 iptv 的，不用交钱开通功能。 由于我用的 tplink路由器，不像openwrt 可以直接组播转单播，所以没有可以直接参考的帖子。 解决办法 我首先参考 北京联通IPTV实现无线化 这篇帖子，将iptv功能绑定到vlan 3964, 开启路由功能，LAN口不绑定，Internet vlan 3961, 桥接。 然后在绑定配置里面将几个v">
+    <meta name="description" content="最近安装了 ollama 试试本地跑大模型，直接安装了 ollama 以及 ollama-cuda, 然后调用 ollama run deepseek-r1:32b 大概能有 3tps 的速度，主要卡点在 N 卡爆显存。后续听说可以用 AMD核显来跑，并且由于核显直接共享50%的内存，效果还可以，我有96G内存，核显能有48G左右的共享显存，因此不会爆显存了，打算试一下。 前置知识 开机自启与绑定">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux 上看北京联通 iptv">
-<meta property="og:url" content="https://blog.askk.cc/2024/10/16/iptv-beijing-unicom/index.html">
+<meta property="og:title" content="ollama 调用 780M">
+<meta property="og:url" content="https://blog.askk.cc/2025/02/15/ollama-with-780M/index.html">
 <meta property="og:site_name" content="sukanka 的博客">
-<meta property="og:description" content="背景 最近折腾光猫桥接的时候发现北京联通宽带是可以直接看 iptv 的，不用交钱开通功能。 由于我用的 tplink路由器，不像openwrt 可以直接组播转单播，所以没有可以直接参考的帖子。 解决办法 我首先参考 北京联通IPTV实现无线化 这篇帖子，将iptv功能绑定到vlan 3964, 开启路由功能，LAN口不绑定，Internet vlan 3961, 桥接。 然后在绑定配置里面将几个v">
+<meta property="og:description" content="最近安装了 ollama 试试本地跑大模型，直接安装了 ollama 以及 ollama-cuda, 然后调用 ollama run deepseek-r1:32b 大概能有 3tps 的速度，主要卡点在 N 卡爆显存。后续听说可以用 AMD核显来跑，并且由于核显直接共享50%的内存，效果还可以，我有96G内存，核显能有48G左右的共享显存，因此不会爆显存了，打算试一下。 前置知识 开机自启与绑定">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-10-16T12:55:27.000Z">
-<meta property="article:modified_time" content="2024-10-16T13:15:07.047Z">
+<meta property="article:published_time" content="2025-02-15T14:33:28.000Z">
+<meta property="article:modified_time" content="2025-02-15T15:03:52.799Z">
 <meta property="article:author" content="sukanka">
-<meta property="article:tag" content="iptv">
+<meta property="article:tag" content="LLM">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Linux 上看北京联通 iptv - sukanka 的博客</title>
+  <title>ollama 调用 780M - sukanka 的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -241,7 +241,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Linux 上看北京联通 iptv"></span>
+            <span id="subtitle" data-typed-text="ollama 调用 780M"></span>
           
         </div>
 
@@ -257,8 +257,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-10-16 20:55" pubdate>
-          2024年10月16日 晚上
+        <time datetime="2025-02-15 22:33" pubdate>
+          2025年2月15日 晚上
         </time>
       </span>
     
@@ -269,7 +269,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          546 字
+          542 字
         
       </span>
     
@@ -326,12 +326,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Linux 上看北京联通 iptv</h1>
+            <h1 id="seo-header">ollama 调用 780M</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年10月16日 晚上
+                    本文最后更新于 2025年2月15日 晚上
                   
                 
               </p>
@@ -339,27 +339,30 @@
             
               <div class="markdown-body">
                 
-                <h2 id="背景">背景</h2>
-<p>最近折腾光猫桥接的时候发现北京联通宽带是可以直接看 iptv 的，不用交钱开通功能。<br>
-由于我用的 tplink路由器，不像openwrt 可以直接组播转单播，所以没有可以直接参考的帖子。</p>
-<h2 id="解决办法">解决办法</h2>
-<p>我首先参考 <a target="_blank" rel="noopener" href="https://post.smzdm.com/p/ar0v3mwq/">北京联通IPTV实现无线化</a> 这篇帖子，将iptv功能绑定到vlan 3964, 开启路由功能，LAN口不绑定，Internet vlan 3961, 桥接。<br>
-然后在绑定配置里面将几个vlan都绑定到 LAN1 口。然后在路由器的设置界面，选IPTV口，上网和IPTV单线复用，机顶盒连接方式我选的是无线，因为有线会占用一个LAN接口。<br>
-现在电视应用连接对应的wifi就可以看直播了，但是没法上网。要想家里所有设备都能看直播，同时还能上网，需要一个中间设备将组播转为单播，我使用的 udpxy.</p>
-<h2 id="udpxy">udpxy</h2>
-<p>需要一台设备能同时连接iptv网络和正常internet网络, 我这里使用的是我的 archlinux 笔记本，wifi 连 iptv 的专用wifi, 网线连到路由器上网。我的笔记本网络如下</p>
-<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs pf">➜  ~ ip a<br><span class="hljs-number">1</span>: lo: <span class="hljs-variable">&lt;LOOPBACK,UP,LOWER_UP&gt;</span> mtu <span class="hljs-number">65536</span> qdisc noqueue <span class="hljs-keyword">state</span> UNKNOWN <span class="hljs-keyword">group</span> <span class="hljs-keyword">default</span> qlen <span class="hljs-number">1000</span><br>    link/loopback <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span> brd <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span><br>    <span class="hljs-keyword">inet</span> <span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>/<span class="hljs-number">8</span> scope host lo<br>       valid_lft forever preferred_lft forever<br>    <span class="hljs-keyword">inet6</span> ::<span class="hljs-number">1</span>/<span class="hljs-number">128</span> scope host noprefixroute<br>       valid_lft forever preferred_lft forever<br><span class="hljs-number">2</span>: enp3s0: <span class="hljs-variable">&lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt;</span> mtu <span class="hljs-number">1500</span> qdisc fq_codel <span class="hljs-keyword">state</span> UP <span class="hljs-keyword">group</span> <span class="hljs-keyword">default</span> qlen <span class="hljs-number">1000</span><br>    link/ether b0:<span class="hljs-number">25</span>:aa:<span class="hljs-number">72</span>:<span class="hljs-number">1</span>f:<span class="hljs-number">7</span>c brd ff:ff:ff:ff:ff:ff<br>    <span class="hljs-keyword">inet</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">2.126</span>/<span class="hljs-number">24</span> brd <span class="hljs-number">192.168</span>.<span class="hljs-number">2.255</span> scope <span class="hljs-keyword">global</span> dynamic noprefixroute enp3s0<br>       valid_lft <span class="hljs-number">164620</span>sec preferred_lft <span class="hljs-number">164620</span>sec<br>    <span class="hljs-keyword">inet6</span> fe80::ab42:<span class="hljs-number">80</span>e7:<span class="hljs-number">29</span>dd:<span class="hljs-number">1065</span>/<span class="hljs-number">64</span> scope link noprefixroute<br>       valid_lft forever preferred_lft forever<br><span class="hljs-number">3</span>: wlp4s0: <span class="hljs-variable">&lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt;</span> mtu <span class="hljs-number">1500</span> qdisc noqueue <span class="hljs-keyword">state</span> UP <span class="hljs-keyword">group</span> <span class="hljs-keyword">default</span> qlen <span class="hljs-number">1000</span><br>    link/ether c0:bf:be:d4:ed:d8 brd ff:ff:ff:ff:ff:ff<br>    <span class="hljs-keyword">inet</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">1.4</span>/<span class="hljs-number">24</span> brd <span class="hljs-number">192.168</span>.<span class="hljs-number">1.255</span> scope <span class="hljs-keyword">global</span> dynamic noprefixroute wlp4s0<br>       valid_lft <span class="hljs-number">544964</span>sec preferred_lft <span class="hljs-number">544964</span>sec<br>    <span class="hljs-keyword">inet6</span> fe80::<span class="hljs-number">34</span>f1:<span class="hljs-number">77</span>e2:<span class="hljs-number">641</span>c:<span class="hljs-number">7142</span>/<span class="hljs-number">64</span> scope link noprefixroute<br>       valid_lft forever preferred_lft forever<br><span class="hljs-number">4</span>: virbr0: <span class="hljs-variable">&lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt;</span> mtu <span class="hljs-number">1500</span> qdisc noqueue <span class="hljs-keyword">state</span> DOWN <span class="hljs-keyword">group</span> <span class="hljs-keyword">default</span> qlen <span class="hljs-number">1000</span><br>    link/ether <span class="hljs-number">52</span>:<span class="hljs-number">54</span>:<span class="hljs-number">00</span>:ca:<span class="hljs-number">2</span>a:<span class="hljs-number">64</span> brd ff:ff:ff:ff:ff:ff<br>    <span class="hljs-keyword">inet</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">122.1</span>/<span class="hljs-number">24</span> brd <span class="hljs-number">192.168</span>.<span class="hljs-number">122.255</span> scope <span class="hljs-keyword">global</span> virbr0<br>       valid_lft forever preferred_lft forever<br><span class="hljs-number">5</span>: Meta: <span class="hljs-variable">&lt;POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP&gt;</span> mtu <span class="hljs-number">9000</span> qdisc fq_codel <span class="hljs-keyword">state</span> UNKNOWN <span class="hljs-keyword">group</span> <span class="hljs-keyword">default</span> qlen <span class="hljs-number">500</span><br>    link/<span class="hljs-keyword">none</span><br>    <span class="hljs-keyword">inet</span> <span class="hljs-number">198.18</span>.<span class="hljs-number">0.1</span>/<span class="hljs-number">30</span> brd <span class="hljs-number">198.18</span>.<span class="hljs-number">0.3</span> scope <span class="hljs-keyword">global</span> Meta<br>       valid_lft forever preferred_lft forever<br>    <span class="hljs-keyword">inet6</span> fe80::<span class="hljs-number">1</span>e77:da65:dc21:d301/<span class="hljs-number">64</span> scope link stable-privacy <span class="hljs-keyword">proto</span> kernel_ll<br></code></pre></td></tr></table></figure>
-<p><code>enp3s0</code> 是有线，<code>wlp4s0</code> 是无线，连的iptv wifi, 我的 udpxy 服务命令为</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">/usr/bin/udpxy -<span class="hljs-selector-tag">a</span> enp3s0 -m wlp4s0 -<span class="hljs-selector-tag">p</span> <span class="hljs-number">23234</span> -T -S -<span class="hljs-selector-tag">B</span> <span class="hljs-number">256</span>kb<br></code></pre></td></tr></table></figure>
-<p>这样，udpxy 服务的地址就是 <code>http://192.168.2.126:23234</code>， 可以参考 <a target="_blank" rel="noopener" href="https://github.com/lelehub/udpxy-IPTV">udpxy-IPTV</a> 进行使用。<br>
-这下家里所有设备都能同时看电视和上网了。</p>
+                <p>最近安装了 <a target="_blank" rel="noopener" href="https://archlinux.org/packages/extra/x86_64/ollama/">ollama</a> 试试本地跑大模型，直接安装了 <code>ollama</code> 以及 <code>ollama-cuda</code>, 然后调用 <code>ollama run deepseek-r1:32b</code> 大概能有 3tps 的速度，主要卡点在 N 卡爆显存。后续听说可以用 AMD核显来跑，并且由于核显直接共享50%的内存，效果还可以，我有96G内存，核显能有48G左右的共享显存，因此不会爆显存了，打算试一下。</p>
+<h2 id="前置知识">前置知识</h2>
+<h3 id="开机自启与绑定端口">开机自启与绑定端口</h3>
+<p>先提一点没用的知识。首先编辑 ollama 的 service文件，更改绑定的地址为 <code>0.0.0.0</code>这样其他应用就可以调用 ollama 了。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">sudo systemctl <span class="hljs-built_in">edit</span> --full ollama<br></code></pre></td></tr></table></figure>
+<p>在 <code>[Service]</code> 部分加一行</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf"><span class="hljs-attribute">Environment</span><span class="hljs-operator">=</span><span class="hljs-string">&quot;OLLAMA_HOST=0.0.0.0:11434&quot;</span><br></code></pre></td></tr></table></figure>
+<p>然后启动 ollama 并设置开机自启</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> systemctl <span class="hljs-built_in">enable</span> --now ollama<br></code></pre></td></tr></table></figure>
+<h3 id="查看输出速率">查看输出速率</h3>
+<p>执行 <code>ollama run deepseek-r1:32b</code> 可以进入命令行交互界面，输入 <code>/set verbose</code> 可以开启 verbose 模式，每次交互完毕会展示一个统计结果，像下面这样，可以比较方便地看到输出速度。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">total</span> duration:       <span class="hljs-number">22</span>.<span class="hljs-number">90004298</span>s<br><span class="hljs-attribute">load</span> duration:        <span class="hljs-number">13</span>.<span class="hljs-number">334662</span>ms<br><span class="hljs-attribute">prompt</span> eval count:    <span class="hljs-number">7</span> token(s)<br><span class="hljs-attribute">prompt</span> eval duration: <span class="hljs-number">21</span>ms<br><span class="hljs-attribute">prompt</span> eval rate:     <span class="hljs-number">333</span>.<span class="hljs-number">33</span> tokens/s<br><span class="hljs-attribute">eval</span> count:           <span class="hljs-number">74</span> token(s)<br><span class="hljs-attribute">eval</span> duration:        <span class="hljs-number">22</span>.<span class="hljs-number">864</span>s<br><span class="hljs-attribute">eval</span> rate:            <span class="hljs-number">3</span>.<span class="hljs-number">24</span> tokens/s<br></code></pre></td></tr></table></figure>
+<h2 id="在核显上跑-ollama">在核显上跑 ollama</h2>
+<p>官方的 ollama是不支持 780M的，但是群友说有一个第三方分支 <a target="_blank" rel="noopener" href="https://github.com/Maciej-Mogilany/ollama/tree/AMD_APU_GTT_memory">AMD_APU_GTT_memory</a> 支持，在官方仓库下也有一个<a target="_blank" rel="noopener" href="https://github.com/ollama/ollama/pull/6282">对应PR</a>,我们只要用上游的 PKGBUILD打上这个 patch 即可。</p>
+<ul>
+<li>对应的 PKGBUILD 放在<a target="_blank" rel="noopener" href="https://gist.github.com/sukanka/2bad26b2071f82f8e10727ee8a1ea99d">我的 gist 仓库</a>,</li>
+<li>对应的二进制包也放在<a target="_blank" rel="noopener" href="https://dl.askk.cc/ms/Linux/ArchLinux/ollama">我的共享仓库</a>。</li>
+</ul>
+<p>安装好之后再在它的service文件添加一个新的环境变量<code>HSA_OVERRIDE_GFX_VERSION</code>，并重启服务就可以了。注意780M值一定要是<code>11.0.2</code>, 我试了其他的<code>11.0.3</code>, <code>11.0.1</code> 都不能启动。680M 可以试试<a target="_blank" rel="noopener" href="https://github.com/ollama/ollama/pull/6282">这个 PR</a> 里面的值。同时我还按照这个PR加了另外两个环境变量<code>OLLAMA_MAX_LOADED_MODELS=1</code> 和 <code>OLLAMA_NUM_PARALLEL=1</code>（实际测试有没有好像都没有影响）。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs routeros">systemctl cat ollama.service<br><span class="hljs-comment"># /etc/systemd/system/ollama.service</span><br>[Unit]<br><span class="hljs-attribute">Description</span>=Ollama<span class="hljs-built_in"> Service</span><br><span class="hljs-built_in"></span><span class="hljs-attribute">Wants</span>=network-online.target<br><span class="hljs-attribute">After</span>=network.target network-online.target<br><br>[Service]<br><span class="hljs-attribute">ExecStart</span>=/usr/bin/ollama serve<br><span class="hljs-attribute">WorkingDirectory</span>=/var/lib/ollama<br><span class="hljs-attribute">Environment</span>=<span class="hljs-string">&quot;HOME=/var/lib/ollama&quot;</span><br><span class="hljs-attribute">Environment</span>=<span class="hljs-string">&quot;OLLAMA_MODELS=/var/lib/ollama&quot;</span><br><span class="hljs-attribute">Environment</span>=<span class="hljs-string">&quot;OLLAMA_HOST=0.0.0.0:11434&quot;</span><br><span class="hljs-attribute">Environment</span>=<span class="hljs-string">&quot;HSA_OVERRIDE_GFX_VERSION=11.0.2&quot;</span><br><span class="hljs-attribute">User</span>=ollama<br><span class="hljs-attribute">Group</span>=ollama<br><span class="hljs-attribute">Restart</span>=on-failure<br><span class="hljs-attribute">RestartSec</span>=3<br><span class="hljs-attribute">RestartPreventExitStatus</span>=1<br><span class="hljs-attribute">Type</span>=simple<br><span class="hljs-attribute">PrivateTmp</span>=<span class="hljs-literal">yes</span><br><span class="hljs-attribute">ProtectSystem</span>=full<br><span class="hljs-attribute">ProtectHome</span>=<span class="hljs-literal">yes</span><br><br>[Install]<br><span class="hljs-attribute">WantedBy</span>=multi-user.target<br></code></pre></td></tr></table></figure>
 <h2 id="参考资料">参考资料</h2>
-<ol>
-<li><a target="_blank" rel="noopener" href="https://post.smzdm.com/p/aevgq0oz/">超完美超简单任意多终端看IPTV电视方案-TP LINK BE6500路由器为例</a></li>
-<li><a target="_blank" rel="noopener" href="https://post.smzdm.com/p/ar0v3mwq/">北京联通IPTV实现无线化</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/lelehub/udpxy-IPTV">udpxy-IPTV</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/qwerttvv/Beijing-IPTV">Beijing-IPTV</a></li>
-</ol>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/ollama/ollama/pull/6282">AMD integrated graphic on linux kernel 6.9.9+, GTT memory, loading freeze fix</a></li>
+</ul>
 
                 
               </div>
@@ -368,32 +371,11 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/linux/" class="category-chain-item">linux</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/iptv/" class="print-no-link">#iptv</a>
+        <a href="/tags/LLM/" class="print-no-link">#LLM</a>
       
     </div>
   
@@ -405,8 +387,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Linux 上看北京联通 iptv</div>
-      <div>https://blog.askk.cc/2024/10/16/iptv-beijing-unicom/</div>
+      <div>ollama 调用 780M</div>
+      <div>https://blog.askk.cc/2025/02/15/ollama-with-780M/</div>
     </div>
     <div class="license-meta">
       
@@ -418,7 +400,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年10月16日</div>
+          <div>2025年2月15日</div>
         </div>
       
       
@@ -462,18 +444,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/02/15/ollama-with-780M/" title="ollama 调用 780M">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">ollama 调用 780M</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/10/07/update-spl-for-visionfive-v2/" title="为 VisionFive V2 更新 uboot">
-                        <span class="hidden-mobile">为 VisionFive V2 更新 uboot</span>
+                      <a href="/2024/10/16/iptv-beijing-unicom/" title="Linux 上看北京联通 iptv">
+                        <span class="hidden-mobile">Linux 上看北京联通 iptv</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
