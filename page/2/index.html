@@ -270,6 +270,67 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2024/03/30/custom-archlinux-initramfs-and-rootfs/" target="_self">
+          制作自定义的 archlinux initramfs 与 rootfs
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/03/30/custom-archlinux-initramfs-and-rootfs/" target="_self">
+        <div>
+          最近想做一个自定义的 archlinux pxe 启动环境，由于 pxe 走的 tftp, 因此希望 initramfs 尽量小，官方 iso 里面的 initramfs 带了一些 glibc 的动态链接库，因此体积还是比较大的。我打算基于 busybox 去做一个 initramfs, 尽量只包含 busybox 以及网卡驱动，其他一概不加，都放在 rootfs 里面。 最后所有脚本放在 Git
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-03-30 18:48" pubdate>
+              2024-03-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/archlinux/" class="category-chain-item">archlinux</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/initramfs/">#initramfs</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2023/12/24/archlinux-pxeboot/" target="_self">
           PXE 启动 archlinux
         </a>
@@ -562,67 +623,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/python/">#python</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2022/09/18/nixos-installation/" target="_self">
-          从零开始的 NixOS 教程（安装篇）
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/09/18/nixos-installation/" target="_self">
-        <div>
-          前言 与 archlinux 不同， NixOS(以下简称 Nix)因其可复现构建的特性而更加适合服务器。简单来说，在 archlinux 上，你在不同的时间构建同一个版本的软件，构建出来很可能是不一样的，而在 Nix 上，不同时间构建出来的同一份软件应当是二进制级别的相同，而这种特性就非常适合服务器。同时 Nix 每个包的依赖都是独立的，都放在 /nix/store下面的子文件夹，文件夹名称通常
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-09-18 08:34" pubdate>
-              2022-09-18
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/linux/" class="category-chain-item">linux</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/nixos/">#nixos</a>
             
           </div>
         

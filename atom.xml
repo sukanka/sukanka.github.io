@@ -6,7 +6,7 @@
   <link href="https://blog.askk.cc/atom.xml" rel="self"/>
   
   <link href="https://blog.askk.cc/"/>
-  <updated>2025-02-15T15:03:52.799Z</updated>
+  <updated>2025-05-24T10:21:25.256Z</updated>
   <id>https://blog.askk.cc/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>为教育邮箱启用 IMAP和 SMTP</title>
+    <link href="https://blog.askk.cc/2025/05/24/edu-mail-smtp/"/>
+    <id>https://blog.askk.cc/2025/05/24/edu-mail-smtp/</id>
+    <published>2025-05-24T10:13:08.000Z</published>
+    <updated>2025-05-24T10:21:25.256Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;大多数的教育邮箱都是走的 coremail, 不同学校具体的设置方式不一样，而且coremail设置应用密码后给出的提示不一定是对的。本文记录了设置SWUFE和 XMU邮箱的步骤，使用的客户端为 thunderbird.&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>ollama 调用 780M</title>
@@ -500,32 +522,6 @@
     <category term="python" scheme="https://blog.askk.cc/tags/python/"/>
     
     <category term="vnpy" scheme="https://blog.askk.cc/tags/vnpy/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在 Archlinux 服务器上部署 vaultwarden</title>
-    <link href="https://blog.askk.cc/2022/03/03/host-vaultwarden/"/>
-    <id>https://blog.askk.cc/2022/03/03/host-vaultwarden/</id>
-    <published>2022-03-03T11:03:24.000Z</published>
-    <updated>2022-07-08T11:01:06.815Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;介绍&quot;&gt;介绍&lt;/h2&gt;
-&lt;p&gt;下面的内容摘抄自 &lt;a href=&quot;https://help.ppgg.in/&quot;&gt;&lt;strong&gt;Bitwarden 帮助中心中文版&lt;/strong&gt;&lt;/a&gt;,</summary>
-        
-      
-    
-    
-    
-    
-    <category term="bitwarden" scheme="https://blog.askk.cc/tags/bitwarden/"/>
-    
-    <category term="vaultwarden" scheme="https://blog.askk.cc/tags/vaultwarden/"/>
     
   </entry>
   

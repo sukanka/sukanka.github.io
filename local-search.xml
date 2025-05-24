@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>为教育邮箱启用 IMAP和 SMTP</title>
+    <link href="/2025/05/24/edu-mail-smtp/"/>
+    <url>/2025/05/24/edu-mail-smtp/</url>
+    
+    <content type="html"><![CDATA[<p>大多数的教育邮箱都是走的 coremail, 不同学校具体的设置方式不一样，而且coremail设置应用密码后给出的提示不一定是对的。本文记录了设置SWUFE和 XMU邮箱的步骤，使用的客户端为 thunderbird.</p><h2 id="SWUFE邮箱">SWUFE邮箱</h2><p>设置应用专用密码后，忽略coremail的提示，按<a href="https://info.swufe.edu.cn/info/1016/1006.htm">官方教程</a>设置。需要注意的点是三个地址都是同一个。</p><blockquote><p>smtp发送服务器地址： <a href="http://smail.swufe.edu.cn">smail.swufe.edu.cn</a> 端口号：25或465<br>pop3接收服务器地址： <a href="http://smail.swufe.edu.cn">smail.swufe.edu.cn</a> 端口号：110或993<br>imap接收服务器地址： <a href="http://smail.swufe.edu.cn">smail.swufe.edu.cn</a> 端口号：143或995</p></blockquote><h2 id="XMU邮箱">XMU邮箱</h2><p>输入邮箱信息后，按 coremail的提示配置即可，thunderbird可以自动查询配置。注意 XMU的邮箱设置不支持 SSL/TLS, 只能用 STARTTLS,对应的端口如下。</p><blockquote><p>smtp发送服务器地址： <a href="http://smtp.stu.xmu.edu.cn">smtp.stu.xmu.edu.cn</a> 端口号：25<br>pop3接收服务器地址： <a href="http://pop3.stu.xmu.edu.cn">pop3.stu.xmu.edu.cn</a> 端口号：110<br>imap接收服务器地址： <a href="http://imap.stu.xmu.edu.cn">imap.stu.xmu.edu.cn</a> 端口号：143</p></blockquote>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>ollama 调用 780M</title>
     <link href="/2025/02/15/ollama-with-780M/"/>
     <url>/2025/02/15/ollama-with-780M/</url>
