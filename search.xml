@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>tsukimi 二次开发踩坑记录</title>
+      <link href="/2026/05/18/tsukimi-develope/"/>
+      <url>/2026/05/18/tsukimi-develope/</url>
+      
+        <content type="html"><![CDATA[<p>上个月开了emby账号，开始看番剧，根据群友的推荐下载了 <a href="https://github.com/tsukinaha/tsukimi">tsukimi</a>, archlinux 用户一般直接在 <a href="https://github.com/archlinuxcn/repo">archlinuxcn</a> 下载从源码编译的软件包，而不是上游发布的二进制。但是，只有上游发布的二进制才有弹幕功能。而上游上一次发布还是在2024年，AUR的 <a href="https://aur.archlinux.org/packages/tsukimi-bin">tsukimi-bin</a> 太老，不想用。于是我自己fork了一个分支<a href="https://github.com/sukanka/tsukimi">sukanka/tsukimi</a>，根据自己的需求开发了一些功能。首先给自己构建的软件包加上弹幕功能。</p><h2 id="添加弹幕">添加弹幕</h2><p>由于程序内置了dandanplay 的<a href="https://github.com/tsukinaha/tsukimi/blob/main/secret/key">APIKEY</a>, 并且只有在上游的流水线中才<a href="https://github.com/tsukinaha/tsukimi/blob/main/.github/workflows/build_linux.yml#L47">通过环境变量注入了key</a>, archlinuxcn 的构建没有key, 就无法使用弹幕功能。</p><p>我最开始想添加自定义key的功能，然后用户可以自己去申请dandanplay 的 APIKEY, 然后 archlinuxcn构建的时候可以打入申请的apikey, 然后实现分发带有弹幕功能的二进制。</p><p>但是，在实现的过程中，我从上游发布的二进制逆向出了apikey（请不要问我要，请自行逆向，请勿扩散）。因此我没有去自己申请了，而是继续用上游的apikey 进行开发。首先是增加了用户自己自定义 dandanplay 的 api key 与 app secret 的功能，如果不填写就使用二进制里面默认的（但是不展示给用户看）。</p><p>同时，最开始的tsukimi只能自动匹配弹幕，有时候匹配不到，有时候会匹配错（比如在多季的时候）。我后续添加了弹幕搜索功能，支持按照 tmdb id+名字+剧集的方式搜索，默认自动按照 tmdb id+ 剧集去匹配，用户发现不对可以按照名字+剧集去搜索并选择。弹幕功能到这里告一段落。</p><p>顺便还加上了构建archlinux 的PKGBUILD, 构建完成自动发布到 nightly release, 这样 archlinux用户可以直接使用我预先构建的软件包（带了上游的api key），算是比较好地解决了弹幕问题。</p><h2 id="添加多线路与支持反代">添加多线路与支持反代</h2><p>上游的版本只能添加一个线路，但是好多 emby 服都有多线路，也有很多播放器支持多线路。因此我也让deepseek 帮我加上了多线路功能和路径功能，并且支持在播放界面切换。</p><h2 id="修复-mpris">修复 mpris</h2><p>上游的版本会向mpris发送信息，但是进度一直停留在0, 也没有封面。我的版本把这些一并也修正了</p><h2 id="修复弹幕字体错位">修复弹幕字体错位</h2><p>看弹幕的时候，发现经常有一条弹幕中的某个字会下沉，是 danmakw 这个库的BUG, 我也一并修复了。（感谢deepseek 老师）</p><h2 id="gpu-next-模式增强">gpu-next 模式增强</h2><p>五一期间我看飞驰人生3,发现视频发绿。看完了才发现是色彩不对,libmpv 模式不支持杜比视界。需要用 gpu-next 模式。因此后面开始开发把其他的功能移植到gpu-next 模式下面。</p><p>首先就是弹幕，gpu-next 模式下，mpv是独立窗口，加上我又是 wayland , 没有办法做到嵌入窗口，因此弹幕不能复用叠加层的方式实现，只能通过mpv支持的方式去实现。</p><p>一种是 secondary subtitle(次字幕)，将弹幕作为字幕去发送，实现起来简单，但是会占用次字幕通道，同时我发现弹幕会抖动，不过可以通过降低弹幕滚动速度缓解。</p><p>另一种是 osd-overlay， mpv 支持的一种屏幕叠加层，通过 <code>\move</code> 指令移动弹幕，也会有抖动，也能通过降低滚动速度缓解。好处是不会占用次字幕通道了。最终我选择了 osd overlay 的方式实现。</p><p>这里补充一点：等 libmpv 支持 gpu-next 以后，就能彻底解决这个问题了，但是还有很长的路要走。<a href="https://github.com/mpv-player/mpv/issues/10810">issue</a> 已经挂几年了，在wayland 模式下，还有 <a href="https://gitlab.freedesktop.org/wayland/wayland-protocols/-/issues/74">wayland 协议的问题</a> 需要解决。</p><p>在这里我顺便通过 ipc调用的方式把之前 gpu-next 模式下 mpv 窗口关闭后， tsukimi应用也必须要关闭的问题解决了。</p><h2 id="写在最后">写在最后</h2><p>目前我基本上把tsukimi改成我需要的样式了。之前在做支持自定义dandanplay APIKEY的时候，向上游提交过PR, 但是被拒绝了，后面就自己单独演进了，不过会偶尔同步上游的更改。近期上游开始做26.05版本了，改动很大，并且把弹幕功能砍掉了，我决定暂时不跟进，等上游演进得差不多了，再同步上游的更改，并合并我自己的更改。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Rust </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>为教育邮箱启用 IMAP和 SMTP</title>
       <link href="/2025/05/24/edu-mail-smtp/"/>
       <url>/2025/05/24/edu-mail-smtp/</url>

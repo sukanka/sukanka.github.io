@@ -6,7 +6,7 @@
   <link href="https://blog.askk.cc/atom.xml" rel="self"/>
   
   <link href="https://blog.askk.cc/"/>
-  <updated>2025-05-24T10:21:25.256Z</updated>
+  <updated>2026-05-17T16:41:34.339Z</updated>
   <id>https://blog.askk.cc/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>tsukimi 二次开发踩坑记录</title>
+    <link href="https://blog.askk.cc/2026/05/18/tsukimi-develope/"/>
+    <id>https://blog.askk.cc/2026/05/18/tsukimi-develope/</id>
+    <published>2026-05-17T16:04:09.000Z</published>
+    <updated>2026-05-17T16:41:34.339Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上个月开了emby账号，开始看番剧，根据群友的推荐下载了 &lt;a href=&quot;https://github.com/tsukinaha/tsukimi&quot;&gt;tsukimi&lt;/a&gt;, archlinux 用户一般直接在 &lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="https://blog.askk.cc/categories/Linux/"/>
+    
+    
+    <category term="Linux" scheme="https://blog.askk.cc/tags/Linux/"/>
+    
+    <category term="Rust" scheme="https://blog.askk.cc/tags/Rust/"/>
+    
+  </entry>
   
   <entry>
     <title>为教育邮箱启用 IMAP和 SMTP</title>
@@ -494,34 +521,6 @@
     <category term="archlinux" scheme="https://blog.askk.cc/tags/archlinux/"/>
     
     <category term="aur 助手" scheme="https://blog.askk.cc/tags/aur-%E5%8A%A9%E6%89%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在 Linux 上安装 VNPY</title>
-    <link href="https://blog.askk.cc/2022/03/30/install-vnpy/"/>
-    <id>https://blog.askk.cc/2022/03/30/install-vnpy/</id>
-    <published>2022-03-30T13:19:46.000Z</published>
-    <updated>2022-04-16T08:07:25.335Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;起因&quot;&gt;起因&lt;/h2&gt;
-&lt;p&gt;最近跟同学一起参加了一个&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="archlinux" scheme="https://blog.askk.cc/categories/archlinux/"/>
-    
-    
-    <category term="python" scheme="https://blog.askk.cc/tags/python/"/>
-    
-    <category term="vnpy" scheme="https://blog.askk.cc/tags/vnpy/"/>
     
   </entry>
   
