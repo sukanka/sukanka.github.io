@@ -19,25 +19,24 @@
   <meta name="author" content="sukanka">
   <meta name="keywords" content="">
   
-    <meta name="description" content="上个月开了emby账号，开始看番剧，根据群友的推荐下载了 tsukimi, archlinux 用户一般直接在 archlinuxcn 下载从源码编译的软件包，而不是上游发布的二进制。但是，只有上游发布的二进制才有弹幕功能。而上游上一次发布还是在2024年，AUR的 tsukimi-bin 太老，不想用。于是我自己fork了一个分支sukanka&#x2F;tsukimi，根据自己的需求开发了一些功能。首先">
+    <meta name="description" content="最近， 空之轨迹2nd 发售了，我也第一时间在 steam 上购买下载了，开始游玩。我的主力笔记本是 Archlinux 2024款的翼龙15pro 4070版本, 现在用的 niri+dms+wayland. 听说 cachyOS 的 proton 支持走wayland 而不是 Xwayland 了，因此我也装了 proton-cachyos. 进入游戏之后发现游戏支持HDR, 又让 GPT6">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tsukimi 二次开发踩坑记录">
-<meta property="og:url" content="https://blog.askk.cc/2026/05/18/tsukimi-develope/index.html">
+<meta property="og:title" content="Arch Linux＋niri＋NVIDIA 笔记本游戏性能排查：4K HDR 从约 45 FPS 提升到 75 FPS">
+<meta property="og:url" content="https://blog.askk.cc/2026/09/19/linux-wayland-gaming/index.html">
 <meta property="og:site_name" content="sukanka 的博客">
-<meta property="og:description" content="上个月开了emby账号，开始看番剧，根据群友的推荐下载了 tsukimi, archlinux 用户一般直接在 archlinuxcn 下载从源码编译的软件包，而不是上游发布的二进制。但是，只有上游发布的二进制才有弹幕功能。而上游上一次发布还是在2024年，AUR的 tsukimi-bin 太老，不想用。于是我自己fork了一个分支sukanka&#x2F;tsukimi，根据自己的需求开发了一些功能。首先">
+<meta property="og:description" content="最近， 空之轨迹2nd 发售了，我也第一时间在 steam 上购买下载了，开始游玩。我的主力笔记本是 Archlinux 2024款的翼龙15pro 4070版本, 现在用的 niri+dms+wayland. 听说 cachyOS 的 proton 支持走wayland 而不是 Xwayland 了，因此我也装了 proton-cachyos. 进入游戏之后发现游戏支持HDR, 又让 GPT6">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-05-17T16:04:09.000Z">
-<meta property="article:modified_time" content="2026-05-17T16:41:34.339Z">
+<meta property="article:published_time" content="2026-09-19T09:45:20.000Z">
+<meta property="article:modified_time" content="2026-09-19T09:57:10.882Z">
 <meta property="article:author" content="sukanka">
-<meta property="article:tag" content="Linux">
-<meta property="article:tag" content="Rust">
+<meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>tsukimi 二次开发踩坑记录 - sukanka 的博客</title>
+  <title>Arch Linux＋niri＋NVIDIA 笔记本游戏性能排查：4K HDR 从约 45 FPS 提升到 75 FPS - sukanka 的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -242,7 +241,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="tsukimi 二次开发踩坑记录"></span>
+            <span id="subtitle" data-typed-text="Arch Linux＋niri＋NVIDIA 笔记本游戏性能排查：4K HDR 从约 45 FPS 提升到 75 FPS"></span>
           
         </div>
 
@@ -258,8 +257,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-05-18 00:04" pubdate>
-          2026年5月18日 凌晨
+        <time datetime="2026-09-19 17:45" pubdate>
+          2026年9月19日 下午
         </time>
       </span>
     
@@ -270,7 +269,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          1.8k 字
         
       </span>
     
@@ -281,7 +280,7 @@
         
         
         
-          10 分钟
+          16 分钟
         
       </span>
     
@@ -327,12 +326,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">tsukimi 二次开发踩坑记录</h1>
+            <h1 id="seo-header">Arch Linux＋niri＋NVIDIA 笔记本游戏性能排查：4K HDR 从约 45 FPS 提升到 75 FPS</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年5月18日 凌晨
+                    本文最后更新于 2026年9月19日 下午
                   
                 
               </p>
@@ -340,28 +339,171 @@
             
               <div class="markdown-body">
                 
-                <p>上个月开了emby账号，开始看番剧，根据群友的推荐下载了 <a target="_blank" rel="noopener" href="https://github.com/tsukinaha/tsukimi">tsukimi</a>, archlinux 用户一般直接在 <a target="_blank" rel="noopener" href="https://github.com/archlinuxcn/repo">archlinuxcn</a> 下载从源码编译的软件包，而不是上游发布的二进制。但是，只有上游发布的二进制才有弹幕功能。而上游上一次发布还是在2024年，AUR的 <a target="_blank" rel="noopener" href="https://aur.archlinux.org/packages/tsukimi-bin">tsukimi-bin</a> 太老，不想用。于是我自己fork了一个分支<a target="_blank" rel="noopener" href="https://github.com/sukanka/tsukimi">sukanka/tsukimi</a>，根据自己的需求开发了一些功能。首先给自己构建的软件包加上弹幕功能。</p>
-<h2 id="添加弹幕">添加弹幕</h2>
-<p>由于程序内置了dandanplay 的<a target="_blank" rel="noopener" href="https://github.com/tsukinaha/tsukimi/blob/main/secret/key">APIKEY</a>, 并且只有在上游的流水线中才<a target="_blank" rel="noopener" href="https://github.com/tsukinaha/tsukimi/blob/main/.github/workflows/build_linux.yml#L47">通过环境变量注入了key</a>, archlinuxcn 的构建没有key, 就无法使用弹幕功能。</p>
-<p>我最开始想添加自定义key的功能，然后用户可以自己去申请dandanplay 的 APIKEY, 然后 archlinuxcn构建的时候可以打入申请的apikey, 然后实现分发带有弹幕功能的二进制。</p>
-<p>但是，在实现的过程中，我从上游发布的二进制逆向出了apikey（请不要问我要，请自行逆向，请勿扩散）。因此我没有去自己申请了，而是继续用上游的apikey 进行开发。首先是增加了用户自己自定义 dandanplay 的 api key 与 app secret 的功能，如果不填写就使用二进制里面默认的（但是不展示给用户看）。</p>
-<p>同时，最开始的tsukimi只能自动匹配弹幕，有时候匹配不到，有时候会匹配错（比如在多季的时候）。我后续添加了弹幕搜索功能，支持按照 tmdb id+名字+剧集的方式搜索，默认自动按照 tmdb id+ 剧集去匹配，用户发现不对可以按照名字+剧集去搜索并选择。弹幕功能到这里告一段落。</p>
-<p>顺便还加上了构建archlinux 的PKGBUILD, 构建完成自动发布到 nightly release, 这样 archlinux用户可以直接使用我预先构建的软件包（带了上游的api key），算是比较好地解决了弹幕问题。</p>
-<h2 id="添加多线路与支持反代">添加多线路与支持反代</h2>
-<p>上游的版本只能添加一个线路，但是好多 emby 服都有多线路，也有很多播放器支持多线路。因此我也让deepseek 帮我加上了多线路功能和路径功能，并且支持在播放界面切换。</p>
-<h2 id="修复-mpris">修复 mpris</h2>
-<p>上游的版本会向mpris发送信息，但是进度一直停留在0, 也没有封面。我的版本把这些一并也修正了</p>
-<h2 id="修复弹幕字体错位">修复弹幕字体错位</h2>
-<p>看弹幕的时候，发现经常有一条弹幕中的某个字会下沉，是 danmakw 这个库的BUG, 我也一并修复了。（感谢deepseek 老师）</p>
-<h2 id="gpu-next-模式增强">gpu-next 模式增强</h2>
-<p>五一期间我看飞驰人生3,发现视频发绿。看完了才发现是色彩不对,libmpv 模式不支持杜比视界。需要用 gpu-next 模式。因此后面开始开发把其他的功能移植到gpu-next 模式下面。</p>
-<p>首先就是弹幕，gpu-next 模式下，mpv是独立窗口，加上我又是 wayland , 没有办法做到嵌入窗口，因此弹幕不能复用叠加层的方式实现，只能通过mpv支持的方式去实现。</p>
-<p>一种是 secondary subtitle(次字幕)，将弹幕作为字幕去发送，实现起来简单，但是会占用次字幕通道，同时我发现弹幕会抖动，不过可以通过降低弹幕滚动速度缓解。</p>
-<p>另一种是 osd-overlay， mpv 支持的一种屏幕叠加层，通过 <code>\move</code> 指令移动弹幕，也会有抖动，也能通过降低滚动速度缓解。好处是不会占用次字幕通道了。最终我选择了 osd overlay 的方式实现。</p>
-<p>这里补充一点：等 libmpv 支持 gpu-next 以后，就能彻底解决这个问题了，但是还有很长的路要走。<a target="_blank" rel="noopener" href="https://github.com/mpv-player/mpv/issues/10810">issue</a> 已经挂几年了，在wayland 模式下，还有 <a target="_blank" rel="noopener" href="https://gitlab.freedesktop.org/wayland/wayland-protocols/-/issues/74">wayland 协议的问题</a> 需要解决。</p>
-<p>在这里我顺便通过 ipc调用的方式把之前 gpu-next 模式下 mpv 窗口关闭后， tsukimi应用也必须要关闭的问题解决了。</p>
-<h2 id="写在最后">写在最后</h2>
-<p>目前我基本上把tsukimi改成我需要的样式了。之前在做支持自定义dandanplay APIKEY的时候，向上游提交过PR, 但是被拒绝了，后面就自己单独演进了，不过会偶尔同步上游的更改。近期上游开始做26.05版本了，改动很大，并且把弹幕功能砍掉了，我决定暂时不跟进，等上游演进得差不多了，再同步上游的更改，并合并我自己的更改。</p>
+                <p>最近， <a target="_blank" rel="noopener" href="https://store.steampowered.com/app/4225980/_the_2nd/">空之轨迹2nd</a> 发售了，我也第一时间在 steam 上购买下载了，开始游玩。我的主力笔记本是 Archlinux 2024款的翼龙15pro 4070版本, 现在用的 niri+dms+wayland. 听说 cachyOS 的 proton 支持走wayland 而不是 Xwayland 了，因此我也装了 proton-cachyos. 进入游戏之后发现游戏支持HDR, 又让 GPT6 帮我找了一个 niri 的分支，自行构建开启了<a target="_blank" rel="noopener" href="https://dl.askk.cc/wopan/public/Linux/ArchLinux/niri-hdr">HDR支持</a>。</p>
+<p>但是进入游戏之后，帧率很低，尤其我用4k 中画质的话，大约只有45帧，开启HDR会更低。听闻前段时间Linux上能用上 dlss5, 我也尝试了一下，于事无补，而且帧率进一步降低，可能我的显卡太差了（对应的资源也放在我的 <a target="_blank" rel="noopener" href="https://dl.askk.cc/wopan/public/Linux/DLSS5VKLayer">openlist</a>了。</p>
+<p>找AI帮我调了一些参数，也没有什么明显效果，所以在 Linux下我就先用着2k高画质玩着，差不多60FPS. 我又想要不回 Windows 得了，结果 windows下4k中画质有60fps, 但是没有HDR了（我的显示器是支持的）。所以我又回Linux了，想着怎么提升一下帧数。</p>
+<h2 id="排查过程">排查过程</h2>
+<p>下面的排查过程是让 GPT帮我总结的，大致上没问题。</p>
+<p>最终有效的调整是：<strong>指定 niri 使用 NVIDIA 独显作为主渲染设备。</strong> 游戏本身一直运行在独显上，但 niri 原先使用的是另一块 GPU。</p>
+<p>记录一下 Windows/Linux 对照、排查过程和解决办法，供双显卡笔记本用户参考。</p>
+<h3 id="使用环境">使用环境</h3>
+<ul>
+<li>系统：Arch Linux</li>
+<li>桌面：niri＋DMS，niri 为自行编译的 HDR 分支</li>
+<li>niri 版本：<code>26.04 (641335f)</code></li>
+<li>显卡：RTX 4070 Laptop，8GB 显存</li>
+<li>NVIDIA 驱动：<code>615.71.09</code></li>
+<li>Proton：<code>proton-cachyos-slr 1:11.0.20260703-1</code></li>
+<li>显示器：ASUS PG32UCDM3，通过 HDMI 连接</li>
+<li>桌面输出：3840×2160、240Hz，缩放 200%</li>
+<li>VRR：配置为按需启用</li>
+</ul>
+<p>后期 Linux 对照测试主要使用 <strong>4K 输出、中画质、DLSS Performance</strong>。这里的 4K 指输出分辨率，启用 DLSS 后并非原生 4K 渲染。</p>
+<p><strong>最初的疑问：为什么 Windows 能接近 4K 60 FPS，Linux 却不行？</strong></p>
+<p>在 Windows 11 下，使用 <strong>4K＋DLSS Performance</strong>，帧率能够勉强达到 60 FPS。</p>
+<p>但 Windows 下还有一个 HDR 问题：</p>
+<ul>
+<li>Windows 系统设置中的 HDR 已开启。</li>
+<li>游戏内 HDR 显示为 <strong>Off</strong>，而且不能调整。</li>
+<li>Linux 下使用支持 HDR 的 niri 分支后，游戏内 HDR 可以调整。</li>
+</ul>
+<p>所以，Windows 的这个结果不能算作“游戏 HDR 开启时的 4K 60 FPS”。当时也没有把两边所有画质选项逐项记录下来，它主要是排查起点，并非严格控制全部变量的跨系统基准测试。</p>
+<h3 id="Linux-下做过的帧率对照">Linux 下做过的帧率对照</h3>
+<p>早期在 <strong>4K、中画质、DLSS Performance，HDR 关闭</strong> 的条件下：</p>
+<table>
+<thead>
+<tr>
+<th>运行方式</th>
+<th style="text-align:right">实测帧率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XWayland</td>
+<td style="text-align:right">约 60 FPS</td>
+</tr>
+<tr>
+<td>Proton 原生 Wayland</td>
+<td style="text-align:right">43–49 FPS</td>
+</tr>
+</tbody>
+</table>
+<p>这让我最初怀疑是 Proton 的原生 Wayland 路径存在明显性能损失，考虑过重新编译 Proton，或者添加环境变量。</p>
+<p>之后另一次测试中，原生 Wayland 的表现是：</p>
+<table>
+<thead>
+<tr>
+<th>HDR 状态</th>
+<th style="text-align:right">实测帧率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>开启</td>
+<td style="text-align:right">约 45 FPS</td>
+</tr>
+<tr>
+<td>关闭</td>
+<td style="text-align:right">约 52 FPS 以上</td>
+</tr>
+</tbody>
+</table>
+<p>这些是不同轮次的观察，因此没有把早期的 43–49 FPS 与后来的 52 FPS 以上当作完全相同条件下的重复测量。</p>
+<h3 id="中间排查了哪些方向？">中间排查了哪些方向？</h3>
+<ol>
+<li>
+<p><strong>显卡功耗与 Dynamic Boost</strong></p>
+<p>游戏时经常看到 GPU 只有约 105W，而 <code>nvidia-smi</code> 显示上限为 140W，因此怀疑没有释放全部功耗。</p>
+<p>检查发现：</p>
+<ul>
+<li>Notebook Dynamic Boost 显示 Supported。</li>
+<li><code>nvidia-powerd</code> 已启动。</li>
+<li>一次详细采样中，平均功耗达到 <strong>139.59W</strong>。</li>
+<li>另一次连续采样虽然只有约 103–104W，但核心频率稳定在 <strong>2520MHz</strong>，<code>SW Power Cap</code> 为 <code>Not Active</code>。</li>
+</ul>
+<p>因此，不能因为某段游戏只有 105W，就判断显卡被锁在 115W，或者需要“解锁 140W”。</p>
+</li>
+<li>
+<p><strong>关闭 Wine fullscreen hack</strong></p>
+<p>测试了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">PROTON_ENABLE_WAYLAND=1 WINE_DISABLE_FULLSCREEN_HACK=1 gamemoderun %<span class="hljs-built_in">command</span>%<br></code></pre></td></tr></table></figure>
+<p>帧率仍为 43–49 FPS，没有观察到改善。</p>
+</li>
+<li>
+<p><strong>HDR 分支的 scanout-post-blend-encode</strong></p>
+<p>单独尝试了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs kdl">debug &#123;<br>    scanout-post-blend-encode<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>添加和移除都没有观察到帧率变化，因此它不是这次解决问题的关键。</p>
+</li>
+</ol>
+<h3 id="真正的线索：niri-使用的渲染设备">真正的线索：niri 使用的渲染设备</h3>
+<p>检查 niri 日志：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">journalctl -b _COMM=niri --no-pager |<br>  rg <span class="hljs-string">&#x27;using as the render node&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>原先显示：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">using as the render node: &quot;/dev/dri/renderD128&quot;<br></code></pre></td></tr></table></figure>
+<p>随后确认 NVIDIA 独显对应的节点：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">readlink</span> -f /dev/dri/by-path/pci-0000:01:00.0-render<br></code></pre></td></tr></table></figure>
+<p>结果是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">/dev/dri/renderD129<br></code></pre></td></tr></table></figure>
+<p>也就是说，<strong>游戏使用 NVIDIA，但 niri 的主渲染设备并不是 NVIDIA。</strong></p>
+<p>之前在 <code>nvidia-smi</code> 的进程列表里也能看到 niri，但这不足以证明 niri 把 NVIDIA 作为主渲染设备。这里需要看 niri 启动日志。</p>
+<h3 id="最终解决方案">最终解决方案</h3>
+<p>在自己维护的 <code>~/.config/niri/config.kdl</code> 中加入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs kdl">debug &#123;<br>    render-drm-device &quot;/dev/dri/by-path/pci-0000:01:00.0-render&quot;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>如果已经有 <code>debug</code> 配置块，就把这一项合并进去。</p>
+<p>这里使用 PCI 对应的 <code>by-path</code> 路径，避免依赖可能随启动变化的 <code>renderD128</code>、<code>renderD129</code> 编号。其他机器需要先确认自己的独显 PCI 地址，不能直接照抄。</p>
+<p>然后<strong>注销并重新进入 niri 会话</strong>。主渲染设备在启动时选择，仅重新加载配置不够。</p>
+<p>重新检查日志，确认变成：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">using as the render node: &quot;/dev/dri/renderD129&quot;<br></code></pre></td></tr></table></figure>
+<p>Steam 启动参数保持为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">PROTON_ENABLE_WAYLAND=1 gamemoderun %<span class="hljs-built_in">command</span>%<br></code></pre></td></tr></table></figure>
+<p>这次改善不依赖重新编译 Proton，也没有使用 DLSS5 helper 的效果来提高帧率。</p>
+<h3 id="修改后的结果">修改后的结果</h3>
+<p>继续使用 4K 输出、中画质、DLSS Performance：</p>
+<table>
+<thead>
+<tr>
+<th>原生 Wayland</th>
+<th style="text-align:right">修改前，后期测试</th>
+<th style="text-align:right">指定 niri 使用 NVIDIA 后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HDR 开启</td>
+<td style="text-align:right">约 45 FPS</td>
+<td style="text-align:right"><strong>约 75 FPS</strong></td>
+</tr>
+<tr>
+<td>HDR 关闭</td>
+<td style="text-align:right">约 52 FPS 以上</td>
+<td style="text-align:right"><strong>约 80 FPS</strong></td>
+</tr>
+</tbody>
+</table>
+<p>这是此次测试场景中的结果，不代表整个游戏所有场景都能维持同样帧率。不过，已经超过了我最初希望达到的 4K HDR 60 FPS。</p>
+<p><strong>补充确认：HDMI 本来就是独显直出</strong></p>
+<p>我还怀疑过 HDMI 是否经过核显，以及换成 Type-C 连接是否能改善性能。</p>
+<p>检查外接屏接口：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> /sys/class/drm/card*-HDMI-A-*; <span class="hljs-keyword">do</span><br>    [ <span class="hljs-string">&quot;<span class="hljs-subst">$(cat <span class="hljs-string">&quot;<span class="hljs-variable">$p</span>/status&quot;</span>)</span>&quot;</span> = connected ] &amp;&amp; <span class="hljs-built_in">readlink</span> -f <span class="hljs-string">&quot;<span class="hljs-variable">$p</span>&quot;</span><br><span class="hljs-keyword">done</span><br></code></pre></td></tr></table></figure>
+<p>返回路径中的关键部分是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">0000:01:00.0/drm/card0/card0-HDMI-A-1<br></code></pre></td></tr></table></figure>
+<p>这说明 <strong>HDMI 接口本来就属于 NVIDIA 独显</strong>。</p>
+<p>内屏 eDP 则位于另一块 GPU：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">0000:07:00.0/drm/card1/card1-eDP-1<br></code></pre></td></tr></table></figure>
+<p>所以这次修改改变的是 <strong>niri 使用哪块 GPU 渲染</strong>，并没有切换笔记本内屏的硬件 MUX。</p>
+<p>修复之后，游戏、niri 主渲染设备和 HDMI 输出都落在 NVIDIA 上。没有必要仅为解决这次帧率问题而更换 Type-C 连接。</p>
+<p><strong>这次排查得到的结论</strong></p>
+<p>从主渲染设备日志和修改后的大幅提升来看，主要瓶颈指向 <strong>niri 的 GPU 选择以及跨 GPU 显示路径</strong>，不能简单归因于“Proton 原生 Wayland 性能差”。</p>
+<p>没有进行 GPU 跟踪，因此不能精确断言其中发生了几次复制、各自耗时多少；修复后也没有进一步确认外接屏是否进入直接扫描输出。<strong>接口属于独显，与合成器成功直接扫描输出，是两件不同的事。</strong></p>
+<p>对于双显卡笔记本，尤其是外接显示器接在独显上的情况，如果游戏已经使用独显，Wayland 性能却明显异常，值得同时检查：</p>
+<ul>
+<li>游戏使用哪块 GPU。</li>
+<li>合成器使用哪块 GPU。</li>
+<li>显示器接口实际属于哪块 GPU。</li>
+</ul>
+<p>本例中，调整第二项就解决了主要性能问题。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://niri-wm.github.io/niri/Configuration:-Debug-Options.html#render-drm-device">niri 的 render-drm-device 配置说明</a></p>
 
                 
               </div>
@@ -370,34 +512,11 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Linux/" class="category-chain-item">Linux</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Linux/" class="print-no-link">#Linux</a>
-      
-        <a href="/tags/Rust/" class="print-no-link">#Rust</a>
+        <a href="/tags/linux/" class="print-no-link">#linux</a>
       
     </div>
   
@@ -409,8 +528,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>tsukimi 二次开发踩坑记录</div>
-      <div>https://blog.askk.cc/2026/05/18/tsukimi-develope/</div>
+      <div>Arch Linux＋niri＋NVIDIA 笔记本游戏性能排查：4K HDR 从约 45 FPS 提升到 75 FPS</div>
+      <div>https://blog.askk.cc/2026/09/19/linux-wayland-gaming/</div>
     </div>
     <div class="license-meta">
       
@@ -422,7 +541,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2026年5月18日</div>
+          <div>2026年9月19日</div>
         </div>
       
       
@@ -466,18 +585,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/09/19/linux-wayland-gaming/" title="Arch Linux＋niri＋NVIDIA 笔记本游戏性能排查：4K HDR 从约 45 FPS 提升到 75 FPS">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Arch Linux＋niri＋NVIDIA 笔记本游戏性能排查：4K HDR 从约 45 FPS 提升到 75 FPS</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/24/edu-mail-smtp/" title="为教育邮箱启用 IMAP和 SMTP">
-                        <span class="hidden-mobile">为教育邮箱启用 IMAP和 SMTP</span>
+                      <a href="/2026/05/18/tsukimi-develope/" title="tsukimi 二次开发踩坑记录">
+                        <span class="hidden-mobile">tsukimi 二次开发踩坑记录</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

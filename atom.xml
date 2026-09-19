@@ -6,7 +6,7 @@
   <link href="https://blog.askk.cc/atom.xml" rel="self"/>
   
   <link href="https://blog.askk.cc/"/>
-  <updated>2026-05-17T16:41:34.339Z</updated>
+  <updated>2026-09-19T09:57:10.882Z</updated>
   <id>https://blog.askk.cc/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Arch Linux＋niri＋NVIDIA 笔记本游戏性能排查：4K HDR 从约 45 FPS 提升到 75 FPS</title>
+    <link href="https://blog.askk.cc/2026/09/19/linux-wayland-gaming/"/>
+    <id>https://blog.askk.cc/2026/09/19/linux-wayland-gaming/</id>
+    <published>2026-09-19T09:45:20.000Z</published>
+    <updated>2026-09-19T09:57:10.882Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近， &lt;a href=&quot;https://store.steampowered.com/app/4225980/_the_2nd/&quot;&gt;空之轨迹2nd&lt;/a&gt; 发售了，我也第一时间在 steam 上购买下载了，开始游玩。我的主力笔记本是 Archlinux</summary>
+        
+      
+    
+    
+    
+    
+    <category term="linux" scheme="https://blog.askk.cc/tags/linux/"/>
+    
+  </entry>
   
   <entry>
     <title>tsukimi 二次开发踩坑记录</title>
@@ -495,32 +518,6 @@
     <category term="matrix" scheme="https://blog.askk.cc/tags/matrix/"/>
     
     <category term="mastodon" scheme="https://blog.askk.cc/tags/mastodon/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>paru 进阶教程</title>
-    <link href="https://blog.askk.cc/2022/04/27/paru/"/>
-    <id>https://blog.askk.cc/2022/04/27/paru/</id>
-    <published>2022-04-27T14:58:23.000Z</published>
-    <updated>2022-04-28T16:09:02.754Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;最近从 yay 换到了 paru, 但是 paru 不像 yay 一样有一个竹林写的 &lt;a href=&quot;https://zhul.in/2021/04/04/yay-more/&quot;&gt;yay进阶&lt;/a&gt;， 因此，我打算开一个坑。&lt;/p&gt;
-&lt;p&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    
-    <category term="archlinux" scheme="https://blog.askk.cc/tags/archlinux/"/>
-    
-    <category term="aur 助手" scheme="https://blog.askk.cc/tags/aur-%E5%8A%A9%E6%89%8B/"/>
     
   </entry>
   
