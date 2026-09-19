@@ -27,7 +27,7 @@
 <meta property="og:description" content="最近， 空之轨迹2nd 发售了，我也第一时间在 steam 上购买下载了，开始游玩。我的主力笔记本是 Archlinux 2024款的翼龙15pro 4070版本, 现在用的 niri+dms+wayland. 听说 cachyOS 的 proton 支持走wayland 而不是 Xwayland 了，因此我也装了 proton-cachyos. 进入游戏之后发现游戏支持HDR, 又让 GPT6">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-09-19T09:45:20.000Z">
-<meta property="article:modified_time" content="2026-09-19T09:57:10.882Z">
+<meta property="article:modified_time" content="2026-09-19T15:32:25.723Z">
 <meta property="article:author" content="sukanka">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary_large_image">
@@ -269,7 +269,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          1.9k 字
         
       </span>
     
@@ -331,7 +331,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年9月19日 下午
+                    本文最后更新于 2026年9月19日 晚上
                   
                 
               </p>
@@ -493,6 +493,11 @@
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">0000:07:00.0/drm/card1/card1-eDP-1<br></code></pre></td></tr></table></figure>
 <p>所以这次修改改变的是 <strong>niri 使用哪块 GPU 渲染</strong>，并没有切换笔记本内屏的硬件 MUX。</p>
 <p>修复之后，游戏、niri 主渲染设备和 HDMI 输出都落在 NVIDIA 上。没有必要仅为解决这次帧率问题而更换 Type-C 连接。</p>
+<p><strong>另一个问题</strong><br>
+游戏失去焦点之后最小化，丢给GPT排查之后说是我的设置问题，niri配置加一个阻止最小化.</p>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs fsharp">window<span class="hljs-operator">-</span><span class="hljs-keyword">rule</span> &#123;<br>    <span class="hljs-keyword">match</span> app<span class="hljs-operator">-</span><span class="hljs-built_in">id</span><span class="hljs-operator">=</span><span class="hljs-string">&quot;^steam_app_4225980$&quot;</span><br>    block<span class="hljs-operator">-</span>minimize <span class="hljs-literal">true</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>同时 proton 启动命令也加一个变量变成下面这样</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-attribute">WAYLANDDRV_FOCUS_LOSS</span>=0 <span class="hljs-attribute">PROTON_ENABLE_WAYLAND</span>=1 %command%<br></code></pre></td></tr></table></figure>
 <p><strong>这次排查得到的结论</strong></p>
 <p>从主渲染设备日志和修改后的大幅提升来看，主要瓶颈指向 <strong>niri 的 GPU 选择以及跨 GPU 显示路径</strong>，不能简单归因于“Proton 原生 Wayland 性能差”。</p>
 <p>没有进行 GPU 跟踪，因此不能精确断言其中发生了几次复制、各自耗时多少；修复后也没有进一步确认外接屏是否进入直接扫描输出。<strong>接口属于独显，与合成器成功直接扫描输出，是两件不同的事。</strong></p>
